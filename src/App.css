@@ -1,20 +1,9 @@
-.App {
+.app {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+.app-section {
+  background-color: #252629;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -24,15 +13,65 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.form {
+  background-color: #282c34;
+  display: flex;
+  flex-direction: column;
+  min-height: 50vh;
+  width: 70vw;
+  padding: 1em;
+  border-radius: 5px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.input-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+textarea {
+  font-size: 15px;
+  width: 80%;
+}
+
+img {
+  padding: 10px;
+}
+
+.btn-group {
+  width: 80%;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.btn-group button {
+  background-color: #252629;
+  width: 10vw;
+  border: none;
+  padding: 1rem;
+}
+
+.btn-group button:hover {
+  background-color: #41454d;
+}
+
+.submit {
+  margin-top: 1em;
+  padding: 0.8em;
+  width: 10vw;
+  background-color: green;
+  color: white;
+  cursor: pointer;
+  border: none;
+  font-size: 15px;
+  border-radius: 5px;
+  transition: all 0.1s ease-in-out;
+}
+
+.submit:hover {
+  background-color: darkgreen;
 }
