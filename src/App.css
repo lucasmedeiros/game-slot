@@ -3,37 +3,59 @@
 }
 
 .app-section {
-  background-color: #252629;
+  background-color: #004e64;
   min-height: 100vh;
-  display: flex;
   flex-direction: column;
+  width: 100%;
+  display: flex;
+  margin: 0 auto;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   font-size: calc(10px + 2vmin);
   color: white;
+  padding-bottom: 20px;
+}
+
+.close {
+  position: fixed;
+  border: none;
+  background: transparent;
+  top: 30px;
+  right: 50px;
+  cursor: pointer;
 }
 
 .form {
-  background-color: #282c34;
+  background-color: #004e64;
   display: flex;
   flex-direction: column;
+  align-items: center;
   min-height: 50vh;
-  width: 70vw;
-  padding: 1em;
+  min-width: 65%;
+  max-width: 70vw;
+  padding: 1.5em;
   border-radius: 5px;
 }
 
-.input-wrapper {
+textarea {
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  background-color: rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  resize: none;
+  border: none;
+  outline: none;
+  border-bottom: 3px solid #fff;
+  color: #eee;
+  font-size: 1em;
+  transition: all 0.15s ease-in-out;
 }
 
-textarea {
-  font-size: 15px;
-  width: 80%;
+textarea:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+textarea:focus {
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 img {
@@ -41,37 +63,38 @@ img {
 }
 
 .btn-group {
-  width: 80%;
+  width: 100%;
   margin-top: 10px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 .btn-group button {
-  background-color: #252629;
+  background-color: rgba(0, 0, 0, 0.1);
+  min-width: 80px;
   width: 10vw;
   border: none;
   padding: 1rem;
 }
 
 .btn-group button:hover {
-  background-color: #41454d;
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 .submit {
-  margin-top: 1em;
+  margin-top: 2em;
   padding: 0.8em;
   width: 10vw;
-  background-color: green;
+  min-width: 100px;
+  background-color: #3066be;
   color: white;
   cursor: pointer;
   border: none;
   font-size: 15px;
   border-radius: 5px;
-  transition: all 0.1s ease-in-out;
 }
 
 .submit:hover {
-  background-color: darkgreen;
+  background-color: #03a9f4;
 }

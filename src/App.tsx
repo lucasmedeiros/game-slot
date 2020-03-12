@@ -10,29 +10,31 @@ library.add(fas)
 function App() {
   return (
     <main className="app">
+      <button className="close">
+        <FontAwesomeIcon icon="times" color="white" size="lg" />
+      </button>
       <section className="app-section">
-        <h3>Hollow Knight: Silksong</h3>
         <form className="form">
-          <div className="game-info">
-            <img
-              src="https://steamcdn-a.akamaihd.net/steam/apps/1030300/header.jpg"
-              alt="Steam game header"
-            />
+          <h3>Hollow Knight: Silksong</h3>
+          <textarea
+            placeholder="Review this game"
+            className="text-area"
+            rows={6}
+          />
+          <p>Do you recommend this game?</p>
+          <div className="btn-group">
+            <button>
+              <FontAwesomeIcon icon="thumbs-up" color="#3e885b" size="lg" />
+            </button>
+            <button>
+              <FontAwesomeIcon icon="meh" color="#f8f32b" size="lg" />
+            </button>
+            <button>
+              <FontAwesomeIcon icon="thumbs-down" color="#bf412e" size="lg" />
+            </button>
           </div>
-          <div className="input-wrapper">
-            <textarea className="text-area" rows={6} />
-            <p>Do you recommend this game?</p>
-            <div className="btn-group">
-              <button className="btn">
-                <FontAwesomeIcon icon="thumbs-up" color="green" size="lg" />
-              </button>
-              <button className="btn">
-                <FontAwesomeIcon icon="thumbs-down" color="red" size="lg" />
-              </button>
-            </div>
-          </div>
+          <button className="submit">SUBMIT REVIEW</button>
         </form>
-        <button className="submit">SUBMIT REVIEW</button>
       </section>
     </main>
   )
