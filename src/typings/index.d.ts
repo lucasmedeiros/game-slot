@@ -3,3 +3,5 @@ interface IGame {
   steamAppId: string
   imageUrl: string
 }
+
+type RecommendationValue = 'yes' | 'no' | 'meh' | undefined

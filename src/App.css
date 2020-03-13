@@ -8,7 +8,6 @@
   flex-direction: column;
   width: 100%;
   display: flex;
-  margin: 0 auto;
   align-items: center;
   justify-content: space-around;
   font-size: calc(10px + 2vmin);
@@ -26,7 +25,6 @@
 }
 
 .form {
-  background-color: #004e64;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -35,6 +33,12 @@
   max-width: 70vw;
   padding: 1.5em;
   border-radius: 5px;
+}
+
+@media (max-width: 420px) {
+  .form {
+    padding: 0;
+  }
 }
 
 textarea {
@@ -58,6 +62,10 @@ textarea:focus {
   background-color: rgba(0, 0, 0, 0.2);
 }
 
+textarea::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
 img {
   padding: 10px;
 }
@@ -76,6 +84,7 @@ img {
   width: 10vw;
   border: none;
   padding: 1rem;
+  cursor: pointer;
 }
 
 .btn-group button:hover {
@@ -83,8 +92,8 @@ img {
 }
 
 .submit {
-  margin-top: 2em;
-  padding: 0.8em;
+  margin-top: 5em;
+  padding: 1.3em;
   width: 10vw;
   min-width: 100px;
   background-color: #3066be;
