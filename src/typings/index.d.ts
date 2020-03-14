@@ -4,4 +4,13 @@ interface IGame {
   imageUrl: string
 }
 
+interface IReviewButtons {
+  value: RecommendationValue
+}
+
+interface ReviewModalProps {
+  isOpen: boolean
+  toggleModal(): void
+}
+
 type RecommendationValue = 'yes' | 'no' | 'meh' | undefined
