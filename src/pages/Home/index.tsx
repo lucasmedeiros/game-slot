@@ -41,26 +41,23 @@ const games: IGame[] = [
 
 const Home: React.FC = () => {
   return (
-    <div>
-      <h1 className="py-0 ml-5">Playing</h1>
-      <GameSlider>
+    <section>
+      <GameSlider sectionTitle="Playing">
         {games.map((game, key) => (
           <GameSlideItem key={key} game={game} />
         ))}
       </GameSlider>
-      <h1 className="py-0 ml-5">Want to play</h1>
-      <GameSlider>
+      <GameSlider sectionTitle="Want to play">
         {games.map((game, key) => (
           <GameSlideItem key={key} game={game} />
         ))}
       </GameSlider>
-      <h1 className="py-0 ml-5">Finished</h1>
-      <GameSlider>
+      <GameSlider sectionTitle="Finished">
         {games.map((game, key) => (
           <GameSlideItem key={key} game={game} />
         ))}
       </GameSlider>
-    </div>
+    </section>
   )
 }
 

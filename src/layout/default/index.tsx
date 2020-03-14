@@ -3,6 +3,8 @@ import { StaticContext } from 'react-router'
 import { Route, RouteComponentProps, Switch } from 'react-router-dom'
 import { History } from 'history'
 import routes from '../../routes'
+import Header from './Header'
+import { ContentWrapper } from '../../styles'
 
 const DefaultLayout: React.FC<RouteComponentProps<
   any,
@@ -17,7 +19,10 @@ const DefaultLayout: React.FC<RouteComponentProps<
     )
   return (
     <>
-      <Switch>{getRoutes()}</Switch>
+      <Header />
+      <ContentWrapper>
+        <Switch>{getRoutes()}</Switch>
+      </ContentWrapper>
     </>
   )
 }

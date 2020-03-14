@@ -21,7 +21,9 @@ interface IReviewButtons {
   value: RecommendationValue
 }
 
-interface HeaderProps {}
+interface HeaderProps {
+  className?: string
+}
 
 interface ReviewModalProps {
   isOpen: boolean
@@ -30,6 +32,7 @@ interface ReviewModalProps {
 
 interface IGameSlideProps {
   activeSlide?: IGame | null
+  sectionTitle: string
 }
 
 type RecommendationValue = 'yes' | 'no' | 'meh' | undefined

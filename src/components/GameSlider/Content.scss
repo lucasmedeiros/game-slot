@@ -1,7 +1,7 @@
 .content {
   position: relative;
-  height: 37vw;
-  margin-top: -40px;
+  height: 30vw;
+  margin-top: -30px;
 
   &__background,
   &__background__shadow,
@@ -52,7 +52,11 @@
 
     &__container {
       padding: 30px 70px;
+      height: 100%;
       color: wheat;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
   }
 
@@ -62,7 +66,7 @@
     font-weight: 700;
   }
 
-  &__description {
+  &__info {
     font-size: 18px;
     color: #999;
     margin-top: 20px;
@@ -71,8 +75,6 @@
 
   &__close {
     color: #fff;
-    width: 40px;
-    height: 40px;
     background: transparent;
     outline: none;
     border: none;

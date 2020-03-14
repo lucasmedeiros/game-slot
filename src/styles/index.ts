@@ -5,23 +5,20 @@ export const Button = styled.button`
   min-width: 100px;
 `
 
-export const SliderItem = styled.article`
-  flex: 0 0 19.7%;
-  text-align: center;
-  margin 0 2px;
-  transition: transform 300ms ease 100ms;
-  background-color: red;
-
-  &:hover {
-    transform: scale(1.5) !important;
-  }
+export const LayoutHeader = styled.nav`
+  position: sticky;
+  max-height: 12vh;
+  width: 100%;
+  z-index: 20;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  alignitems: center;
+  transition: all 0.2s ease-in-out;
+  top: 0;
 `
 
-export const SliderContainer = styled.section`
-  display: flex;
-  padding: 0 55px;
-
-  &:hover ${SliderItem} {
-    transform: translateX(25%);
-  }
+export const ContentWrapper = styled.div`
+  padding: 15px 0;
+  background-color: #fdfffc;
 `

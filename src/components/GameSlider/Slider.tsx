@@ -8,7 +8,11 @@ import useSliding from './useSliding'
 import useSizeElement from './useSizeElement'
 import './Slider.scss'
 
-const Slider: React.FC<IGameSlideProps> = ({ children, activeSlide }) => {
+const Slider: React.FC<IGameSlideProps> = ({
+  children,
+  activeSlide,
+  sectionTitle,
+}) => {
   const [currentSlide, setCurrentSlide] = useState(activeSlide)
   const { width, elementRef } = useSizeElement()
   const {
@@ -37,6 +41,9 @@ const Slider: React.FC<IGameSlideProps> = ({ children, activeSlide }) => {
   return (
     <SliderContext.Provider value={contextValue}>
       <SliderWrapper>
+        <h2 className="pb-3 ml-8" style={{ color: '#11151c' }}>
+          {sectionTitle} >
+        </h2>
         <div className={cx('slider', { 'slider--open': currentSlide != null })}>
           <div ref={containerRef} className="slider__container" {...slideProps}>
             {children}

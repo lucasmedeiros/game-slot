@@ -1,0 +1,29 @@
+.dropdown {
+  position: relative;
+  border-radius: 1px;
+  max-width: 300px;
+
+  &__list {
+    position: fixed;
+    top: 9vh;
+    right: 10px;
+    background-color: #fdfffc;
+    border: 1px #2c5282 solid;
+    transition: max-height 0.6s ease-out;
+    overflow: hidden;
+    margin: 0;
+    padding: 10px;
+    z-index: 200;
+    min-width: 200px;
+  }
+
+  &__list-item {
+    cursor: pointer;
+    list-style: none;
+    padding: 15px;
+
+    &:hover {
+      background: #f4f4f4;
+    }
+  }
+}
