@@ -1,23 +1,18 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
-
-import ReviewModal from './components/ReviewModal'
+import DefaultLayout from './layout/default'
 
 library.add(fas)
 
-const App = () => {
-  const [open, setOpen] = useState<boolean>(false)
-
-  const toggleModal = () => {
-    setOpen(prev => !prev)
-  }
-
+const App: React.FC = () => {
   return (
-    <main className="app">
-      <button onClick={toggleModal}>Show Modal</button>
-      <ReviewModal isOpen={open} toggleModal={toggleModal} />
-    </main>
+    <BrowserRouter>
+      <Switch>
+        <Route path="" render={props => <DefaultLayout {...props} />} />
+      </Switch>
+    </BrowserRouter>
   )
 }
 

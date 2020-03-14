@@ -1,4 +1,4 @@
-import React, { useState, FC } from 'react'
+import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import Modal from 'react-modal'
@@ -18,7 +18,7 @@ const reviewButtons: IReviewButtons[] = [
   },
 ]
 
-const ReviewModal: FC<ReviewModalProps> = ({ isOpen, toggleModal }) => {
+const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, onClose }) => {
   const [recommendation, setRecommendation] = useState<RecommendationValue>()
 
   const getIcon = (value: RecommendationValue): IconProp => {
@@ -42,10 +42,24 @@ const ReviewModal: FC<ReviewModalProps> = ({ isOpen, toggleModal }) => {
     setRecommendation(prev => (prev === value ? undefined : value))
   }
 
+  const onRecommendationSubmit = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault()
+
+    if (!recommendation) {
+      alert('Please, select one of the three options for rating this game')
+    } else {
+      // TODO
+      setRecommendation(undefined)
+      onClose()
+    }
+  }
+
   return (
     <Modal
       isOpen={isOpen}
-      onRequestClose={toggleModal}
+      onRequestClose={onClose}
       shouldCloseOnEsc={true}
       shouldCloseOnOverlayClick={false}
       closeTimeoutMS={200}
@@ -64,11 +78,11 @@ const ReviewModal: FC<ReviewModalProps> = ({ isOpen, toggleModal }) => {
       }}
     >
       <button
-        onClick={toggleModal}
+        onClick={onClose}
         className="absolute"
-        style={{ top: '30px', right: '30px' }}
+        style={{ top: '30px', right: '50px' }}
       >
-        <FontAwesomeIcon icon="times" color="white" size="lg" />
+        <FontAwesomeIcon icon="times" color="white" size="2x" />
       </button>
       <section className="bg-blue-800 text-white h-full py-10 flex flex-col justify-center items-center">
         <form className="mb-4 rounded w-70 md:w-100 flex flex-col">
@@ -90,6 +104,7 @@ const ReviewModal: FC<ReviewModalProps> = ({ isOpen, toggleModal }) => {
                     : 'hover:bg-blue-900'
                 }`}
                 onClick={e => onRecommendationChange(e, rvb.value)}
+                key={index}
               >
                 <FontAwesomeIcon
                   icon={getIcon(rvb.value)}
@@ -103,6 +118,7 @@ const ReviewModal: FC<ReviewModalProps> = ({ isOpen, toggleModal }) => {
         <Button
           className="bg-blue-700 shadow-md hover:bg-blue-500 text-white font-bold py-3 px-4 rounded focus:outline-none"
           type="button"
+          onClick={onRecommendationSubmit}
         >
           SUBMIT
         </Button>

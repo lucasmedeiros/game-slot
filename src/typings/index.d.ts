@@ -1,3 +1,10 @@
+interface RouteObject {
+  name: string
+  path: string
+  component: React.FC
+  layout: '/default' | '/login'
+}
+
 interface IGame {
   name: string
   steamAppId: string
@@ -10,7 +17,9 @@ interface IReviewButtons {
 
 interface ReviewModalProps {
   isOpen: boolean
-  toggleModal(): void
+  onClose(): void
 }
+
+interface HeaderProps {}
 
 type RecommendationValue = 'yes' | 'no' | 'meh' | undefined
