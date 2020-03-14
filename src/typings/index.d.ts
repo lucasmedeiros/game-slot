@@ -11,15 +11,25 @@ interface IGame {
   imageUrl: string
 }
 
+interface SliderContextType {
+  onSelectSlide: (game: IGame) => void
+  currentSlide: IGame | null
+  elementRef: any
+}
+
 interface IReviewButtons {
   value: RecommendationValue
 }
+
+interface HeaderProps {}
 
 interface ReviewModalProps {
   isOpen: boolean
   onClose(): void
 }
 
-interface HeaderProps {}
+interface IGameSlideProps {
+  activeSlide?: IGame | null
+}
 
 type RecommendationValue = 'yes' | 'no' | 'meh' | undefined
