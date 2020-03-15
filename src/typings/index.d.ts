@@ -35,4 +35,12 @@ interface IGameSlideProps {
   sectionTitle: string
 }
 
+interface GamePageHeaderProps {
+  backgroundImage?: string
+}
+
+interface GamePageParams {
+  id: string
+}
+
 type RecommendationValue = 'yes' | 'no' | 'meh' | undefined
