@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { LayoutHeader } from '../../styles'
 import './Header.scss'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const Header: React.FC<HeaderProps> = ({ className }) => {
   const [isExpanded, setExpanded] = useState<boolean>(false)
@@ -27,6 +28,19 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
           <Link to="/" className="font-bold text-xl">
             GAME SLOT
           </Link>
+          <form>
+            <input
+              type="text"
+              className="appearance-none rounded ml-5 py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-blue-900"
+              placeholder="Pesquisar..."
+            />
+            <button
+              type="submit"
+              className="bg-blue-700 py-2 px-3 ml-2 rounded"
+            >
+              <FontAwesomeIcon icon="search" color="white" size="1x" />
+            </button>
+          </form>
         </div>
         <div className="dropdown">
           <button
