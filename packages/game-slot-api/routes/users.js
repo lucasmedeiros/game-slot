@@ -5,13 +5,7 @@ const router = express.Router()
 
 /* GET users listing. */
 router.get('/', tokenCheck, async function(req, res, next) {
-  const response = await fetch(
-    'https://store.steampowered.com/api/appdetails?appids=70',
-    {
-      method: 'GET',
-    }
-  )
-  res.send(await response.json())
+  res.status(200).json({ message: 'to be done' })
 })
 
 module.exports = router
