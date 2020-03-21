@@ -36,6 +36,6 @@ export const GamePageHeader = styled.header`
   flex-direction: row;
   width: 100%;
   height: 91vh;
-  box-shadow: inset 10px 10px 300px 200px rgba(0, 0, 0, 0.9);
+  box-shadow: inset 10px 10px 100px 1000px rgba(0, 0, 0, 0.6);
   z-index: -1;
 `

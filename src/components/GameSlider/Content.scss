@@ -1,7 +1,7 @@
 .content {
   position: relative;
   height: 30vw;
-  margin-top: -30px;
+  margin-top: -40px;
 
   &__background,
   &__background__shadow,
@@ -10,6 +10,10 @@
     position: absolute;
     top: 0;
     bottom: 0;
+    right: 0;
+    background-position: center;
+    background-attachment: unset;
+    background-size: cover;
   }
 
   &__background {

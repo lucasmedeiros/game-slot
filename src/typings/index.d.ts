@@ -11,6 +11,15 @@ interface IGame {
   imageUrl: string
 }
 
+interface IGameDetails {
+  game: IGame
+  description: string
+  developers: string[]
+  publishers: string[]
+  screenshots?: string[]
+  movies?: string[]
+}
+
 interface SliderContextType {
   onSelectSlide: (game: IGame) => void
   currentSlide: IGame | null

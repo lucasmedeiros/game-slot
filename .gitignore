@@ -24,3 +24,5 @@ yarn-error.log*
 
 # Tailwind generated CSS
 src/styles/tailwind.css
+
+.env
