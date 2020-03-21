@@ -79,6 +79,9 @@ module.exports = {
    */
   remove: async function(req, res) {
     const user = await User.findOneAndDelete({ _id: req.params.id.trim() })
+
+    if (!user) return res.status(400).json({ error: `user doesn't exist` })
+
     const { password: _p, ...userWithoutPassword } = user._doc
     return res.status(200).json(userWithoutPassword)
   },
