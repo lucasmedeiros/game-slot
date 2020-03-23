@@ -15,13 +15,19 @@ const Content = ({ game, onClose }: { game: IGame; onClose: () => void }) => {
   const [image, setImage] = useState<string>()
 
   useEffect(() => {
-    if (details?.screenshots)
-      setImage(getRandomItemFromArray(details.screenshots))
+    async function chooseScreenshotToDisplay() {
+      if (details?.screenshots) {
+        const imageURL = getRandomItemFromArray(details.screenshots)
+        const imageBase64 = await preLoadImage(imageURL)
+        setImage(imageBase64 ?? '')
+      }
+    }
+    chooseScreenshotToDisplay()
   }, [details])
 
   useEffect(() => {
     if (image) {
-      preLoadImage(image).then(res => setLoadingImage(!res))
+      setLoadingImage(false)
     }
   }, [image])
 

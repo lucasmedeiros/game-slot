@@ -16,7 +16,13 @@ export function getRandomItemFromArray(array: any[] | undefined): any {
   return array ? array[Math.floor(Math.random() * array.length)] : null
 }
 
-export async function preLoadImage(image: string): Promise<boolean> {
-  await fetch(image, { method: 'GET' })
-  return true
+export async function preLoadImage(image: string): Promise<string | null> {
+  try {
+    const response = await fetch(image, { method: 'GET' })
+    const blob = await response.blob()
+    const outside = URL.createObjectURL(blob)
+    return outside
+  } catch (error) {
+    return null
+  }
 }
