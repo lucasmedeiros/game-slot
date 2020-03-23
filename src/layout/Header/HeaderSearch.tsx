@@ -9,8 +9,7 @@ const HeaderSearch = () => {
 
   const goToSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (searchTerm.trim()) history.push(`/search/${searchTerm.trim()}`)
-    else setSearchTerm('')
+    history.push(`/search/${searchTerm.trim()}`)
   }
   return (
     <form onSubmit={goToSearch}>
