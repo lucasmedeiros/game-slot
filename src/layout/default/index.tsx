@@ -1,5 +1,5 @@
 import React from 'react'
-import { StaticContext } from 'react-router'
+import { StaticContext, Redirect } from 'react-router'
 import { Route, RouteComponentProps, Switch } from 'react-router-dom'
 import { History } from 'history'
 import routes from '../../routes'
@@ -21,7 +21,10 @@ const DefaultLayout: React.FC<RouteComponentProps<
     <>
       <Header />
       <ContentWrapper>
-        <Switch>{getRoutes()}</Switch>
+        <Switch>
+          {getRoutes()}
+          <Redirect from="*" to="/" />
+        </Switch>
       </ContentWrapper>
     </>
   )

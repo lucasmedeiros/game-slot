@@ -1,4 +1,4 @@
-import { Home, GamePage } from './pages'
+import { Home, GamePage, SearchHome, Search } from './pages'
 
 const routes: RouteObject[] = [
   {
@@ -11,6 +11,18 @@ const routes: RouteObject[] = [
     name: 'Game',
     component: GamePage,
     path: '/game/:id',
+    layout: '/default',
+  },
+  {
+    name: 'SearchHome',
+    component: SearchHome,
+    path: '/search',
+    layout: '/default',
+  },
+  {
+    name: 'Search',
+    component: Search,
+    path: '/search/:searchTerm',
     layout: '/default',
   },
 ]

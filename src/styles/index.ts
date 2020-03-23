@@ -41,3 +41,16 @@ export const GamePageHeader = styled.header`
   box-shadow: inset 10px 10px 100px 1000px rgba(0, 0, 0, 0.6);
   z-index: -1;
 `
+
+export const Grid = styled.section`
+  display: grid;
+  width: 100%;
+  height: 100%;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(${(props: GridProps) => props.min || 350}px, 1fr)
+  );
+  grid-gap: 30px;
+  grid-auto-rows: 1fr;
+  grid-auto-rows: 1fr;
+`

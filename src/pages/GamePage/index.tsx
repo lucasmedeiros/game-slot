@@ -7,11 +7,12 @@ import { Button, GamePageHeader } from '../../styles'
 import ReviewModal from '../../components/ReviewModal'
 import useGameDetails from '../../hooks/useGameDetails'
 import { getRandomItemFromArray, preLoadImage } from '../../utils'
+import { Link } from 'react-router-dom'
 
 const GamePage: React.FC = () => {
   const { open, hide, show } = useModal()
   const { id } = useParams<GamePageParams>()
-  const { details, loading } = useGameDetails(id)
+  const { details, loading, error } = useGameDetails(id)
   const [image, setImage] = useState<string>()
 
   const openOnSteam = () => {
@@ -36,7 +37,7 @@ const GamePage: React.FC = () => {
       <GamePageHeader backgroundImage={image}>
         {loading ? (
           <ClipLoader size={200} color="white" />
-        ) : (
+        ) : !error ? (
           <>
             <div className="w-50 flex flex-col items-center">
               <h1 className="text-white text-center font-black text-5xl">
@@ -71,15 +72,25 @@ const GamePage: React.FC = () => {
                 </Button>
               </div>
             </div>
-            {details?.movies?.length && (
+            {details?.movies?.length ? (
               <div className="w-50 flex items-center justify-center">
                 <video className="w-80" controls>
                   <source src={details?.movies ? details.movies[0] : ''} />
                   Your browser does not support the video tag.
                 </video>
               </div>
-            )}
+            ) : null}
           </>
+        ) : (
+          <div
+            className="flex items-center flex-col justify-center w-full text-gray-400 text-6xl"
+            style={{ minHeight: '92vh' }}
+          >
+            <p className="mt-5">{error}</p>
+            <Link to="/" className="text-blue-500 text-4xl">
+              Back home
+            </Link>
+          </div>
         )}
       </GamePageHeader>
       <ReviewModal isOpen={open} onClose={hide} />

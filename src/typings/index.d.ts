@@ -48,6 +48,10 @@ interface GamePageHeaderProps {
   backgroundImage?: string
 }
 
+interface GridProps {
+  min?: number
+}
+
 interface GamePageParams {
   id: string
 }
