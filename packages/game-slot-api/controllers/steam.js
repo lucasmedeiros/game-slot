@@ -8,7 +8,10 @@ module.exports = {
   getAppDetails: async function(req, res) {
     const { appId } = req.params
     const details = await getAppDetails({ appId })
-    if (!details) return res.status(404).json({ error: `couldn't find resource` })
+
+    if (!details || !details[appId].success)
+      return res.status(404).json({ error: `couldn't find resource` })
+
     const detailsData = details[appId].data
     const { screenshots, movies } = detailsData
     detailsData.screenshots = screenshots
