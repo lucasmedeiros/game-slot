@@ -21,6 +21,7 @@ export const LayoutHeader = styled.nav`
 
 export const ContentWrapper = styled.div`
   background-color: #fdfffc;
+  padding-bottom: 1em;
 `
 
 export const GamePageHeader = styled.header`

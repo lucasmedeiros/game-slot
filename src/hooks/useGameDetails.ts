@@ -23,16 +23,14 @@ const useGameDetails = (appId: string, deps: any[] = []): ObjectGameDetails => {
         setDetails({
           game: {
             steamAppId: appId,
-            name: data[appId].data.name,
-            imageUrl: data[appId].data.header_image,
+            name: data.name,
+            imageUrl: data.header_image,
           },
-          developers: data[appId].data.developers,
-          publishers: data[appId].data.publishers,
-          description: data[appId].data.short_description,
-          screenshots: data[appId].data.screenshots.map(
-            (screenshot: any) => screenshot.path_full
-          ),
-          movies: data[appId].data.movies.map((movie: any) => movie.webm.max),
+          developers: data.developers,
+          publishers: data.publishers,
+          description: data.short_description,
+          screenshots: data.screenshots,
+          movies: data.movies,
         })
       } else {
         setError(response.message)

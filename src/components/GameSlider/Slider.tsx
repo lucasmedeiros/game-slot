@@ -7,6 +7,9 @@ import SliderWrapper from './SliderWrapper'
 import useSliding from './useSliding'
 import useSizeElement from './useSizeElement'
 import './Slider.scss'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+const EMPTY_BOX_SIZE: string = '8rem'
 
 const Slider: React.FC<IGameSlideProps> = ({
   children,
@@ -46,7 +49,20 @@ const Slider: React.FC<IGameSlideProps> = ({
         </h2>
         <div className={cx('slider', { 'slider--open': currentSlide != null })}>
           <div ref={containerRef} className="slider__container" {...slideProps}>
-            {children}
+            {React.Children.count(children) ? (
+              children
+            ) : (
+              <div
+                className="flex items-center justify-center text-center bg-gray-300 text-gray-500 text-lg"
+                style={{
+                  width: EMPTY_BOX_SIZE,
+                  height: EMPTY_BOX_SIZE,
+                  cursor: 'pointer',
+                }}
+              >
+                <FontAwesomeIcon icon="plus-circle" size="3x" color="#a0aec0" />
+              </div>
+            )}
           </div>
         </div>
         {hasPrev && <SlideButton onClick={handlePrev} type="prev" />}

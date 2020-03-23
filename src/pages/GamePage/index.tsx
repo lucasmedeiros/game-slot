@@ -14,8 +14,6 @@ const GamePage: React.FC = () => {
   const { details, loading } = useGameDetails(id)
   const [image, setImage] = useState<string>()
 
-  console.log(details?.movies)
-
   const openOnSteam = () => {
     if (window) {
       window.open(`https://store.steampowered.com/app/${id}/`)
@@ -40,11 +38,11 @@ const GamePage: React.FC = () => {
           <ClipLoader size={200} color="white" />
         ) : (
           <>
-            <div className="w-50">
+            <div className="w-50 flex flex-col items-center">
               <h1 className="text-white text-center font-black text-5xl">
                 {details?.game.name}
               </h1>
-              <p className="text-white font-bold pb-5 text-center">
+              <p className="text-white w-80 pb-5 text-center">
                 {details?.description}
               </p>
               <div className="flex text-white justify-center items-center py-4">
@@ -73,12 +71,14 @@ const GamePage: React.FC = () => {
                 </Button>
               </div>
             </div>
-            <div className="w-50 flex items-center justify-center">
-              <video className="w-80" controls>
-                <source src={details?.movies ? details.movies[0] : ''} />
-                Your browser does not support the video tag.
-              </video>
-            </div>
+            {details?.movies?.length && (
+              <div className="w-50 flex items-center justify-center">
+                <video className="w-80" controls>
+                  <source src={details?.movies ? details.movies[0] : ''} />
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            )}
           </>
         )}
       </GamePageHeader>
