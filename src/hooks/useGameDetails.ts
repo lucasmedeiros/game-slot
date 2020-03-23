@@ -2,13 +2,13 @@
 import { useState, useEffect } from 'react'
 import { callAPI } from '../services/request.service'
 
-interface IGameDetailsHook {
+interface ObjectGameDetails {
   loading: boolean
   details: IGameDetails | undefined
   error: string | undefined
 }
 
-const useGameDetails = (appId: string, deps: any[] = []): IGameDetailsHook => {
+const useGameDetails = (appId: string, deps: any[] = []): ObjectGameDetails => {
   const [loading, setLoading] = useState<boolean>(true)
   const [details, setDetails] = useState<IGameDetails>()
   const [error, setError] = useState<string>()
@@ -32,7 +32,7 @@ const useGameDetails = (appId: string, deps: any[] = []): IGameDetailsHook => {
           screenshots: data[appId].data.screenshots.map(
             (screenshot: any) => screenshot.path_full
           ),
-          movies: data[appId].data.movies,
+          movies: data[appId].data.movies.map((movie: any) => movie.webm.max),
         })
       } else {
         setError(response.message)

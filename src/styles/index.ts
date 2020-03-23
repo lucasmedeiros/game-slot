@@ -25,7 +25,8 @@ export const ContentWrapper = styled.div`
 
 export const GamePageHeader = styled.header`
   background-image: url(${(props: GamePageHeaderProps) =>
-    props.backgroundImage});
+    props.backgroundImage ?? 'none'});
+  background-color: black;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
