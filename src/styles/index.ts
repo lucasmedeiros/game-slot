@@ -47,7 +47,7 @@ export const Grid = styled.section`
   width: 100%;
   height: 100%;
   grid-template-columns: repeat(
-    auto-fit,
+    auto-fill,
     minmax(${(props: GridProps) => props.min || 350}px, 1fr)
   );
   grid-gap: 30px;
