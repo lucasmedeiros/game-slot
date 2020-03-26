@@ -21,7 +21,7 @@ const HeaderSearch = () => {
         onChange={e => setSearchTerm(e.target.value)}
         style={{ minWidth: '350px' }}
         className="appearance-none rounded ml-5 py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-blue-900"
-        placeholder="Pesquisar..."
+        placeholder="Browse games..."
       />
       <button type="submit" className="bg-blue-700 py-2 px-3 ml-2 rounded">
         <FontAwesomeIcon icon="search" color="white" size="1x" />
