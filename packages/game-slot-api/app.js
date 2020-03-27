@@ -4,7 +4,7 @@ const cookieParser = require('cookie-parser')
 const logger = require('morgan')
 const cors = require('cors')
 const mongoose = require('mongoose')
-const { users, steam, auth } = require('./routes')
+const { steam, auth, review } = require('./routes')
 const { host, mongoDB } = require('./config')
 
 const app = express()
@@ -20,9 +20,9 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 
-app.use('/users', users)
 app.use('/steam', steam)
 app.use('/auth', auth)
+app.use('/review', review)
 
 app.listen(host.port, () => {
   console.log(`Server listening on port ${host.baseUrl}:${host.port}`)

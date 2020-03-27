@@ -11,7 +11,7 @@ const ReviewSchema = new Schema({
     required: true,
   },
   recommended: {
-    type: Boolean,
+    type: Number,
     required: true,
   },
   text: {
