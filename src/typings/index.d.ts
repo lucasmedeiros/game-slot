@@ -20,6 +20,20 @@ interface IGameDetails {
   movies?: string[]
 }
 
+interface User {
+  user: {
+    _id: string
+    name: string
+    email: string
+    __v: number
+  }
+  token: string
+}
+
+interface UserState {
+  user: User | undefined
+}
+
 interface SliderContextType {
   onSelectSlide: (game: IGame) => void
   currentSlide: IGame | null
@@ -32,6 +46,7 @@ interface IReviewButtons {
 
 interface HeaderProps {
   className?: string
+  user: User | undefined
 }
 
 interface ReviewModalProps {
