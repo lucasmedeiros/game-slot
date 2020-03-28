@@ -6,7 +6,7 @@ const {
 } = require('../services/review.service')
 
 module.exports = {
-  createReview: async function(req, res) {
+  create: async function(req, res) {
     const { _id } = req.user
     const { gameId, text, recommendation } = req.body
 
@@ -23,7 +23,7 @@ module.exports = {
     }
   },
 
-  updateReview: async function(req, res) {
+  update: async function(req, res) {
     const { _id } = req.user
     const { id } = req.params
     const { text, recommendation } = req.body
@@ -41,7 +41,7 @@ module.exports = {
     }
   },
 
-  getUserReview: async function(req, res) {
+  get: async function(req, res) {
     const { _id } = req.user
     const { id } = req.params
 
@@ -53,7 +53,7 @@ module.exports = {
     }
   },
 
-  deleteUserReview: async function(req, res) {
+  remove: async function(req, res) {
     const { _id } = req.user
     const { id } = req.params
 

@@ -1,8 +1,4 @@
-const fs = require('fs')
-const { getAppDetails } = require('../services/steam.service')
-
-let rawData = fs.readFileSync('./lib/games_steam.json')
-let games = JSON.parse(rawData)
+const { getAppDetails, findGames } = require('../services/steam.service')
 
 module.exports = {
   getAppDetails: async function(req, res) {
@@ -23,15 +19,11 @@ module.exports = {
   findGames: async function(req, res) {
     const { search } = req.query
 
-    if (!search) return res.status(400).json({ error: `query 'search' not provided` })
-    return res.send(
-      games
-        .filter(game => game.name.toLowerCase().indexOf(search.toLowerCase()) !== -1)
-        .map(game => ({
-          name: game.name,
-          steamAppId: game.appid.toString(),
-          imageUrl: game.headerImage,
-        }))
-    )
+    try {
+      const games = await findGames({ search })
+      return res.status(200).json(games)
+    } catch (error) {
+      return res.status(400).json({ error: error.message })
+    }
   },
 }
