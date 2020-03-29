@@ -3,6 +3,7 @@ interface RouteObject {
   path: string
   component: React.FC
   layout: '/default' | '/login'
+  exact: boolean
 }
 
 interface IGame {

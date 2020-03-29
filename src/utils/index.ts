@@ -26,3 +26,11 @@ export async function preLoadImage(image: string): Promise<string | null> {
     return null
   }
 }
+
+export const getUserFromLocalStorage = (): User | undefined => {
+  const userFromStorage = JSON.parse(localStorage.getItem('user') as string)
+
+  if (userFromStorage) return userFromStorage
+
+  return undefined
+}

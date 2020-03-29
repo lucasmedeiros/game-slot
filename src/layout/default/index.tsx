@@ -36,7 +36,12 @@ const DefaultLayout: React.FC<RouteComponentProps<
   const getRoutes = () =>
     routes.map((route, key) =>
       route.layout === '/default' ? (
-        <Route path={route.path} component={route.component} exact key={key} />
+        <Route
+          path={route.path}
+          component={route.component}
+          exact={route.exact}
+          key={key}
+        />
       ) : null
     )
   return (

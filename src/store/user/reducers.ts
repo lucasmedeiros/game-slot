@@ -1,12 +1,5 @@
 import { UserActionTypes, SET_USER, DELETE_USER } from './types'
-
-const getUserFromLocalStorage = (): User | undefined => {
-  const userFromStorage = JSON.parse(localStorage.getItem('user') as string)
-
-  if (userFromStorage) return userFromStorage
-
-  return undefined
-}
+import { getUserFromLocalStorage } from '../../utils'
 
 const initialState: UserState = {
   user: getUserFromLocalStorage(),

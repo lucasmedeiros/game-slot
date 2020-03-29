@@ -19,7 +19,15 @@ const Search = () => {
         className="flex flex-col justify-center items-center h-full"
         style={{ minHeight: '92vh' }}
       >
-        {loading ? (
+        {!searchTerm ? (
+          <div
+            className="flex items-center flex-col justify-center w-full text-gray-400 text-5xl"
+            style={{ minHeight: '92vh' }}
+          >
+            <FontAwesomeIcon icon="search" size="2x" />
+            <p className="mt-5">Search for games above</p>
+          </div>
+        ) : loading ? (
           <ClipLoader size={200} color="#e2e8f0" />
         ) : error || !searchResult.length ? (
           <>
