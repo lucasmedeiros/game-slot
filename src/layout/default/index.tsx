@@ -7,6 +7,7 @@ import routes from '../../routes'
 import Header from './Header'
 import { ContentWrapper } from '../../styles'
 import { RootState } from '../../store'
+import PrivateRoute from '../../components/PrivateRoute'
 
 const DefaultLayout: React.FC<RouteComponentProps<
   any,
@@ -36,12 +37,21 @@ const DefaultLayout: React.FC<RouteComponentProps<
   const getRoutes = () =>
     routes.map((route, key) =>
       route.layout === '/default' ? (
-        <Route
-          path={route.path}
-          component={route.component}
-          exact={route.exact}
-          key={key}
-        />
+        route.private ? (
+          <PrivateRoute
+            path={route.path}
+            component={route.component}
+            exact={route.exact}
+            key={key}
+          />
+        ) : (
+          <Route
+            path={route.path}
+            component={route.component}
+            exact={route.exact}
+            key={key}
+          />
+        )
       ) : null
     )
   return (

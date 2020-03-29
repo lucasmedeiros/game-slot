@@ -7,6 +7,7 @@ const routes: RouteObject[] = [
     path: '/',
     layout: '/default',
     exact: true,
+    private: false,
   },
   {
     name: 'Game',
@@ -14,6 +15,7 @@ const routes: RouteObject[] = [
     path: '/game/:id',
     layout: '/default',
     exact: true,
+    private: false,
   },
   {
     name: 'SearchHome',
@@ -21,6 +23,7 @@ const routes: RouteObject[] = [
     path: '/search',
     layout: '/default',
     exact: true,
+    private: false,
   },
   {
     name: 'Search',
@@ -28,6 +31,7 @@ const routes: RouteObject[] = [
     path: '/search/:searchTerm',
     layout: '/default',
     exact: true,
+    private: false,
   },
 ]
 

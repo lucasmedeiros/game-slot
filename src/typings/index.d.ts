@@ -4,6 +4,7 @@ interface RouteObject {
   component: React.FC
   layout: '/default' | '/login'
   exact: boolean
+  private: boolean
 }
 
 interface IGame {
