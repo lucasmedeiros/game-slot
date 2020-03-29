@@ -27,10 +27,18 @@ export async function preLoadImage(image: string): Promise<string | null> {
   }
 }
 
-export const getUserFromLocalStorage = (): User | undefined => {
-  const userFromStorage = JSON.parse(localStorage.getItem('user') as string)
+export const getFromLocalStorage = (key: string): any => {
+  const userFromStorage = JSON.parse(localStorage.getItem(key) as string)
 
   if (userFromStorage) return userFromStorage
 
   return undefined
+}
+
+export const addToLocalStorage = (key: string, data: any) => {
+  localStorage.setItem(key, JSON.stringify(data))
+}
+
+export const removeFromLocalStorage = (key: string) => {
+  localStorage.removeItem(key)
 }

@@ -6,7 +6,7 @@ import { ClipLoader } from 'react-spinners'
 import { Grid } from '../../styles'
 import ImagePlaceholder from '../../assets/img/image_placeholder.png'
 
-const Search = () => {
+const Search: React.FC = () => {
   const { searchTerm } = useParams()
   const history = useHistory()
   const { searchResult, error, loading } = useGameSearch(searchTerm as string)
@@ -14,7 +14,7 @@ const Search = () => {
     history.push(`/game/${id}`)
   }
   return (
-    <div className="flex flex-col w-full text-gray-400 text-4xl">
+    <section className="flex flex-col w-full text-gray-400 text-4xl">
       <div
         className="flex flex-col justify-center items-center h-full"
         style={{ minHeight: '92vh' }}
@@ -57,7 +57,7 @@ const Search = () => {
           </div>
         )}
       </div>
-    </div>
+    </section>
   )
 }
 

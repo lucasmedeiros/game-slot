@@ -1,4 +1,5 @@
 import config from '../config'
+import { getFromLocalStorage } from '../utils'
 
 type Method = 'GET' | 'POST' | 'DELETE' | 'PUT'
 
@@ -9,10 +10,10 @@ interface RequestResponse {
   data: any
 }
 
-const token = 'TOKEN HERE'
+const user = getFromLocalStorage('user') as User | undefined
 
 const generateHeader = () => ({
-  Authorization: `bearer ${token}`,
+  Authorization: user ? `bearer ${user.token}` : undefined,
   'Content-Type': 'application/json',
 })
 
@@ -31,8 +32,8 @@ const request = async (
     }
 
   const response = await fetch(url, {
-    method: 'GET',
-    body,
+    method,
+    body: body ? JSON.stringify(body) : null,
     headers,
   })
 

@@ -16,24 +16,6 @@ const DefaultLayout: React.FC<RouteComponentProps<
 >> = () => {
   const user = useSelector((state: RootState) => state.userReducer.user)
 
-  console.log(user)
-
-  // useEffect(() => console.log(user), [user])
-
-  // const login = () => {
-  //   dispatch(
-  //     setUser({
-  //       token: 'asasas',
-  //       user: {
-  //         __v: 0,
-  //         _id: '',
-  //         email: '',
-  //         name: '',
-  //       },
-  //     })
-  //   )
-  // }
-
   const getRoutes = () =>
     routes.map((route, key) =>
       route.layout === '/default' ? (

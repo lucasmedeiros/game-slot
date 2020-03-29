@@ -1,8 +1,8 @@
 import { UserActionTypes, SET_USER, DELETE_USER } from './types'
-import { getUserFromLocalStorage } from '../../utils'
+import { getFromLocalStorage } from '../../utils'
 
 const initialState: UserState = {
-  user: getUserFromLocalStorage(),
+  user: getFromLocalStorage('user'),
 }
 
 export const userReducer = (

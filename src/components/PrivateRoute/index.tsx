@@ -1,9 +1,9 @@
 import React from 'react'
 import { Route, Redirect, RouteProps, useLocation } from 'react-router-dom'
-import useLogin from '../../hooks/useLogin'
+import useAuth from '../../hooks/useAuth'
 
 const PrivateRoute: React.FC<RouteProps> = ({ component, ...rest }) => {
-  const { isLoggedIn } = useLogin()
+  const { isLoggedIn } = useAuth()
   const location = useLocation()
 
   return (

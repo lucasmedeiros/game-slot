@@ -1,7 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from 'react'
 import { callAPI } from '../services/request.service'
-import { getUserFromLocalStorage } from '../utils'
+import {
+  getFromLocalStorage,
+  addToLocalStorage,
+  removeFromLocalStorage,
+} from '../utils'
 
 interface LoginParams {
   email: string
@@ -11,31 +15,39 @@ interface LoginParams {
 interface LoginInfo {
   isLoggedIn: boolean
   loggingIn: boolean
-  login: (params: LoginParams) => void
   user: User | undefined
   error: string | undefined
+  login: (params: LoginParams) => void
+  logout: () => void
 }
 
-const useLogin = (): LoginInfo => {
+const useAuth = (): LoginInfo => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(
-    getUserFromLocalStorage() !== undefined
+    getFromLocalStorage('user') !== undefined
   )
   const [loggingIn, setLoggingIn] = useState<boolean>(false)
   const [params, setParams] = useState<LoginParams>()
   const [user, setUser] = useState<User>()
   const [error, setError] = useState<string>()
 
+  const logout = () => {
+    removeFromLocalStorage('user')
+    setUser(undefined)
+  }
+
   const login = ({ email, password }: LoginParams): void => {
     setParams({ email, password })
     setLoggingIn(true)
   }
 
-  async function handleLogin() {
-    const response = await callAPI('/auth', 'POST', params)
-    if (response.success) {
-      setUser(response.data)
+  const handleLogin = async () => {
+    const response = await callAPI('auth', 'POST', params)
+    const { data, success, message } = response
+    if (success) {
+      addToLocalStorage('user', data)
+      setUser(data)
       setIsLoggedIn(true)
-    } else setError(response.message)
+    } else setError(message)
     setLoggingIn(false)
   }
 
@@ -43,7 +55,7 @@ const useLogin = (): LoginInfo => {
     if (loggingIn) handleLogin()
   }, [loggingIn])
 
-  return { isLoggedIn, loggingIn, login, user, error }
+  return { isLoggedIn, loggingIn, user, error, login, logout }
 }
 
-export default useLogin
+export default useAuth
