@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose')
+const mongoosePaginate = require('mongoose-paginate-v2')
 
 const ReviewSchema = new Schema({
   gameId: {
@@ -19,5 +20,7 @@ const ReviewSchema = new Schema({
     required: false,
   },
 })
+
+ReviewSchema.plugin(mongoosePaginate)
 
 module.exports = model('Review', ReviewSchema)

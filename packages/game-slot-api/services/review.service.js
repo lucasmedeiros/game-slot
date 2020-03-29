@@ -91,4 +91,21 @@ module.exports = {
       throw new Error(error.message)
     }
   },
+
+  getGameReviews: async function({ gameId, limit = 10, page = 1 }) {
+    if (!gameId) throw new Error(`game id not provided`)
+
+    try {
+      const reviews = await Review.paginate(
+        { gameId },
+        {
+          page,
+          limit,
+        }
+      )
+      return reviews
+    } catch (error) {
+      throw new Error(error.message)
+    }
+  },
 }

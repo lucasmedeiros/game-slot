@@ -3,6 +3,7 @@ const {
   updateUserReview,
   getUserReview,
   deleteUserReview,
+  getGameReviews,
 } = require('../services/review.service')
 
 module.exports = {
@@ -48,6 +49,18 @@ module.exports = {
     try {
       const review = await getUserReview({ reviewId: id, userId: _id })
       return res.status(200).json(review)
+    } catch (error) {
+      return res.status(400).json({ error: error.message })
+    }
+  },
+
+  getAll: async function(req, res) {
+    const { page, limit } = req.query
+    const { id } = req.params
+
+    try {
+      const reviews = await getGameReviews({ limit, page, gameId: id })
+      return res.status(200).json(reviews)
     } catch (error) {
       return res.status(400).json({ error: error.message })
     }
