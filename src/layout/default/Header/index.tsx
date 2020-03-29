@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { LayoutHeader } from '../../../styles'
 import AvatarPlaceholder from '../../../assets/img/avatar.png'
@@ -10,10 +10,12 @@ import { deleteUser } from '../../../store/user/actions'
 const Header: React.FC<HeaderProps> = ({ className, user }) => {
   const { logout } = useAuth()
   const dispatch = useDispatch()
+  const history = useHistory()
 
   const onLogout = () => {
     logout()
     dispatch(deleteUser())
+    history.push('/')
   }
 
   return (
