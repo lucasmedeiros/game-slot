@@ -12,7 +12,7 @@ interface LoginParams {
   password: string
 }
 
-interface LoginInfo {
+interface AuthInfo {
   isLoggedIn: boolean
   loggingIn: boolean
   user: User | undefined
@@ -21,7 +21,7 @@ interface LoginInfo {
   logout: () => void
 }
 
-const useAuth = (): LoginInfo => {
+const useAuth = (): AuthInfo => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(
     getFromLocalStorage('user') !== undefined
   )
