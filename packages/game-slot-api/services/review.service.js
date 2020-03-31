@@ -96,6 +96,15 @@ module.exports = {
     if (!gameId) throw new Error(`game id not provided`)
 
     try {
+      const positive = await Review.countDocuments({
+        recommended: RECOMMENDATION_ENUM.yes,
+      })
+      const neutral = await Review.countDocuments({
+        recommended: RECOMMENDATION_ENUM.meh,
+      })
+      const negative = await Review.countDocuments({
+        recommended: RECOMMENDATION_ENUM.no,
+      })
       const reviews = await Review.paginate(
         { gameId },
         {
@@ -103,7 +112,7 @@ module.exports = {
           limit,
         }
       )
-      return reviews
+      return { count: { positive, neutral, negative }, reviews }
     } catch (error) {
       throw new Error(error.message)
     }
