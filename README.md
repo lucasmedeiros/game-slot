@@ -8,7 +8,7 @@ Work in progress...
 
 ## About the project
 
-Game Slot is a [Create React App](https://create-react-app.dev/) project, and uses a own API (its documentation is a WIP) and also makes calls to **Steam Store API**, only for getting game details. To read more about it, you can start by [here](https://stackoverflow.com/q/41318655/11125096) (there isn't official documentation for it).
+Game Slot is a [Create React App](https://create-react-app.dev/) project, and uses a [own API](https://github.com/lucasmedeiros/game-slot-api) (its documentation is a WIP) and also makes calls to **Steam Store API**, only for getting game details. To read more about it, you can start by [here](https://stackoverflow.com/q/41318655/11125096) (there isn't official documentation for it).
 
 ## Running in development mode
 
