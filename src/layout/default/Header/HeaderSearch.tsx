@@ -12,18 +12,29 @@ const HeaderSearch = () => {
     history.push(`/search/${searchTerm.trim()}`)
   }
   return (
-    <form onSubmit={goToSearch}>
-      <input
-        type="text"
-        name="search"
-        value={searchTerm}
-        autoComplete="off"
-        onChange={e => setSearchTerm(e.target.value)}
-        style={{ minWidth: '350px' }}
-        className="appearance-none rounded ml-5 py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-blue-900"
-        placeholder="Browse games..."
-      />
-      <button type="submit" className="bg-blue-700 py-2 px-3 ml-2 rounded">
+    <form className="flex" onSubmit={goToSearch}>
+      <div className="flex items-center rounded ml-5 py-2 px-3 bg-blue-900 leading-tight">
+        <input
+          type="text"
+          name="search"
+          value={searchTerm}
+          autoComplete="off"
+          onChange={(e) => setSearchTerm(e.target.value)}
+          style={{ minWidth: '350px' }}
+          className="appearance-none text-white leading-tight focus:outline-none bg-blue-900"
+          placeholder="Browse games..."
+        />
+        <button
+          onClick={() => setSearchTerm('')}
+          className={`flex-shrink-0 border-transparent border-4 focus:outline-none text-white py-1 px-2 ${
+            !searchTerm ? 'opacity-0 cursor-default' : 'opacity-100'
+          }`}
+          type="button"
+        >
+          <FontAwesomeIcon icon="times-circle" />
+        </button>
+      </div>
+      <button type="submit" className="bg-blue-700 py-2 px-5 ml-5 rounded">
         <FontAwesomeIcon icon="search" color="white" size="1x" />
       </button>
     </form>
