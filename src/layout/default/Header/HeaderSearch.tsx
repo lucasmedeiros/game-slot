@@ -1,26 +1,40 @@
-import React, { useState } from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useDebounce } from '../../../hooks/useDebounce'
 
 const HeaderSearch = () => {
   const [searchTerm, setSearchTerm] = useState<string>('')
-
+  const searchDebounceValue = useDebounce(searchTerm, 500)
   const history = useHistory()
 
-  const goToSearch = (e: React.FormEvent<HTMLFormElement>) => {
+  const goToSearch = (value: string) => {
+    history.push(`/search/${value.trim()}`)
+  }
+
+  useEffect(() => {
+    if (searchDebounceValue) goToSearch(searchDebounceValue)
+  }, [searchDebounceValue])
+
+  const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    history.push(`/search/${searchTerm.trim()}`)
+    goToSearch(searchTerm)
+  }
+
+  const onSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value)
   }
 
   return (
-    <form className="flex" onSubmit={goToSearch}>
+    <form className="flex" onSubmit={onFormSubmit}>
       <div className="flex items-center rounded ml-5 py-2 px-3 bg-blue-900 leading-tight">
         <input
           type="text"
           name="search"
           value={searchTerm}
           autoComplete="off"
-          onChange={(e) => setSearchTerm(e.target.value)}
+          onChange={onSearchInputChange}
           style={{ minWidth: '350px' }}
           className="appearance-none text-white leading-tight text-lg focus:outline-none bg-blue-900"
           placeholder="Browse games..."

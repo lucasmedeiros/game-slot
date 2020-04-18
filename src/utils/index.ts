@@ -4,8 +4,8 @@ export function arrayUnique(a: any[] | undefined): any[] {
   return a ? _.uniq(a) : []
 }
 
-export function getRandomItemFromArray(array: any[] | undefined): any {
-  return array ? _.sample(array) : null
+export function getRandomItemFromArray(a: any[] | undefined): any {
+  return a ? _.sample(a) : null
 }
 
 export async function preLoadImage(image: string): Promise<string | null> {
