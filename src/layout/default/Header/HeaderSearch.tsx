@@ -11,6 +11,7 @@ const HeaderSearch = () => {
     e.preventDefault()
     history.push(`/search/${searchTerm.trim()}`)
   }
+
   return (
     <form className="flex" onSubmit={goToSearch}>
       <div className="flex items-center rounded ml-5 py-2 px-3 bg-blue-900 leading-tight">
@@ -21,7 +22,7 @@ const HeaderSearch = () => {
           autoComplete="off"
           onChange={(e) => setSearchTerm(e.target.value)}
           style={{ minWidth: '350px' }}
-          className="appearance-none text-white leading-tight focus:outline-none bg-blue-900"
+          className="appearance-none text-white leading-tight text-lg focus:outline-none bg-blue-900"
           placeholder="Browse games..."
         />
         <button
