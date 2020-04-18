@@ -1,19 +1,11 @@
-export function arrayUnique(array: any[] | undefined): any[] {
-  if (array) {
-    let a: any[] = array.concat()
-    for (let i: number = 0; i < a.length; ++i) {
-      for (let j: number = i + 1; j < a.length; ++j) {
-        if (a[i] === a[j]) a.splice(j--, 1)
-      }
-    }
+import _ from 'lodash'
 
-    return a
-  }
-  return []
+export function arrayUnique(a: any[] | undefined): any[] {
+  return a ? _.uniq(a) : []
 }
 
 export function getRandomItemFromArray(array: any[] | undefined): any {
-  return array ? array[Math.floor(Math.random() * array.length)] : null
+  return array ? _.sample(array) : null
 }
 
 export async function preLoadImage(image: string): Promise<string | null> {

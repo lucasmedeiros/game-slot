@@ -1,6 +1,7 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button } from '../../styles'
+import { arrayUnique } from '../../utils'
 
 interface GamePageDetailsProps {
   details?: IGameDetails
@@ -23,7 +24,12 @@ const GamePageDetails: React.FC<GamePageDetailsProps> = ({
       <h1 className="text-white text-center font-black text-5xl">
         {details?.game.name}
       </h1>
-      <p className="text-white w-80 pb-5 text-center">{details?.description}</p>
+      <p className="text-white w-80 text-center">{details?.description}</p>
+      <p className="text-blue-400 py-4">
+        {arrayUnique(details?.developers.concat(details?.publishers)).join(
+          ', '
+        )}
+      </p>
       <div className="flex text-white justify-center items-center py-4">
         <p>
           <FontAwesomeIcon icon="thumbs-up" size="xs" />
