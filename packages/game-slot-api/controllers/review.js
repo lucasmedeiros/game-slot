@@ -7,7 +7,7 @@ const {
 } = require('../services/review.service')
 
 module.exports = {
-  create: async function(req, res) {
+  create: async function (req, res) {
     const { _id } = req.user
     const { gameId, text, recommendation } = req.body
 
@@ -24,7 +24,7 @@ module.exports = {
     }
   },
 
-  update: async function(req, res) {
+  update: async function (req, res) {
     const { _id } = req.user
     const { id } = req.params
     const { text, recommendation } = req.body
@@ -42,7 +42,7 @@ module.exports = {
     }
   },
 
-  get: async function(req, res) {
+  get: async function (req, res) {
     const { _id } = req.user
     const { id } = req.params
 
@@ -54,7 +54,7 @@ module.exports = {
     }
   },
 
-  getAll: async function(req, res) {
+  getAll: async function (req, res) {
     const { page, limit } = req.query
     const { id } = req.params
 
@@ -66,7 +66,7 @@ module.exports = {
     }
   },
 
-  remove: async function(req, res) {
+  remove: async function (req, res) {
     const { _id } = req.user
     const { id } = req.params
 

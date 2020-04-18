@@ -1,7 +1,7 @@
 const { getAppDetails, findGames } = require('../services/steam.service')
 
 module.exports = {
-  getAppDetails: async function(req, res) {
+  getAppDetails: async function (req, res) {
     const { appId } = req.params
     const details = await getAppDetails({ appId })
 
@@ -11,16 +11,20 @@ module.exports = {
     const detailsData = details[appId].data
     const { screenshots, movies } = detailsData
     detailsData.screenshots = screenshots
-      ? screenshots.map(screenshot => screenshot.path_full)
+      ? screenshots.map((screenshot) => screenshot.path_full)
       : []
-    detailsData.movies = movies ? movies.map(movie => movie.webm.max) : []
+    detailsData.movies = movies ? movies.map((movie) => movie.webm.max) : []
     return res.send(detailsData)
   },
-  findGames: async function(req, res) {
-    const { search } = req.query
+  findGames: async function (req, res) {
+    const { search, page, pageSize } = req.query
 
     try {
-      const games = await findGames({ search })
+      const games = await findGames({
+        search,
+        pageSize,
+        page,
+      })
       return res.status(200).json(games)
     } catch (error) {
       return res.status(400).json({ error: error.message })
