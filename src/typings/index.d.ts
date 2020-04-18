@@ -36,6 +36,16 @@ interface UserState {
   user: User | undefined
 }
 
+interface PaginatedResult<T> {
+  data: T[]
+  page: number
+  pageSize: number
+  prevPage: number | null
+  nextPage: number | null
+  total: number
+  totalPages: number
+}
+
 interface SliderContextType {
   onSelectSlide: (game: IGame) => void
   currentSlide: IGame | null
@@ -49,6 +59,16 @@ interface IReviewButtons {
 interface HeaderProps {
   className?: string
   user: User | undefined
+}
+
+interface PaginationProps {
+  result: PaginatedResult<T>
+  refresh: (page: number, pageSize: number) => void
+}
+
+interface SearchResultProps {
+  result: PaginatedResult<IGame>
+  refresh: (page: number, pageSize: number) => void
 }
 
 interface ReviewModalProps {

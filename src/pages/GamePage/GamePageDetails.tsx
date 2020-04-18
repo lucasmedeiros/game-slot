@@ -25,7 +25,7 @@ const GamePageDetails: React.FC<GamePageDetailsProps> = ({
         {details?.game.name}
       </h1>
       <p className="text-white w-80 text-center">{details?.description}</p>
-      <p className="text-blue-400 py-4">
+      <p className="text-blue-400 py-4 text-center">
         {arrayUnique(details?.developers.concat(details?.publishers)).join(
           ', '
         )}

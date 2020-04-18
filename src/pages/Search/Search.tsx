@@ -1,18 +1,16 @@
 import React from 'react'
-import useGameSearch from '../../hooks/useGameSearch'
-import { useParams, useHistory } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ClipLoader } from 'react-spinners'
-import { Grid } from '../../styles'
-import ImagePlaceholder from '../../assets/img/image_placeholder.png'
+import useGameSearch from '../../hooks/useGameSearch'
+import SearchResult from './SearchResult'
 
 const Search: React.FC = () => {
   const { searchTerm } = useParams()
-  const history = useHistory()
-  const { searchResult, error, loading } = useGameSearch(searchTerm as string)
-  const goToGamePage = (id: string) => {
-    history.push(`/game/${id}`)
-  }
+  const { searchResult, error, loading, update } = useGameSearch(
+    searchTerm as string
+  )
+
   return (
     <section className="flex flex-col w-full text-gray-400 text-4xl">
       <div
@@ -29,32 +27,13 @@ const Search: React.FC = () => {
           </div>
         ) : loading ? (
           <ClipLoader size={200} color="#e2e8f0" />
-        ) : error || !searchResult.length ? (
+        ) : error || !searchResult?.data.length ? (
           <>
             <FontAwesomeIcon icon="times-circle" size="2x" />
             <p className="mt-5">0 results match your search</p>
           </>
         ) : (
-          <div style={{ minHeight: '92vh', width: '100%' }}>
-            <Grid className="p-4" min={300}>
-              {searchResult.map(result => (
-                <div
-                  onClick={() => goToGamePage(result.steamAppId)}
-                  key={result.steamAppId}
-                  className="cursor-pointer"
-                >
-                  <img
-                    src={result.imageUrl}
-                    onError={(e: any) => {
-                      e.target.onerror = null
-                      e.target.src = ImagePlaceholder
-                    }}
-                    alt={result.name}
-                  />
-                </div>
-              ))}
-            </Grid>
-          </div>
+          <SearchResult result={searchResult} refresh={update} />
         )}
       </div>
     </section>
