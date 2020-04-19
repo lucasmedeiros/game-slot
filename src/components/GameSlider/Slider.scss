@@ -1,28 +1,15 @@
-.slider {
-  display: flex;
-  position: relative;
+.swiper-wrapper {
+  padding: 20px 0;
 
-  &__container {
-    display: flex;
-    padding: 0 55px;
-    transition: transform 300ms ease 100ms;
-    z-index: 3;
-    width: 100%;
+  .swiper-slide:hover {
+    transform: scale(1.2) !important;
   }
 
-  &:not(&--open) .item:hover .show-details-button {
-    opacity: 1;
+  &:hover .swiper-slide {
+    transform: translateX(-10%);
   }
 
-  &:not(&--open) .item:hover {
-    transform: scale(1.5) !important;
-  }
-
-  &:not(&--open):hover .item {
-    transform: translateX(-25%);
-  }
-
-  &:not(&--open) .item:hover ~ .item {
-    transform: translateX(25%);
+  .swiper-slide:hover ~ .swiper-slide {
+    transform: translateX(10%);
   }
 }

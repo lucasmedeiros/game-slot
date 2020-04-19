@@ -6,7 +6,7 @@ interface PaginationProps {
 }
 
 const btnClassName = 'p-3 hover:bg-pink-700 hover:text-white'
-const btnClassNameDisabled = 'p-3 cursor-not-allowed'
+const btnClassNameDisabled = 'p-3 cursor-not-allowed opacity-25'
 
 const Pagination: React.FC<PaginationProps> = ({
   result,

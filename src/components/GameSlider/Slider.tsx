@@ -1,62 +1,35 @@
-import React, { useState } from 'react'
-import cx from 'classnames'
-import SliderContext from './context'
-import Content from './Content'
-import SlideButton from './SlideButton'
-import SliderWrapper from './SliderWrapper'
-import useSliding from './useSliding'
-import useSizeElement from './useSizeElement'
-import './Slider.scss'
+import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import useGameSwiper from '../../hooks/useGameSwiper'
+import './Slider.scss'
 
 const EMPTY_BOX_SIZE: string = '8rem'
 
-interface IGameSlideProps {
-  activeSlide?: IGame | null
-  sectionTitle: string
+interface GameSliderProps {
+  title: string
 }
 
-const Slider: React.FC<IGameSlideProps> = ({
-  children,
-  activeSlide,
-  sectionTitle,
-}) => {
-  const [currentSlide, setCurrentSlide] = useState(activeSlide)
-  const { width, elementRef } = useSizeElement()
+const GameSlider: React.FC<GameSliderProps> = ({ children, title }) => {
   const {
-    handlePrev,
-    handleNext,
-    slideProps,
-    containerRef,
-    hasNext,
-    hasPrev,
-  } = useSliding(width, React.Children.count(children))
+    swiperContainerName,
+    nextElName,
+    prevElName,
+    swiperWrapperName,
+  } = useGameSwiper()
 
-  const handleSelect = (game: IGame) => {
-    setCurrentSlide(game)
-  }
-
-  const handleClose = () => {
-    setCurrentSlide(null)
-  }
-
-  const contextValue: SliderContextType = {
-    onSelectSlide: handleSelect,
-    elementRef,
-    currentSlide: currentSlide as IGame,
-  }
+  const hasContent: boolean = React.Children.count(children) > 0
 
   return (
-    <SliderContext.Provider value={contextValue}>
-      <SliderWrapper>
-        <h2 className="pb-3 ml-8 text-indigo-100">{sectionTitle} ></h2>
-        <div className={cx('slider', { 'slider--open': currentSlide != null })}>
-          <div ref={containerRef} className="slider__container" {...slideProps}>
-            {React.Children.count(children) ? (
+    <>
+      <h1 className="text-white ml-4">{title}</h1>
+      <section className="game-slider px-4">
+        <div className={swiperContainerName}>
+          <div className={swiperWrapperName}>
+            {hasContent ? (
               children
             ) : (
               <div
-                className="flex items-center justify-center text-center bg-gray-700 rounded text-gray-500 text-lg"
+                className="flex items-center ml-8 justify-center text-center bg-gray-700 rounded text-gray-500 text-lg"
                 style={{
                   width: EMPTY_BOX_SIZE,
                   height: EMPTY_BOX_SIZE,
@@ -67,13 +40,12 @@ const Slider: React.FC<IGameSlideProps> = ({
               </div>
             )}
           </div>
+          {hasContent && <div className={nextElName}></div>}
+          {hasContent && <div className={prevElName}></div>}
         </div>
-        {hasPrev && <SlideButton onClick={handlePrev} type="prev" />}
-        {hasNext && <SlideButton onClick={handleNext} type="next" />}
-      </SliderWrapper>
-      {currentSlide && <Content game={currentSlide} onClose={handleClose} />}
-    </SliderContext.Provider>
+      </section>
+    </>
   )
 }
 
-export default Slider
+export default GameSlider
