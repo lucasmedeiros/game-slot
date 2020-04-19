@@ -1,6 +1,10 @@
 import { UserActionTypes, SET_USER, DELETE_USER } from './types'
 import { getFromLocalStorage } from '../../utils'
 
+interface UserState {
+  user: User | undefined
+}
+
 const initialState: UserState = {
   user: getFromLocalStorage('user'),
 }

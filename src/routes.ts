@@ -1,5 +1,14 @@
 import { Home, GamePage, Search, Login } from './pages'
 
+interface RouteObject {
+  name: string
+  path: string
+  component: React.FC
+  layout: '/default' | '/login'
+  exact: boolean
+  private: boolean
+}
+
 const routes: RouteObject[] = [
   {
     name: 'Home',

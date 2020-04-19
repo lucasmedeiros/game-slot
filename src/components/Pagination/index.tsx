@@ -1,6 +1,11 @@
 import React from 'react'
 import { getPaginationFooterText } from '../../utils'
 
+interface PaginationProps {
+  result: PaginatedResult<any>
+  refresh: (page: number, pageSize: number) => void
+}
+
 const Pagination: React.FC<PaginationProps> = ({ result, children }) => {
   return (
     <div>

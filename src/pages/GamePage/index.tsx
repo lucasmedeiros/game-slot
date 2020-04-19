@@ -10,6 +10,10 @@ import GamePageDetails from './GamePageDetails'
 import GamePageNotFound from './GamePageNotFound'
 import GamePageTrailer from './GamePageTrailer'
 
+interface GamePageParams {
+  id: string
+}
+
 const GamePage: React.FC = () => {
   const { open, hide, show } = useModal()
   const { id } = useParams<GamePageParams>()

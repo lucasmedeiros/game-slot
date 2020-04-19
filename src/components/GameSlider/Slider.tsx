@@ -11,6 +11,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const EMPTY_BOX_SIZE: string = '8rem'
 
+interface IGameSlideProps {
+  activeSlide?: IGame | null
+  sectionTitle: string
+}
+
 const Slider: React.FC<IGameSlideProps> = ({
   children,
   activeSlide,

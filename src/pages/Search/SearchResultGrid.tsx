@@ -3,6 +3,10 @@ import { useHistory } from 'react-router-dom'
 import { Grid } from '../../styles'
 import ImagePlaceholder from '../../assets/img/image_placeholder.png'
 
+interface SearchResultGridProps {
+  result: PaginatedResult<IGame>
+}
+
 const SearchResultGrid: React.FC<SearchResultGridProps> = ({ result }) => {
   const history = useHistory()
 

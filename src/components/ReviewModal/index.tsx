@@ -6,6 +6,15 @@ import { Button } from '../../styles'
 
 import './ReviewModal.css'
 
+interface ReviewModalProps {
+  isOpen: boolean
+  onClose(): void
+}
+
+interface IReviewButtons {
+  value: RecommendationValue
+}
+
 const reviewButtons: IReviewButtons[] = [
   {
     value: 'yes',
@@ -39,7 +48,7 @@ const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, onClose }) => {
     value: RecommendationValue
   ) => {
     e.preventDefault()
-    setRecommendation(prev => (prev === value ? undefined : value))
+    setRecommendation((prev) => (prev === value ? undefined : value))
   }
 
   const onRecommendationSubmit = async (
@@ -103,7 +112,7 @@ const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, onClose }) => {
                     ? 'bg-blue-700'
                     : 'hover:bg-blue-900'
                 }`}
-                onClick={e => onRecommendationChange(e, rvb.value)}
+                onClick={(e) => onRecommendationChange(e, rvb.value)}
                 key={index}
               >
                 <FontAwesomeIcon

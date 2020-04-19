@@ -7,6 +7,11 @@ import HeaderSearch from './HeaderSearch'
 import useAuth from '../../../hooks/useAuth'
 import { deleteUser } from '../../../store/user/actions'
 
+interface HeaderProps {
+  className?: string
+  user: User | undefined
+}
+
 const Header: React.FC<HeaderProps> = ({ className, user }) => {
   const { logout } = useAuth()
   const dispatch = useDispatch()

@@ -1,5 +1,13 @@
 import styled from 'styled-components'
 
+interface GamePageHeaderProps {
+  backgroundImage?: string
+}
+
+interface GridProps {
+  min?: number
+}
+
 export const Button = styled.button`
   width: 15vw;
   min-width: 100px;
