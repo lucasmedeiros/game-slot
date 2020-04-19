@@ -71,6 +71,10 @@ interface SearchResultProps {
   refresh: (page: number, pageSize: number) => void
 }
 
+interface SearchResultGridProps {
+  result: PaginatedResult<IGame>
+}
+
 interface ReviewModalProps {
   isOpen: boolean
   onClose(): void

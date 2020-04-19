@@ -7,7 +7,7 @@ interface ObjectGameSearch {
   loading: boolean
   searchResult: PaginatedResult<IGame> | undefined
   error: string | undefined
-  update: (page?: number, pageSize?: number) => void
+  update: (page?: number, limit?: number) => void
 }
 
 const useGameSearch = (
@@ -18,11 +18,11 @@ const useGameSearch = (
   const [searchResult, setSearchResult] = useState<PaginatedResult<IGame>>()
   const [error, setError] = useState<string>()
 
-  const getSearchResults = async (page: number = 1, pageSize: number = 15) => {
+  const getSearchResults = async (page: number = 1, limit: number = 15) => {
     const query = querystring.stringify({
       search: searchTerm,
       page,
-      pageSize,
+      limit,
     })
     const response = await callAPI(`steam/find?${query}`, 'GET', null)
 
@@ -37,9 +37,9 @@ const useGameSearch = (
     setLoading(false)
   }
 
-  const update = (page?: number, pageSize?: number) => {
+  const update = (page?: number, limit?: number) => {
     setLoading(true)
-    getSearchResults(page, pageSize)
+    getSearchResults(page, limit)
   }
 
   useEffect(() => {
