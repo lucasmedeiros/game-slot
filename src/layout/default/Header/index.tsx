@@ -25,7 +25,7 @@ const Header: React.FC<HeaderProps> = ({ className, user }) => {
 
   return (
     <LayoutHeader
-      className={`bg-blue-800 flex items-center justify-between flex-wrap p-4 ${className}`}
+      className={`bg-pink-800 flex items-center justify-between flex-wrap p-4 ${className}`}
     >
       <div className="flex items-center flex-shrink-0 text-white mr-6">
         <Link to="/" className="font-bold text-xl">
@@ -56,7 +56,7 @@ const Header: React.FC<HeaderProps> = ({ className, user }) => {
         </div>
       ) : (
         <Link
-          className="text-white bg-blue-700 py-2 px-4 mr-2 rounded"
+          className="text-white bg-pink-900 py-2 px-4 mr-2 rounded"
           to="/login"
         >
           Login

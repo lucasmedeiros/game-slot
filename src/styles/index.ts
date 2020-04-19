@@ -28,7 +28,7 @@ export const LayoutHeader = styled.nav`
 `
 
 export const ContentWrapper = styled.div`
-  background-color: #fdfffc;
+  background-color: #1b3761;
   padding-bottom: 1em;
 `
 

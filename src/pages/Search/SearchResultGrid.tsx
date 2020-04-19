@@ -19,7 +19,7 @@ const SearchResultGrid: React.FC<SearchResultGridProps> = ({ result }) => {
         <div
           onClick={() => goToGamePage(element.steamAppId)}
           key={element.steamAppId}
-          className="cursor-pointer"
+          className="cursor-pointer shadow"
         >
           <img
             src={element.imageUrl}

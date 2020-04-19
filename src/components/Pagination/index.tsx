@@ -16,18 +16,18 @@ const Pagination: React.FC<PaginationProps> = ({
   return (
     <div>
       {children}
-      <div className="ml-3 text-sm text-gray-800">
+      <div className="ml-3 text-sm text-indigo-200">
         {`Showing ${pageStart} - ${pageEnd} from ${totalDocs} result${
           totalDocs === 1 ? '' : 's'
         }`}
       </div>
-      <div className="border border-blue-500 text-base flex justify-between my-2 text-blue-500">
+      <div className="text-lg m-3 flex justify-between my-2 text-indigo-200">
         <div>
           <button
             className={`p-3 ${
               page === 1
                 ? 'cursor-not-allowed'
-                : 'hover:bg-blue-500 hover:text-white'
+                : 'hover:bg-indigo-900 hover:text-white'
             }`}
             onClick={() => page > 1 && refresh(1, limit)}
           >
@@ -37,7 +37,7 @@ const Pagination: React.FC<PaginationProps> = ({
             className={`p-3 ${
               page === 1
                 ? 'cursor-not-allowed'
-                : 'hover:bg-blue-500 hover:text-white'
+                : 'hover:bg-indigo-900 hover:text-white'
             }`}
             onClick={() => page > 1 && refresh(prevPage, limit)}
           >
@@ -49,7 +49,7 @@ const Pagination: React.FC<PaginationProps> = ({
             className={`p-3 ${
               !nextPage
                 ? 'cursor-not-allowed'
-                : 'hover:bg-blue-500 hover:text-white'
+                : 'hover:bg-indigo-900 hover:text-white'
             }`}
             onClick={() => nextPage && refresh(nextPage ?? page, limit)}
           >
@@ -59,7 +59,7 @@ const Pagination: React.FC<PaginationProps> = ({
             className={`p-3 ${
               page === totalPages
                 ? 'cursor-not-allowed'
-                : 'hover:bg-blue-500 hover:text-white'
+                : 'hover:bg-indigo-900 hover:text-white'
             }`}
             onClick={() => page < totalPages && refresh(totalPages, limit)}
           >
