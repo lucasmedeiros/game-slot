@@ -27,7 +27,7 @@ interface PaginatedResult<T> {
   docs: T[]
   page: number
   limit: number
-  prevPage: number | null
+  prevPage: number
   nextPage: number | null
   totalDocs: number
   totalPages: number

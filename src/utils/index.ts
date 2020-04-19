@@ -8,18 +8,6 @@ export function getRandomItemFromArray(a: any[] | undefined): any {
   return a ? _.sample(a) : null
 }
 
-export function getPaginationFooterText(
-  page: number,
-  pageSize: number,
-  total: number
-) {
-  const currentStart = Math.max(1, (page - 1) * pageSize)
-  const currentEnd = Math.min(total, page * pageSize)
-  return `Showing ${currentStart} - ${currentEnd} from ${total} result${
-    total === 1 ? '' : 's'
-  }`
-}
-
 export function getObjectFromPath(object: object, path: string): any {
   return _.get(object, path)
 }
