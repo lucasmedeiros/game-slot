@@ -27,7 +27,7 @@ const Search: React.FC = () => {
           </div>
         ) : loading ? (
           <ClipLoader size={200} color="#e2e8f0" />
-        ) : error || !searchResult?.data.length ? (
+        ) : error || !searchResult?.docs.length ? (
           <>
             <FontAwesomeIcon icon="times-circle" size="2x" />
             <p className="mt-5">0 results match your search</p>

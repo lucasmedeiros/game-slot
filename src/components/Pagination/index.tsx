@@ -6,7 +6,7 @@ const Pagination: React.FC<PaginationProps> = ({ result, children }) => {
     <div>
       {children}
       <div className="ml-3 text-sm text-gray-800">
-        {getPaginationFooterText(result.page, result.pageSize, result.total)}
+        {getPaginationFooterText(result.page, result.limit, result.totalDocs)}
       </div>
     </div>
   )

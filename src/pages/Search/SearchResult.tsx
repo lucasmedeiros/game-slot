@@ -15,19 +15,19 @@ const SearchResult: React.FC<SearchResultProps> = ({ result, refresh }) => {
     <div style={{ minHeight: '92vh', width: '100%' }}>
       <Pagination result={result} refresh={refresh}>
         <Grid className="p-4" min={300}>
-          {result.data.map((result) => (
+          {result.docs.map((element) => (
             <div
-              onClick={() => goToGamePage(result.steamAppId)}
-              key={result.steamAppId}
+              onClick={() => goToGamePage(element.steamAppId)}
+              key={element.steamAppId}
               className="cursor-pointer"
             >
               <img
-                src={result.imageUrl}
+                src={element.imageUrl}
                 onError={(e: any) => {
                   e.target.onerror = null
                   e.target.src = ImagePlaceholder
                 }}
-                alt={result.name}
+                alt={element.name}
               />
             </div>
           ))}

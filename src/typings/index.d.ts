@@ -37,12 +37,12 @@ interface UserState {
 }
 
 interface PaginatedResult<T> {
-  data: T[]
+  docs: T[]
   page: number
-  pageSize: number
+  limit: number
   prevPage: number | null
   nextPage: number | null
-  total: number
+  totalDocs: number
   totalPages: number
 }
 
