@@ -16,7 +16,7 @@ module.exports = {
     return details
   },
 
-  findGames: async function ({ search, page = 1, pageSize = 10 }) {
+  findGames: async function ({ search, page = 1, limit = 10 }) {
     if (!search) throw new Error(`query 'search' not provided`)
 
     const searchResultGames = games
@@ -30,7 +30,7 @@ module.exports = {
     return paginate({
       data: searchResultGames,
       page,
-      pageSize,
+      limit,
     })
   },
 

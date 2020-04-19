@@ -2,29 +2,24 @@ const MAX_PAGE_SIZE = 50
 const DEFAULT_PAGE_SIZE = 10
 
 module.exports = {
-  paginate: function ({ data, page, pageSize }) {
+  paginate: function ({ data, page, limit }) {
     page = parseInt(page)
-    pageSize = parseInt(pageSize)
-    pageSize =
-      pageSize > MAX_PAGE_SIZE
-        ? MAX_PAGE_SIZE
-        : pageSize < 0
-        ? DEFAULT_PAGE_SIZE
-        : pageSize
+    limit = parseInt(limit)
+    limit = limit > MAX_PAGE_SIZE ? MAX_PAGE_SIZE : limit < 0 ? DEFAULT_PAGE_SIZE : limit
 
-    const offset = (page - 1) * pageSize
+    const offset = (page - 1) * limit
 
-    const pagination = data.slice(offset).slice(0, pageSize)
+    const pagination = data.slice(offset).slice(0, limit)
 
-    const totalPages = Math.ceil(data.length / pageSize)
+    const totalPages = Math.ceil(data.length / limit)
 
     return {
-      data: pagination,
+      docs: pagination,
       page,
-      pageSize,
-      prevPage: page - 1 ? page - 1 : null,
+      limit,
+      prevPage: page - 1 ? page - 1 : 1,
       nextPage: totalPages > page ? page + 1 : null,
-      total: data.length,
+      totalDocs: data.length,
       totalPages,
     }
   },

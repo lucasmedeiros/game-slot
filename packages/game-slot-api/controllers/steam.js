@@ -17,12 +17,12 @@ module.exports = {
     return res.send(detailsData)
   },
   findGames: async function (req, res) {
-    const { search, page, pageSize } = req.query
+    const { search, page, limit } = req.query
 
     try {
       const games = await findGames({
         search,
-        pageSize,
+        limit,
         page,
       })
       return res.status(200).json(games)
