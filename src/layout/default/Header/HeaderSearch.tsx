@@ -28,7 +28,7 @@ const HeaderSearch = () => {
 
   return (
     <form className="flex" onSubmit={onFormSubmit}>
-      <div className="flex items-center rounded ml-5 py-2 px-3 bg-pink-900 leading-tight">
+      <div className="flex items-center rounded ml-5 px-3 bg-gray-800 leading-tight">
         <input
           type="text"
           name="search"
@@ -36,7 +36,7 @@ const HeaderSearch = () => {
           autoComplete="off"
           onChange={onSearchInputChange}
           style={{ minWidth: '350px' }}
-          className="appearance-none placeholder-white text-white leading-tight text-lg focus:outline-none bg-pink-900"
+          className="appearance-none placeholder-white text-white leading-tight text-lg focus:outline-none bg-gray-800"
           placeholder="Browse games..."
         />
         <button
@@ -49,7 +49,7 @@ const HeaderSearch = () => {
           <FontAwesomeIcon icon="times-circle" />
         </button>
       </div>
-      <button type="submit" className="bg-pink-900 py-2 px-5 ml-5 rounded">
+      <button type="submit" className="bg-gray-800 py-2 px-5 ml-5 rounded">
         <FontAwesomeIcon icon="search" color="white" size="1x" />
       </button>
     </form>

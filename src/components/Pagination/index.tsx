@@ -5,6 +5,9 @@ interface PaginationProps {
   refresh: (page: number, pageSize: number) => void
 }
 
+const btnClassName = 'p-3 hover:bg-pink-700 hover:text-white'
+const btnClassNameDisabled = 'p-3 cursor-not-allowed'
+
 const Pagination: React.FC<PaginationProps> = ({
   result,
   refresh,
@@ -14,31 +17,23 @@ const Pagination: React.FC<PaginationProps> = ({
   const pageStart = Math.max(1, (page - 1) * limit)
   const pageEnd = Math.min(totalDocs, page * limit)
   return (
-    <div>
+    <section>
       {children}
-      <div className="ml-3 text-sm text-indigo-200">
+      <div className="ml-3 text-base text-indigo-100">
         {`Showing ${pageStart} - ${pageEnd} from ${totalDocs} result${
           totalDocs === 1 ? '' : 's'
         }`}
       </div>
-      <div className="text-lg m-3 flex justify-between my-2 text-indigo-200">
+      <div className="text-xl m-3 flex justify-between my-2 text-indigo-100">
         <div>
           <button
-            className={`p-3 ${
-              page === 1
-                ? 'cursor-not-allowed'
-                : 'hover:bg-indigo-900 hover:text-white'
-            }`}
+            className={page === 1 ? btnClassNameDisabled : btnClassName}
             onClick={() => page > 1 && refresh(1, limit)}
           >
             First
           </button>
           <button
-            className={`p-3 ${
-              page === 1
-                ? 'cursor-not-allowed'
-                : 'hover:bg-indigo-900 hover:text-white'
-            }`}
+            className={page === 1 ? btnClassNameDisabled : btnClassName}
             onClick={() => page > 1 && refresh(prevPage, limit)}
           >
             Previous
@@ -46,28 +41,22 @@ const Pagination: React.FC<PaginationProps> = ({
         </div>
         <div>
           <button
-            className={`p-3 ${
-              !nextPage
-                ? 'cursor-not-allowed'
-                : 'hover:bg-indigo-900 hover:text-white'
-            }`}
+            className={!nextPage ? btnClassNameDisabled : btnClassName}
             onClick={() => nextPage && refresh(nextPage ?? page, limit)}
           >
             Next
           </button>
           <button
-            className={`p-3 ${
-              page === totalPages
-                ? 'cursor-not-allowed'
-                : 'hover:bg-indigo-900 hover:text-white'
-            }`}
+            className={
+              page === totalPages ? btnClassNameDisabled : btnClassName
+            }
             onClick={() => page < totalPages && refresh(totalPages, limit)}
           >
             Last
           </button>
         </div>
       </div>
-    </div>
+    </section>
   )
 }
 

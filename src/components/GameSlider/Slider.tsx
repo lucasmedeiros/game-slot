@@ -49,23 +49,21 @@ const Slider: React.FC<IGameSlideProps> = ({
   return (
     <SliderContext.Provider value={contextValue}>
       <SliderWrapper>
-        <h2 className="pb-3 ml-8" style={{ color: '#11151c' }}>
-          {sectionTitle} >
-        </h2>
+        <h2 className="pb-3 ml-8 text-indigo-100">{sectionTitle} ></h2>
         <div className={cx('slider', { 'slider--open': currentSlide != null })}>
           <div ref={containerRef} className="slider__container" {...slideProps}>
             {React.Children.count(children) ? (
               children
             ) : (
               <div
-                className="flex items-center justify-center text-center bg-gray-300 text-gray-500 text-lg"
+                className="flex items-center justify-center text-center bg-gray-700 rounded text-gray-500 text-lg"
                 style={{
                   width: EMPTY_BOX_SIZE,
                   height: EMPTY_BOX_SIZE,
                   cursor: 'pointer',
                 }}
               >
-                <FontAwesomeIcon icon="plus-circle" size="3x" color="#a0aec0" />
+                <FontAwesomeIcon icon="plus-circle" size="3x" color="#fff" />
               </div>
             )}
           </div>
