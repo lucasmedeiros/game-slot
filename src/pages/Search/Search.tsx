@@ -12,21 +12,15 @@ const Search: React.FC = () => {
   )
 
   return (
-    <section className="flex flex-col w-full text-gray-400 text-4xl">
-      <div
-        className="flex flex-col justify-center items-center h-full"
-        style={{ minHeight: '92vh' }}
-      >
+    <section className="flex flex-col w-full h-full text-gray-400 text-4xl">
+      <div className="flex flex-col justify-center items-center h-full">
         {!searchTerm ? (
-          <div
-            className="flex items-center flex-col justify-center w-full text-indigo-200 text-5xl"
-            style={{ minHeight: '92vh' }}
-          >
+          <div className="flex items-center flex-col justify-center w-full text-white text-5xl">
             <FontAwesomeIcon icon="search" size="1x" />
             <p className="mt-5">Search for games above</p>
           </div>
         ) : loading ? (
-          <ClipLoader size={200} color="#e2e8f0" />
+          <ClipLoader size={200} color="white" />
         ) : error || !searchResult?.docs.length ? (
           <>
             <FontAwesomeIcon icon="times-circle" size="2x" />

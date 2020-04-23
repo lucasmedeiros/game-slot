@@ -8,7 +8,7 @@ interface SearchResultProps {
 }
 
 const SearchResult: React.FC<SearchResultProps> = ({ result, refresh }) => (
-  <div style={{ minHeight: '92vh', width: '100%' }}>
+  <div className="h-full w-full">
     <Pagination result={result} refresh={refresh}>
       <SearchResultGrid result={result} />
     </Pagination>

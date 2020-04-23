@@ -12,7 +12,7 @@ interface LoginParams {
   password: string
 }
 
-interface AuthInfo {
+export interface AuthInfo {
   isLoggedIn: boolean
   loggingIn: boolean
   user: User | undefined
