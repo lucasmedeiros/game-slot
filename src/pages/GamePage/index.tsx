@@ -10,6 +10,7 @@ import ReviewModal from '../../components/ReviewModal'
 import useModal from '../../hooks/useModal'
 import useGameDetails from '../../hooks/useGameDetails'
 import useGameReviews from '../../hooks/useGameReviews'
+import Reviews from './Reviews'
 
 interface GamePageParams {
   id: string
@@ -19,7 +20,11 @@ const GamePage: React.FC = () => {
   const { open, hide, show } = useModal()
   const { id } = useParams<GamePageParams>()
   const { details, loading: loadingDetails, error } = useGameDetails(id)
-  const { result } = useGameReviews(id)
+  const {
+    result: reviewsResult,
+    loading: loadingReviews,
+    update: updateReviews,
+  } = useGameReviews(id)
   const [image, setImage] = useState<string>()
 
   useEffect(() => {
@@ -42,7 +47,7 @@ const GamePage: React.FC = () => {
           <>
             <GamePageDetails
               details={details}
-              count={result?.count}
+              count={reviewsResult?.count}
               openReviewModal={show}
             />
             <GamePageTrailer details={details} />
@@ -51,6 +56,13 @@ const GamePage: React.FC = () => {
           <GamePageNotFound error={error} />
         )}
       </GamePageHeader>
+      {!error && (
+        <Reviews
+          loading={loadingReviews}
+          reviewsResult={reviewsResult}
+          update={updateReviews}
+        />
+      )}
       <ReviewModal isOpen={open} onClose={hide} />
     </section>
   )

@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import querystring from 'query-string'
 import { callAPI } from '../services/request.service'
 
-interface IGameReview {
+export interface IGameReview {
   _id: string
   gameId: string
   userId: string
@@ -11,7 +11,7 @@ interface IGameReview {
   recommended: number
 }
 
-interface IGameReviewsDetails {
+export interface IGameReviewsDetails {
   count: {
     positive: number
     neutral: number
@@ -23,40 +23,42 @@ interface IGameReviewsDetails {
 interface ObjectGameReviews {
   loading: boolean
   result: IGameReviewsDetails | undefined
+  update: (page?: number, limit?: number) => void
 }
 
-const useGameReviews = (
-  appId: string,
-  limit: number = 15,
-  page: number = 1,
-  deps: any[] = []
-): ObjectGameReviews => {
+const useGameReviews = (appId: string, deps: any[] = []): ObjectGameReviews => {
   const [loading, setLoading] = useState<boolean>(true)
   const [result, setResult] = useState<IGameReviewsDetails>()
 
-  useEffect(() => {
-    const getGameReviews = async () => {
-      const query = querystring.stringify({
-        page,
-        limit,
-      })
-      const url = `review/game/${appId}?${query}`
-      const response = await callAPI(url, 'GET', null)
+  const getGameReviews = async (limit: number = 15, page: number = 1) => {
+    const query = querystring.stringify({
+      page,
+      limit,
+    })
+    const url = `review/game/${appId}?${query}`
+    const response = await callAPI(url, 'GET', null)
 
-      if (response.success) {
-        const { data } = response
-        setResult(data)
-      }
-
-      setLoading(false)
+    if (response.success) {
+      const { data } = response
+      setResult(data)
     }
 
+    setLoading(false)
+  }
+
+  const update = (page?: number, limit?: number) => {
+    setLoading(true)
+    getGameReviews(page, limit)
+  }
+
+  useEffect(() => {
     getGameReviews()
   }, [appId, ...deps])
 
   return {
     loading,
     result,
+    update,
   }
 }
 
