@@ -5,11 +5,17 @@ import { arrayUnique } from '../../utils'
 
 interface GamePageDetailsProps {
   details?: IGameDetails
+  count?: {
+    positive: number
+    negative: number
+    neutral: number
+  }
   openReviewModal: () => void
 }
 
 const GamePageDetails: React.FC<GamePageDetailsProps> = ({
   details,
+  count,
   openReviewModal,
 }) => {
   const openOnSteam = () => {
@@ -20,7 +26,7 @@ const GamePageDetails: React.FC<GamePageDetailsProps> = ({
     }
   }
   return (
-    <div className="w-50 flex flex-col items-center">
+    <div className="flex flex-col items-center" style={{ width: '50vw' }}>
       <h1 className="text-white text-center font-black text-5xl">
         {details?.game.name}
       </h1>
@@ -34,12 +40,17 @@ const GamePageDetails: React.FC<GamePageDetailsProps> = ({
         <p>
           <FontAwesomeIcon icon="thumbs-up" size="xs" />
         </p>
-        <p className="px-3 font-black">20</p>
+        <p className="px-3 font-black">{count?.positive}</p>
+        <p className="pr-3 font-black">•</p>
+        <p>
+          <FontAwesomeIcon icon="meh" size="sm" />
+        </p>
+        <p className="px-3 font-black">{count?.neutral}</p>
         <p className="pr-3 font-black">•</p>
         <p>
           <FontAwesomeIcon icon="thumbs-down" size="1x" />
         </p>
-        <p className="px-3 font-black">2</p>
+        <p className="px-3 font-black">{count?.negative}</p>
       </div>
       <div className="flex p-4 justify-center items-center">
         <Button
