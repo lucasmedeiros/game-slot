@@ -6,7 +6,7 @@ import { getRandomItemFromArray, preLoadImage } from '../../utils'
 import GamePageDetails from './GamePageDetails'
 import GamePageNotFound from './GamePageNotFound'
 import GamePageTrailer from './GamePageTrailer'
-import ReviewModal from '../../components/ReviewModal'
+import Modal from '../../components/Modal'
 import useModal from '../../hooks/useModal'
 import useGameDetails from '../../hooks/useGameDetails'
 import useGameReviews from '../../hooks/useGameReviews'
@@ -42,13 +42,13 @@ const GamePage: React.FC = () => {
     <section>
       <GamePageHeader backgroundImage={image}>
         {loadingDetails ? (
-          <ClipLoader size={200} color="white" />
+          <ClipLoader size={50} color="white" />
         ) : !error ? (
           <>
             <GamePageDetails
               details={details}
               count={reviewsResult?.count}
-              openReviewModal={show}
+              openModal={show}
             />
             <GamePageTrailer details={details} />
           </>
@@ -63,7 +63,7 @@ const GamePage: React.FC = () => {
           update={updateReviews}
         />
       )}
-      <ReviewModal isOpen={open} onClose={hide} />
+      <Modal isOpen={open} onClose={hide} />
     </section>
   )
 }

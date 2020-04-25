@@ -10,13 +10,13 @@ interface GamePageDetailsProps {
     negative: number
     neutral: number
   }
-  openReviewModal: () => void
+  openModal: () => void
 }
 
 const GamePageDetails: React.FC<GamePageDetailsProps> = ({
   details,
   count,
-  openReviewModal,
+  openModal,
 }) => {
   const openOnSteam = () => {
     if (window) {
@@ -32,9 +32,11 @@ const GamePageDetails: React.FC<GamePageDetailsProps> = ({
       </h1>
       <p className="text-white w-80 text-center">{details?.description}</p>
       <p className="text-blue-400 py-4 text-center">
-        {arrayUnique(details?.developers.concat(details?.publishers)).join(
-          ', '
-        )}
+        {arrayUnique(
+          (details?.developers ? details.developers : []).concat(
+            details?.publishers ? details.publishers : []
+          )
+        ).join(', ')}
       </p>
       <div className="flex text-white justify-center items-center py-4">
         <p>
@@ -55,9 +57,9 @@ const GamePageDetails: React.FC<GamePageDetailsProps> = ({
       <div className="flex p-4 justify-center items-center">
         <Button
           className="text-white bg-blue-600 hover:bg-blue-700 py-4 px-3 rounded"
-          onClick={openReviewModal}
+          onClick={openModal}
         >
-          Write a review
+          Add to list...
         </Button>
         <Button
           className="text-white bg-red-600 hover:bg-red-700 py-4 px-3 ml-2 rounded"

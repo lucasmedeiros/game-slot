@@ -20,7 +20,7 @@ const Search: React.FC = () => {
             <p className="mt-5">Search for games above</p>
           </div>
         ) : loading ? (
-          <ClipLoader size={200} color="white" />
+          <ClipLoader size={50} color="white" />
         ) : error || !searchResult?.docs.length ? (
           <>
             <FontAwesomeIcon icon="times-circle" size="2x" />

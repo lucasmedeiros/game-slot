@@ -2,11 +2,12 @@
 import { useState, useEffect } from 'react'
 import querystring from 'query-string'
 import { callAPI } from '../services/request.service'
+import { DEFAULT_PAGE_SIZE } from '../constants'
 
 export interface IGameReview {
   _id: string
   gameId: string
-  userId: string
+  user: IUser
   text: string
   recommended: number
 }
@@ -30,7 +31,10 @@ const useGameReviews = (appId: string, deps: any[] = []): ObjectGameReviews => {
   const [loading, setLoading] = useState<boolean>(true)
   const [result, setResult] = useState<IGameReviewsDetails>()
 
-  const getGameReviews = async (limit: number = 15, page: number = 1) => {
+  const getGameReviews = async (
+    page: number = 1,
+    limit: number = DEFAULT_PAGE_SIZE
+  ) => {
     const query = querystring.stringify({
       page,
       limit,

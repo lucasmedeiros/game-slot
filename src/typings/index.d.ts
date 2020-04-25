@@ -13,13 +13,15 @@ interface IGameDetails {
   movies?: string[]
 }
 
+interface IUser {
+  _id: string
+  name: string
+  email: string
+  __v: number
+}
+
 interface User {
-  user: {
-    _id: string
-    name: string
-    email: string
-    __v: number
-  }
+  user: IUser
   token: string
 }
 

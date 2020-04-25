@@ -1,7 +1,9 @@
 import React from 'react'
+import { ClipLoader } from 'react-spinners'
 
 interface PaginationProps {
   result: PaginatedResult<any>
+  loading?: boolean
   refresh: (page: number, pageSize: number) => void
 }
 
@@ -12,13 +14,20 @@ const Pagination: React.FC<PaginationProps> = ({
   result,
   refresh,
   children,
+  loading = false,
 }) => {
   const { limit, page, totalDocs, prevPage, nextPage, totalPages } = result
-  const pageStart = Math.max(1, (page - 1) * limit)
+  const pageStart = Math.max(1, (page - 1) * limit + 1)
   const pageEnd = Math.min(totalDocs, page * limit)
   return (
     <section>
-      {children}
+      {loading ? (
+        <div className="flex w-full justify-center">
+          <ClipLoader size={50} color="white" />
+        </div>
+      ) : (
+        children
+      )}
       <div className="ml-3 text-base text-indigo-100">
         {`Showing ${pageStart} - ${pageEnd} from ${totalDocs} result${
           totalDocs === 1 ? '' : 's'

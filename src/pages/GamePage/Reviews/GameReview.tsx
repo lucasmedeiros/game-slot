@@ -3,6 +3,11 @@ import { IGameReview } from '../../../hooks/useGameReviews'
 import AvatarPlaceholder from '../../../assets/img/avatar.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
+import {
+  RECOMMENDED_YES,
+  RECOMMENDED_NO,
+  RECOMMENDED_MEH,
+} from '../../../constants'
 
 interface GameReviewProps {
   review: IGameReview
@@ -10,15 +15,15 @@ interface GameReviewProps {
 
 const getRecommendationValue = (value: number): { icon: IconProp } => {
   switch (value) {
-    case 1:
+    case RECOMMENDED_YES:
       return {
         icon: 'thumbs-up',
       }
-    case 2:
+    case RECOMMENDED_NO:
       return {
         icon: 'thumbs-down',
       }
-    case 3:
+    case RECOMMENDED_MEH:
       return {
         icon: 'meh',
       }
@@ -30,7 +35,7 @@ const getRecommendationValue = (value: number): { icon: IconProp } => {
 }
 
 const GameReview: React.FC<GameReviewProps> = ({ review }) => {
-  const { recommended, text, userId } = review
+  const { recommended, text, user } = review
   const recomendationValue = getRecommendationValue(recommended)
   return (
     <article className="py-4">
@@ -43,9 +48,9 @@ const GameReview: React.FC<GameReviewProps> = ({ review }) => {
             <img src={AvatarPlaceholder} alt="User" />
           </button>
         </div>
-        <p className="font-bold">{userId}:</p>
+        <p className="font-bold">{user.name}:</p>
       </div>
-      <div className="flex bg-white rounded p-3 text-gray-800">
+      <div className="flex bg-white items-start justify-start rounded pl-3 pr-5 py-8 text-gray-800">
         <p className="mr-5 text-gray-400">
           <FontAwesomeIcon
             icon={recomendationValue.icon}

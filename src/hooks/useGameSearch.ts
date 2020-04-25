@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react'
 import querystring from 'query-string'
 import { callAPI } from '../services/request.service'
+import { DEFAULT_PAGE_SIZE } from '../constants'
 
 interface ObjectGameSearch {
   loading: boolean
@@ -18,7 +19,10 @@ const useGameSearch = (
   const [searchResult, setSearchResult] = useState<PaginatedResult<IGame>>()
   const [error, setError] = useState<string>()
 
-  const getSearchResults = async (page: number = 1, limit: number = 15) => {
+  const getSearchResults = async (
+    page: number = 1,
+    limit: number = DEFAULT_PAGE_SIZE
+  ) => {
     const query = querystring.stringify({
       search: searchTerm,
       page,

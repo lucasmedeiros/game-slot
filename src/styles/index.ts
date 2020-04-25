@@ -9,8 +9,7 @@ interface GridProps {
 }
 
 export const Button = styled.button`
-  width: 15vw;
-  min-width: 100px;
+  min-width: 20vw;
   font-weight: bold;
 `
 
