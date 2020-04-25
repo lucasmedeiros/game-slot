@@ -40,8 +40,8 @@ const Login: React.FC = () => {
   return !isLoggedIn ? (
     <section className="w-full h-full flex items-center justify-center">
       <form
-        className="bg-white w-50 mt-10 ml-10 px-8 pt-6 pb-8 mb-4"
-        style={{ minWidth: '300px' }}
+        className="bg-white m-20 px-8 pt-6 pb-8 mb-4 rounded"
+        style={{ width: '50%' }}
         onSubmit={onLogin}
       >
         <div className="mb-4">

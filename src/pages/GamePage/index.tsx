@@ -39,7 +39,7 @@ const GamePage: React.FC = () => {
   }, [details])
 
   return (
-    <section>
+    <section className="mt-10">
       <GamePageHeader backgroundImage={image}>
         {loadingDetails ? (
           <ClipLoader size={50} color="white" />
@@ -58,6 +58,7 @@ const GamePage: React.FC = () => {
       </GamePageHeader>
       {!error && (
         <Reviews
+          gameId={id}
           loading={loadingReviews}
           reviewsResult={reviewsResult}
           update={updateReviews}

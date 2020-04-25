@@ -35,11 +35,11 @@ const getRecommendationValue = (value: number): { icon: IconProp } => {
 }
 
 const GameReview: React.FC<GameReviewProps> = ({ review }) => {
-  const { recommended, text, user } = review
+  const { recommended, text, user, createdAt } = review
   const recomendationValue = getRecommendationValue(recommended)
   return (
     <article className="py-4">
-      <div className="flex items-center p-2">
+      <div className="flex items-center py-5">
         <div
           className="mr-5 rounded-full overflow-hidden text-white"
           style={{ width: '2.5rem', height: '2.5rem' }}
@@ -48,7 +48,10 @@ const GameReview: React.FC<GameReviewProps> = ({ review }) => {
             <img src={AvatarPlaceholder} alt="User" />
           </button>
         </div>
-        <p className="font-bold">{user.name}:</p>
+        <p className="font-bold text-lg">{user.name} </p>
+        <p className="pl-2 text-gray-500">
+          {new Date(createdAt).toLocaleDateString()}
+        </p>
       </div>
       <div className="flex bg-white items-start justify-start rounded pl-3 pr-5 py-8 text-gray-800">
         <p className="mr-5 text-gray-400">

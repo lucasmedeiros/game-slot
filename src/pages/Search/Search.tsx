@@ -12,7 +12,7 @@ const Search: React.FC = () => {
   )
 
   return (
-    <section className="flex flex-col w-full h-full text-gray-400 text-4xl">
+    <section className="flex flex-col w-full h-full text-gray-400 text-4xl mt-20">
       <div className="flex flex-col justify-center items-center h-full">
         {!searchTerm ? (
           <div className="flex items-center flex-col justify-center w-full text-white text-5xl">

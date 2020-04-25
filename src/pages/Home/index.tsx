@@ -48,7 +48,7 @@ const games: IGame[] = [
 
 const Home: React.FC = () => {
   return (
-    <section>
+    <section className="mt-20">
       <GameSlider title="Games I've played">
         {games.map((game, key) => (
           <GameSliderItem key={key} game={game} />

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import { Button } from '../../../styles'
+import useReviewActions from '../../../hooks/useReviewActions'
 
 interface IReviewButtons {
   value: RecommendationValue
@@ -19,8 +20,15 @@ const reviewButtons: IReviewButtons[] = [
   },
 ]
 
-const ReviewForm = () => {
+interface ReviewFormProps {
+  gameId: string
+  updateReviews: (page?: number) => void
+}
+
+const ReviewForm: React.FC<ReviewFormProps> = ({ updateReviews, gameId }) => {
   const [recommendation, setRecommendation] = useState<RecommendationValue>()
+  const { create, submiting } = useReviewActions()
+  const [text, setText] = useState<string>()
 
   const getIcon = (value: RecommendationValue): IconProp => {
     switch (value) {
@@ -50,9 +58,19 @@ const ReviewForm = () => {
 
     if (!recommendation) {
       alert('Please, select one of the three options for rating this game')
-    } else {
-      // TODO
-      setRecommendation(undefined)
+    } else if (!submiting) {
+      try {
+        await create({
+          gameId,
+          recommendation,
+          text,
+        })
+        setText('')
+        setRecommendation(undefined)
+        updateReviews(1)
+      } catch (error) {
+        alert(error.message)
+      }
     }
   }
 
@@ -61,8 +79,10 @@ const ReviewForm = () => {
       <form className="mb-4 rounded w-full md:w-100 flex flex-col">
         <textarea
           placeholder="Review this game"
-          className="resize-none shadow-md appearance-none rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-gray-600 text-3xl"
-          rows={10}
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          className="resize-none mb-4 shadow-xl appearance-none rounded w-full py-5 px-3 text-gray-600 leading-tight focus:outline-none bg-white text-3xl"
+          rows={8}
         />
         <div className="flex items-center justify-around py-4">
           <h2 className="text-2xl text-center">Do you recommend this game?</h2>
@@ -85,7 +105,9 @@ const ReviewForm = () => {
             </button>
           ))}
           <Button
-            className="bg-gray-800 shadow-md hover:bg-gray-900 text-white font-bold py-3 px-4 rounded focus:outline-none text-3xl"
+            className={`bg-gray-800 shadow-md hover:bg-gray-900 text-white font-bold py-3 px-4 rounded focus:outline-none text-3xl ${
+              submiting ? 'cursor-not-allowed opacity-25' : ''
+            }`}
             type="button"
             onClick={onRecommendationSubmit}
           >

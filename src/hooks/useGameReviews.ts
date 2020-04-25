@@ -10,6 +10,8 @@ export interface IGameReview {
   user: IUser
   text: string
   recommended: number
+  createdAt: string
+  updatedAt: string
 }
 
 export interface IGameReviewsDetails {

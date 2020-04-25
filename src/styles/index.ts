@@ -14,7 +14,7 @@ export const Button = styled.button`
 `
 
 export const LayoutHeader = styled.nav`
-  position: sticky;
+  position: fixed;
   max-height: 12vh;
   width: 100%;
   z-index: 20;
