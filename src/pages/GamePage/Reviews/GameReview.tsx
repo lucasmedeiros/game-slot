@@ -13,23 +13,33 @@ interface GameReviewProps {
   review: IGameReview
 }
 
-const getRecommendationValue = (value: number): { icon: IconProp } => {
+const getRecommendationValue = (
+  value: number
+): { icon: IconProp; title: string; bgClassName: string } => {
   switch (value) {
     case RECOMMENDED_YES:
       return {
         icon: 'thumbs-up',
+        title: 'Recommended',
+        bgClassName: 'bg-blue-900',
       }
     case RECOMMENDED_NO:
       return {
         icon: 'thumbs-down',
+        title: 'Not Recommended',
+        bgClassName: 'bg-red-900',
       }
     case RECOMMENDED_MEH:
       return {
         icon: 'meh',
+        title: 'Partially Recommended',
+        bgClassName: 'bg-yellow-600',
       }
     default:
       return {
         icon: 'thumbs-up',
+        title: 'Recommended',
+        bgClassName: 'bg-blue-900',
       }
   }
 }
@@ -42,7 +52,7 @@ const GameReview: React.FC<GameReviewProps> = ({ review }) => {
       <div className="flex items-center py-5">
         <div
           className="mr-5 rounded-full overflow-hidden text-white"
-          style={{ width: '2.5rem', height: '2.5rem' }}
+          style={{ width: '3rem', height: '3rem' }}
         >
           <button>
             <img src={AvatarPlaceholder} alt="User" />
@@ -52,14 +62,16 @@ const GameReview: React.FC<GameReviewProps> = ({ review }) => {
         <p className="pl-2 text-gray-500">
           {new Date(createdAt).toLocaleDateString()}
         </p>
+        <div
+          className={`ml-3 flex text-white rounded p-4 items-center ${recomendationValue.bgClassName}`}
+        >
+          <p className="mr-5">
+            <FontAwesomeIcon icon={recomendationValue.icon} size="2x" />
+          </p>
+          <p>{recomendationValue.title}</p>
+        </div>
       </div>
-      <div className="flex bg-white items-start justify-start rounded pl-3 pr-5 py-8 text-gray-800">
-        <p className="mr-5 text-gray-400">
-          <FontAwesomeIcon
-            icon={recomendationValue.icon}
-            size="2x"
-          ></FontAwesomeIcon>
-        </p>
+      <div className="flex bg-white items-start justify-start rounded text-xl px-8 py-4 text-gray-800">
         {text}
       </div>
     </article>

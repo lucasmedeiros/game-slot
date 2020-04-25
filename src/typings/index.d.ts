@@ -41,4 +41,8 @@ interface SliderContextType {
   elementRef: any
 }
 
+interface DefaultLocation {
+  from: string
+}
+
 type RecommendationValue = 'yes' | 'no' | 'meh' | undefined

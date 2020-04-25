@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Redirect, Link } from 'react-router-dom'
+import { Redirect, Link, useLocation } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import useAuth from '../../hooks/useAuth'
 import { setUser } from '../../store/user/actions'
@@ -11,6 +11,7 @@ const Login: React.FC = () => {
   const [emailError, setEmailError] = useState<string>('')
   const [passError, setPassError] = useState<string>('')
   const dispatch = useDispatch()
+  const location = useLocation<DefaultLocation>()
 
   useEffect(() => {
     if (email) setEmailError('')
@@ -108,7 +109,7 @@ const Login: React.FC = () => {
       </form>
     </section>
   ) : (
-    <Redirect to="/" />
+    <Redirect to={location.state?.from ?? '/'} />
   )
 }
 

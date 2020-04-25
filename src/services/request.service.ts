@@ -10,12 +10,13 @@ interface RequestResponse {
   data: any
 }
 
-const user = getFromLocalStorage('user') as User | undefined
-
-const generateHeader = () => ({
-  Authorization: user ? `bearer ${user.token}` : undefined,
-  'Content-Type': 'application/json',
-})
+const generateHeader = () => {
+  const user = getFromLocalStorage('user') as User | undefined
+  return {
+    Authorization: user ? `Bearer ${user.token}` : undefined,
+    'Content-Type': 'application/json',
+  }
+}
 
 const request = async (
   url: string,

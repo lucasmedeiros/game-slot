@@ -45,8 +45,6 @@ const useReviewActions = (): ReviewActionsObject => {
 
     setSubmiting(false)
 
-    console.log(response.success)
-
     if (response.success) return response.data
 
     throw new Error(response.message)

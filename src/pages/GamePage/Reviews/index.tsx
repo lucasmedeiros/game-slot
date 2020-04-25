@@ -23,7 +23,7 @@ const Reviews: React.FC<ReviewsProps> = ({
         <h1 className="text-5xl font-bold">Reviews</h1>
         <div className="py-5 px-20">
           <ReviewForm gameId={gameId} updateReviews={update} />
-          <div className="border border-gray-500" />
+          <div className="border border-gray-600" />
           {reviewsResult?.reviews.docs.length ? (
             <Pagination
               result={reviewsResult.reviews}
@@ -35,7 +35,7 @@ const Reviews: React.FC<ReviewsProps> = ({
               ))}
             </Pagination>
           ) : (
-            <p className="text-2xl m-4 text-gray-500">
+            <p className="p-5 bg-gray-900 rounded text-2xl m-4 text-gray-500">
               This game doesn't have any reviews at this moment...
             </p>
           )}

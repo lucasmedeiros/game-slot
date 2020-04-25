@@ -39,7 +39,7 @@ const GamePage: React.FC = () => {
   }, [details])
 
   return (
-    <section className="mt-10">
+    <section>
       <GamePageHeader backgroundImage={image}>
         {loadingDetails ? (
           <ClipLoader size={50} color="white" />
