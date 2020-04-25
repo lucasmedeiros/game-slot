@@ -7,7 +7,7 @@ RECOMMENDATION_ENUM = {
 }
 
 module.exports = {
-  createUserReview: async function({ gameId, userId, text, recommend }) {
+  createUserReview: async function ({ gameId, userId, text, recommend }) {
     if (!userId) throw new Error(`user id not provided`)
     if (!gameId) throw new Error(`game steam id not provided`)
 
@@ -17,7 +17,7 @@ module.exports = {
     try {
       const reviewCreated = await Review.create({
         gameId,
-        userId,
+        user: userId,
         text,
         recommended: recommendationValue,
       })
@@ -28,7 +28,7 @@ module.exports = {
     }
   },
 
-  updateUserReview: async function({ reviewId, userId, text, recommend }) {
+  updateUserReview: async function ({ reviewId, userId, text, recommend }) {
     if (!userId) throw new Error(`user id not provided`)
     if (!reviewId) throw new Error(`review id not provided`)
 
@@ -37,7 +37,7 @@ module.exports = {
 
       if (!reviewToUpdate) throw new Error(`review not found`)
 
-      if (reviewToUpdate.userId.toString() === userId) {
+      if (reviewToUpdate.user.toString() === userId) {
         const body = {}
 
         if (recommend) {
@@ -58,7 +58,7 @@ module.exports = {
     }
   },
 
-  getUserReview: async function({ reviewId, userId }) {
+  getUserReview: async function ({ reviewId, userId }) {
     if (!userId) throw new Error(`user id not provided`)
     if (!reviewId) throw new Error(`review id not provided`)
 
@@ -67,14 +67,14 @@ module.exports = {
 
       if (!review) throw new Error(`review not found`)
 
-      if (review.userId.toString() === userId) return review
+      if (review.user.toString() === userId) return review
       else throw new Error(`you don't have the permission for this action`)
     } catch (error) {
       throw new Error(error.message)
     }
   },
 
-  deleteUserReview: async function({ reviewId, userId }) {
+  deleteUserReview: async function ({ reviewId, userId }) {
     if (!userId) throw new Error(`user id not provided`)
     if (!reviewId) throw new Error(`review id not provided`)
 
@@ -83,7 +83,7 @@ module.exports = {
 
       if (!review) throw new Error(`review not found`)
 
-      if (review.userId.toString() === userId) {
+      if (review.user.toString() === userId) {
         const reviewDeleted = await Review.findByIdAndDelete(reviewId)
         return reviewDeleted
       } else throw new Error(`you don't have the permission for this action`)
@@ -92,8 +92,11 @@ module.exports = {
     }
   },
 
-  getGameReviews: async function({ gameId, limit = 10, page = 1 }) {
+  getGameReviews: async function ({ gameId, limit = 10, page = 1 }) {
     if (!gameId) throw new Error(`game id not provided`)
+
+    limit = limit < 0 ? 10 : limit > 50 ? 50 : limit
+    page = Math.max(page, 1)
 
     try {
       const values = await Promise.all([
@@ -114,6 +117,7 @@ module.exports = {
           {
             page,
             limit,
+            populate: ['user', '-password'],
           }
         ),
       ])
