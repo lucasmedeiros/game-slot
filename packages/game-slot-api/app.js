@@ -25,6 +25,8 @@ app.use('/auth', auth)
 app.use('/review', review)
 app.use('/list', list)
 
-app.listen(host.port, () => {
-  console.log(`Server listening on port ${host.baseUrl}:${host.port}`)
-})
+if (host.production) app.listen(host.port)
+else
+  app.listen(host.port, () => {
+    console.log(`Server listening on port ${host.baseUrl}:${host.port}`)
+  })

@@ -118,6 +118,9 @@ module.exports = {
             page,
             limit,
             populate: ['user', '-password'],
+            sort: {
+              createdAt: -1,
+            },
           }
         ),
       ])

@@ -13,7 +13,7 @@ config.jwt = {
 
 config.host = {
   baseUrl: process.env.SERVER_BASE_URL || 'http://localhost',
-  port: port || process.env.SERVER_PORT || DEFAULT_SERVER_PORT,
+  port: port || process.env.PORT || DEFAULT_SERVER_PORT,
   production: process.env.NODE_ENV === 'production',
 }
 
