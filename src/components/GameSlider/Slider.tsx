@@ -21,7 +21,7 @@ const GameSlider: React.FC<GameSliderProps> = ({ children, title }) => {
 
   return (
     <>
-      <h1 className="text-white ml-4">{title}</h1>
+      <h1 className="text-white ml-4 text-2xl pt-2">{title}</h1>
       <section className="game-slider px-4">
         <div className={swiperContainerName}>
           <div className={swiperWrapperName}>

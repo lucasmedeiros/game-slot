@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import Swiper from 'swiper'
 
-const SECTION_SIZE = 5
+const SECTION_SIZE = 4
 
 interface GameSwiperObject {
   swiperContainerName: string
