@@ -13,11 +13,11 @@ interface ReviewActionsObject {
     text?: string
   }) => Promise<any>
   update: ({
-    gameId,
+    reviewId,
     recommendation,
     text,
   }: {
-    gameId: string
+    reviewId: string
     recommendation: RecommendationValue
     text?: string
   }) => Promise<any>
@@ -51,17 +51,17 @@ const useReviewActions = (): ReviewActionsObject => {
   }
 
   const update = async ({
-    gameId,
+    reviewId,
     recommendation,
     text,
   }: {
-    gameId: string
+    reviewId: string
     recommendation: RecommendationValue
     text?: string
   }) => {
     setSubmiting(true)
 
-    const response = await callAPI(`review/${gameId}`, 'PUT', {
+    const response = await callAPI(`review/${reviewId}`, 'PUT', {
       recommendation: recommendation,
       text: text,
     })

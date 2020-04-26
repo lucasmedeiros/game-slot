@@ -1,10 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import { Button } from '../../../styles'
 import useReviewActions from '../../../hooks/useReviewActions'
-import useAuth from '../../../hooks/useAuth'
 import { Link, useLocation } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../../store'
+import useUserReview from '../../../hooks/useUserReview'
 
 interface IReviewButtons {
   value: RecommendationValue
@@ -29,10 +31,18 @@ interface ReviewFormProps {
 
 const ReviewForm: React.FC<ReviewFormProps> = ({ updateReviews, gameId }) => {
   const [recommendation, setRecommendation] = useState<RecommendationValue>()
-  const { create, submiting } = useReviewActions()
+  const { create, update, submiting } = useReviewActions()
   const [text, setText] = useState<string>()
-  const { isLoggedIn } = useAuth()
+  const { review, existingReview } = useUserReview(gameId)
+  const user = useSelector((state: RootState) => state.userReducer.user)
   const location = useLocation()
+
+  useEffect(() => {
+    if (review) {
+      setRecommendation(reviewButtons[review.recommended - 1].value)
+      setText(review.text)
+    }
+  }, [review])
 
   const getIcon = (value: RecommendationValue): IconProp => {
     switch (value) {
@@ -61,16 +71,24 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ updateReviews, gameId }) => {
     e.preventDefault()
 
     if (!recommendation) {
-      alert('Please, select one of the three options for rating this game')
+      alert(
+        'Please, select one of the three recommendation options for rating this game'
+      )
     } else if (!submiting) {
       try {
-        await create({
-          gameId,
-          recommendation,
-          text,
-        })
-        setText('')
-        setRecommendation(undefined)
+        if (!existingReview) {
+          await create({
+            gameId,
+            recommendation,
+            text,
+          })
+        } else {
+          await update({
+            reviewId: review?._id as string,
+            recommendation,
+            text,
+          })
+        }
         updateReviews(1)
       } catch (error) {
         alert(error.message)
@@ -80,7 +98,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ updateReviews, gameId }) => {
 
   return (
     <section className="text-white h-full py-10 flex flex-col justify-center">
-      {isLoggedIn ? (
+      {user ? (
         <form className="mb-4 rounded w-full md:w-100 flex flex-col">
           <textarea
             placeholder="Write your review..."
@@ -118,7 +136,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ updateReviews, gameId }) => {
               type="button"
               onClick={onRecommendationSubmit}
             >
-              SUBMIT REVIEW
+              {existingReview ? 'UPDATE' : 'SUBMIT'} REVIEW
             </Button>
           </div>
         </form>

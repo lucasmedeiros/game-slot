@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { LayoutHeader } from '../../../styles'
 import AvatarPlaceholder from '../../../assets/img/avatar.png'
@@ -15,12 +15,10 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ className, user }) => {
   const { logout } = useAuth()
   const dispatch = useDispatch()
-  const history = useHistory()
 
   const onLogout = () => {
     logout()
     dispatch(deleteUser())
-    history.push('/')
   }
 
   return (
@@ -37,12 +35,14 @@ const Header: React.FC<HeaderProps> = ({ className, user }) => {
       {user ? (
         <div className="flex items-center">
           <div className="flex flex-col items-end">
-            <p className="text-white mr-4">Olá, {user.user.name}</p>
+            <p className="text-white mr-4">
+              Hello, {user.user.name.split(' ')[0]}
+            </p>
             <button
               onClick={onLogout}
               className="text-white mr-4 text-xs hover:underline"
             >
-              Sair
+              Logout
             </button>
           </div>
           <div

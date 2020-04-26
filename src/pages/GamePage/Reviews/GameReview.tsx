@@ -71,9 +71,11 @@ const GameReview: React.FC<GameReviewProps> = ({ review }) => {
           <p>{recomendationValue.title}</p>
         </div>
       </div>
-      <div className="flex bg-white items-start justify-start rounded text-xl px-8 py-4 text-gray-800">
-        {text}
-      </div>
+      {text ? (
+        <div className="flex bg-white items-start justify-start rounded text-xl px-8 py-4 text-gray-800 mb-4">
+          {text}
+        </div>
+      ) : null}
     </article>
   )
 }
