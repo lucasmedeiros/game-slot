@@ -58,7 +58,7 @@ module.exports = {
     }
   },
 
-  getUserReview: async function ({ reviewId, userId }) {
+  getReview: async function ({ reviewId, userId }) {
     if (!userId) throw new Error(`user id not provided`)
     if (!reviewId) throw new Error(`review id not provided`)
 
@@ -69,6 +69,18 @@ module.exports = {
 
       if (review.user.toString() === userId) return review
       else throw new Error(`you don't have the permission for this action`)
+    } catch (error) {
+      throw new Error(error.message)
+    }
+  },
+
+  getUserReviewByGame: async function ({ userId, gameId }) {
+    if (!userId) throw new Error('user id not provided')
+    if (!gameId) throw new Error('game id not provided')
+
+    try {
+      const review = await Review.findOne({ gameId, user: userId })
+      return review
     } catch (error) {
       throw new Error(error.message)
     }

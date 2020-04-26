@@ -1,9 +1,10 @@
 const {
   createUserReview,
   updateUserReview,
-  getUserReview,
+  getReview,
   deleteUserReview,
   getGameReviews,
+  getUserReviewByGame,
 } = require('../services/review.service')
 
 module.exports = {
@@ -12,6 +13,9 @@ module.exports = {
     const { gameId, text, recommendation } = req.body
 
     try {
+      const existingReview = await getUserReviewByGame({ gameId, userId: _id })
+      if (existingReview)
+        throw new Error(`there's an existing review for this game from user ${_id}`)
       const review = await createUserReview({
         gameId,
         userId: _id,
@@ -47,7 +51,7 @@ module.exports = {
     const { id } = req.params
 
     try {
-      const review = await getUserReview({ reviewId: id, userId: _id })
+      const review = await getReview({ reviewId: id, userId: _id })
       return res.status(200).json(review)
     } catch (error) {
       return res.status(400).json({ error: error.message })
@@ -60,6 +64,18 @@ module.exports = {
 
     try {
       const reviews = await getGameReviews({ limit, page, gameId: id })
+      return res.status(200).json(reviews)
+    } catch (error) {
+      return res.status(400).json({ error: error.message })
+    }
+  },
+
+  getByUserAndGame: async function (req, res) {
+    const { _id } = req.user
+    const { gameId } = req.params
+
+    try {
+      const reviews = await getUserReviewByGame({ userId: _id, gameId })
       return res.status(200).json(reviews)
     } catch (error) {
       return res.status(400).json({ error: error.message })
