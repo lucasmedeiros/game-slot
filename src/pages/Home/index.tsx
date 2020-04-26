@@ -2,6 +2,7 @@ import React from 'react'
 import { GameSlider, GameSliderItem } from '../../components/GameSlider'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../store'
+import NotLoggedHome from './NotLoggedHome'
 
 const Home: React.FC = () => {
   const user = useSelector((state: RootState) => state.userReducer.user)
@@ -9,7 +10,7 @@ const Home: React.FC = () => {
     (state: RootState) => state.gameListReducer.gameLists
   )
   return (
-    <section>
+    <section className="w-full h-full justify-center items-center">
       {user?.user ? (
         lists.length ? (
           lists.map((list) => (
@@ -23,7 +24,7 @@ const Home: React.FC = () => {
           <p>Ainda não há listas de jogos cadastradas...</p>
         )
       ) : (
-        <p>Usuário não logado...</p>
+        <NotLoggedHome />
       )}
     </section>
   )
