@@ -1,64 +1,30 @@
 import React from 'react'
 import { GameSlider, GameSliderItem } from '../../components/GameSlider'
-
-const games: IGame[] = [
-  {
-    name: 'Stardew Valley',
-    steamAppId: '413150',
-    imageUrl:
-      'https://steamcdn-a.akamaihd.net/steam/apps/413150/header.jpg?t=1583864420',
-  },
-  {
-    name: 'Terraria',
-    steamAppId: '105600',
-    imageUrl:
-      'https://steamcdn-a.akamaihd.net/steam/apps/105600/header.jpg?t=1583864420',
-  },
-  {
-    name: 'Hollow Knight: Silksong',
-    steamAppId: '1030300',
-    imageUrl:
-      'https://steamcdn-a.akamaihd.net/steam/apps/1030300/header.jpg?t=1583864420',
-  },
-  {
-    name: 'Hollow Knight',
-    steamAppId: '367520',
-    imageUrl:
-      'https://steamcdn-a.akamaihd.net/steam/apps/367520/header.jpg?t=1583864420',
-  },
-  {
-    name: 'The Elder Scrolls V: Skyrim',
-    steamAppId: '72850',
-    imageUrl:
-      'https://steamcdn-a.akamaihd.net/steam/apps/72850/header.jpg?t=1583864420',
-  },
-  {
-    name: 'The Elder Scrolls® Online',
-    steamAppId: '306130',
-    imageUrl:
-      'https://steamcdn-a.akamaihd.net/steam/apps/306130/header.jpg?t=1583864420',
-  },
-  {
-    name: 'Path of Exile',
-    steamAppId: '238960',
-    imageUrl:
-      'https://steamcdn-a.akamaihd.net/steam/apps/238960/header.jpg?t=1583864420',
-  },
-]
+import { useSelector } from 'react-redux'
+import { RootState } from '../../store'
 
 const Home: React.FC = () => {
+  const user = useSelector((state: RootState) => state.userReducer.user)
+  const lists = useSelector(
+    (state: RootState) => state.gameListReducer.gameLists
+  )
   return (
     <section>
-      <GameSlider title="Games I've played">
-        {games.map((game, key) => (
-          <GameSliderItem key={key} game={game} />
-        ))}
-      </GameSlider>
-      <GameSlider title="Games I want to play">
-        {games.map((game, key) => (
-          <GameSliderItem key={key} game={game} />
-        ))}
-      </GameSlider>
+      {user?.user ? (
+        lists.length ? (
+          lists.map((list) => (
+            <GameSlider key={list._id} title={list.name}>
+              {list.games.map((game, key) => (
+                <GameSliderItem key={key} game={game} />
+              ))}
+            </GameSlider>
+          ))
+        ) : (
+          <p>Ainda não há listas de jogos cadastradas...</p>
+        )
+      ) : (
+        <p>Usuário não logado...</p>
+      )}
     </section>
   )
 }

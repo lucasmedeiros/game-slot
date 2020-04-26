@@ -25,6 +25,14 @@ interface User {
   token: string
 }
 
+interface GameList {
+  _id: string
+  games: IGame[]
+  name: string
+  userId: string
+  __v: number
+}
+
 interface PaginatedResult<T> {
   docs: T[]
   page: number

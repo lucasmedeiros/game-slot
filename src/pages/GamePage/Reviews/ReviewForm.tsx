@@ -33,8 +33,8 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ updateReviews, gameId }) => {
   const [recommendation, setRecommendation] = useState<RecommendationValue>()
   const { create, update, submiting } = useReviewActions()
   const [text, setText] = useState<string>()
-  const { review, existingReview } = useUserReview(gameId)
   const user = useSelector((state: RootState) => state.userReducer.user)
+  const { review, existingReview } = useUserReview(gameId, user?.user)
   const location = useLocation()
 
   useEffect(() => {
