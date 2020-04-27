@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ClipLoader } from 'react-spinners'
 import useGameSearch from '../../hooks/useGameSearch'
+import ScreenImage from '../../assets/svg/search_screen_image.svg'
 import SearchResult from './SearchResult'
 
 const Search: React.FC = () => {
@@ -16,8 +17,12 @@ const Search: React.FC = () => {
       <div className="flex flex-col justify-center items-center h-full">
         {!searchTerm ? (
           <div className="flex items-center flex-col justify-center w-full text-white text-5xl">
-            <FontAwesomeIcon icon="search" size="1x" />
-            <p className="mt-5">Search for games above</p>
+            <img
+              src={ScreenImage}
+              alt="Search screen"
+              style={{ width: '200px' }}
+            />
+            <p className="mt-5 text-center">Search for games above</p>
           </div>
         ) : loading ? (
           <ClipLoader size={50} color="white" />

@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import devices from './devices'
 
 interface GamePageHeaderProps {
   backgroundImage?: string
@@ -15,7 +16,6 @@ export const Button = styled.button`
 
 export const LayoutHeader = styled.nav`
   position: fixed;
-  max-height: 12vh;
   width: 100%;
   z-index: 20;
   display: flex;
@@ -40,13 +40,18 @@ export const GamePageHeader = styled.header`
   background-size: cover;
   display: flex;
   justify-content: space-around;
-  padding: 0 1.5em;
+  padding: 1.5rem 0;
   align-items: center;
-  flex-direction: row;
+  flex-direction: column;
   width: 100%;
-  height: 91vh;
+  min-height: 91vh;
   box-shadow: inset 10px 10px 100px 1000px rgba(0, 0, 0, 0.6);
   z-index: -1;
+
+  @media ${devices.tablet} {
+    flex-direction: row-reverse;
+    padding: 1.5rem;
+  }
 `
 
 export const Grid = styled.section`

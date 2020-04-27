@@ -1,10 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, memo } from 'react'
 import { useHistory } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useDebounce } from '../../../hooks/useDebounce'
 
-const HeaderSearch = () => {
+interface HeaderSearchProps {
+  className?: string
+}
+
+const HeaderSearch: React.FC<HeaderSearchProps> = ({ className }) => {
   const [searchTerm, setSearchTerm] = useState<string>('')
   const searchDebounceValue = useDebounce(searchTerm, 500)
   const history = useHistory()
@@ -27,16 +31,15 @@ const HeaderSearch = () => {
   }
 
   return (
-    <form className="flex" onSubmit={onFormSubmit}>
-      <div className="flex items-center rounded ml-5 px-3 bg-gray-800 leading-tight">
+    <form className={`flex ${className}`} onSubmit={onFormSubmit}>
+      <div className="flex items-center rounded px-3 bg-gray-800 leading-tight">
         <input
           type="text"
           name="search"
           value={searchTerm}
           autoComplete="off"
           onChange={onSearchInputChange}
-          style={{ minWidth: '350px' }}
-          className="appearance-none placeholder-white text-white leading-tight text-lg focus:outline-none bg-gray-800"
+          className="appearance-none placeholder-white text-white leading-tight text-lg focus:outline-none bg-gray-800 w-64"
           placeholder="Browse games..."
         />
         <button
@@ -49,11 +52,14 @@ const HeaderSearch = () => {
           <FontAwesomeIcon icon="times-circle" />
         </button>
       </div>
-      <button type="submit" className="bg-gray-800 py-2 px-5 ml-5 rounded">
+      <button
+        type="submit"
+        className="bg-gray-800 py-2 px-5 ml-5 rounded hidden md:block"
+      >
         <FontAwesomeIcon icon="search" color="white" size="1x" />
       </button>
     </form>
   )
 }
 
-export default HeaderSearch
+export default memo(HeaderSearch)

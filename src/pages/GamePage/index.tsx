@@ -45,12 +45,12 @@ const GamePage: React.FC = () => {
           <ClipLoader size={50} color="white" />
         ) : !error ? (
           <>
+            <GamePageTrailer details={details} />
             <GamePageDetails
               details={details}
               count={reviewsResult?.count}
               openModal={show}
             />
-            <GamePageTrailer details={details} />
           </>
         ) : (
           <GamePageNotFound error={error} />

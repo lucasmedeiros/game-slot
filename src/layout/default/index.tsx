@@ -18,7 +18,6 @@ const DefaultLayout: React.FC<RouteComponentProps<
 >> = () => {
   const user = useSelector((state: RootState) => state.userReducer.user)
   const dispatch = useDispatch()
-
   useEffect(() => {
     getGameLists(user?.user).then((lists) => dispatch(setGameLists(lists)))
   }, [dispatch, user])

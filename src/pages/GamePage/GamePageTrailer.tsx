@@ -7,10 +7,7 @@ interface GamePageTrailerProps {
 
 const GamePageTrailer: React.FC<GamePageTrailerProps> = ({ details }) => {
   return details?.movies?.length ? (
-    <div
-      className="flex items-center justify-center text-center p-3"
-      style={{ width: '50vw' }}
-    >
+    <div className="flex items-center justify-center text-center p-3 md:w-1/2">
       <VideoPlayer
         url={details?.movies ? details.movies[0] : ''}
         width={90}

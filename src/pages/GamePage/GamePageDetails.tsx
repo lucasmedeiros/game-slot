@@ -1,6 +1,5 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Button } from '../../styles'
 import { arrayUnique } from '../../utils'
 
 interface GamePageDetailsProps {
@@ -26,11 +25,11 @@ const GamePageDetails: React.FC<GamePageDetailsProps> = ({
     }
   }
   return (
-    <div className="flex flex-col items-center" style={{ width: '50vw' }}>
-      <h1 className="text-white text-center font-black text-5xl">
+    <div className="flex flex-col items-center md:w-1/2">
+      <h1 className="text-white text-center px-2 md:p-0 mb-2 font-black text-4xl md:text-5xl">
         {details?.game.name}
       </h1>
-      <p className="text-white w-80 text-center text-2xl">
+      <p className="text-white w-80 px-5 md:p-0 text-center text-2xl">
         {details?.description}
       </p>
       <p className="text-blue-400 py-4 font-bold text-center text-xl">
@@ -56,19 +55,19 @@ const GamePageDetails: React.FC<GamePageDetailsProps> = ({
         </p>
         <p className="px-3 font-black">{count?.negative}</p>
       </div>
-      <div className="flex p-4 justify-center items-center">
-        <Button
-          className="text-white bg-blue-600 hover:bg-blue-700 py-4 px-3 rounded"
+      <div className="flex flex-col md:flex-row p-4 justify-center items-center">
+        <button
+          className="text-white rounded w-64 bg-blue-600 hover:bg-blue-700 py-4 px-3 md:w-40 lg:w-64"
           onClick={openModal}
         >
           Add to list...
-        </Button>
-        <Button
-          className="text-white bg-red-600 hover:bg-red-700 py-4 px-3 ml-2 rounded"
+        </button>
+        <button
+          className="text-white rounded w-64 mt-3 bg-red-600 hover:bg-red-700 py-4 px-3 md:ml-2 md:mt-0 md:w-40 lg:w-64"
           onClick={openOnSteam}
         >
           View on Steam
-        </Button>
+        </button>
       </div>
     </div>
   )

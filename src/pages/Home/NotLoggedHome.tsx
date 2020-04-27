@@ -1,5 +1,5 @@
 import React from 'react'
-import ScreenImage from '../../assets/svg/home_screen_image2.svg'
+import ScreenImage from '../../assets/svg/home_screen_image.svg'
 import { useHistory } from 'react-router-dom'
 
 const NotLoggedHome: React.FC = () => {
@@ -24,23 +24,23 @@ const NotLoggedHome: React.FC = () => {
           />
           <h1 className="mt-6 text-3xl sm:text-5xl font-bold text-white leading-tight">
             Browse and create lists of your <br className="" />
-            <span className="text-indigo-400">favorite games!</span>
+            <span className="text-yellow-500">favorite games!</span>
           </h1>
           <p className="mt-5 text-white sm:text-xl">
             With Game Slot, you can review games you've played on Steam, read
             other people opinions, create a personal wishlist with the games
             you're willing to play and build a lovely community of game lovers!
           </p>
-          <div className="flex">
+          <div className="flex mt-5">
             <button
               onClick={goToSearchPage}
-              className="mt-5 p-3 w-56 font-bold text-2xl rounded bg-blue-600 text-white"
+              className="p-3 w-32 md:w-56 font-bold md:text-2xl rounded bg-blue-600 text-white"
             >
               Browse now
             </button>
             <button
               onClick={goToLoginPage}
-              className="mt-5 p-3 w-56 ml-5 font-bold text-2xl rounded bg-red-600 text-white"
+              className="p-3 w-32 md:w-56 ml-5 font-bold md:text-2xl rounded bg-red-600 text-white"
             >
               Sign in
             </button>
