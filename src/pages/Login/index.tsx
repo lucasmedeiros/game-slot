@@ -39,10 +39,9 @@ const Login: React.FC = () => {
   }
 
   return !isLoggedIn ? (
-    <section className="w-full h-full flex items-center justify-center">
+    <section className="w-full flex items-center justify-center">
       <form
-        className="bg-white m-20 px-8 pt-6 pb-8 mb-4 rounded"
-        style={{ width: '50%' }}
+        className="bg-gray-200 w-full mt-5 mx-3 md:mx-0 md:w-1/2 px-3 py-2 md:px-8 md:py-6 rounded"
         onSubmit={onLogin}
       >
         <div className="mb-4">
@@ -89,7 +88,7 @@ const Login: React.FC = () => {
           )}
         </div>
         {error && <p className="text-red-500 mb-4 text-xs italic">{error}</p>}
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col md:flex-row items-center justify-between">
           <button
             onClick={onLogin}
             className={`bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${
@@ -100,7 +99,7 @@ const Login: React.FC = () => {
             Sign In
           </button>
           <Link
-            className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
+            className="inline-block mt-3 md:mt-0 align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
             to="/"
           >
             Create account

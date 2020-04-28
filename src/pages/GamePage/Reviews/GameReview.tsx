@@ -49,21 +49,23 @@ const GameReview: React.FC<GameReviewProps> = ({ review }) => {
   const recomendationValue = getRecommendationValue(recommended)
   return (
     <article className="py-4">
-      <div className="flex items-center py-5">
-        <div
-          className="mr-5 rounded-full overflow-hidden text-white"
-          style={{ width: '3rem', height: '3rem' }}
-        >
-          <button>
-            <img src={AvatarPlaceholder} alt="User" />
-          </button>
+      <div className="flex flex-col md:flex-row items-center py-5">
+        <div className="flex items-center mb-4 md:mb-0">
+          <div
+            className="mr-2 md:mr-5 rounded-full overflow-hidden text-white"
+            style={{ width: '3rem', height: '3rem' }}
+          >
+            <button>
+              <img src={AvatarPlaceholder} alt="User" />
+            </button>
+          </div>
+          <p className="font-bold text-lg">{user.name} </p>
+          <p className="md:pl-2 text-xs md:text-base text-gray-500">
+            {new Date(createdAt).toLocaleDateString()}
+          </p>
         </div>
-        <p className="font-bold text-lg">{user.name} </p>
-        <p className="pl-2 text-gray-500">
-          {new Date(createdAt).toLocaleDateString()}
-        </p>
         <div
-          className={`ml-3 flex text-white rounded p-4 items-center ${recomendationValue.bgClassName}`}
+          className={`md:ml-3 w-full md:w-auto flex text-white rounded p-4 items-center ${recomendationValue.bgClassName}`}
         >
           <p className="mr-5">
             <FontAwesomeIcon icon={recomendationValue.icon} size="2x" />

@@ -21,7 +21,7 @@ const Reviews: React.FC<ReviewsProps> = ({
     <article className="w-full p-5">
       <div className="bg-gray-700 text-white p-5 w-full h-full rounded">
         <h1 className="text-5xl font-bold">Reviews</h1>
-        <div className="py-5 px-20">
+        <div className="md:py-5 md:px-20">
           <ReviewForm gameId={gameId} updateReviews={update} />
           <div className="border border-gray-600" />
           {reviewsResult?.reviews.docs.length ? (

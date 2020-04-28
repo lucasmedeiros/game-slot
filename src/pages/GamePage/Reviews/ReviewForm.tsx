@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
-import { Button } from '../../../styles'
 import useReviewActions from '../../../hooks/useReviewActions'
 import { Link, useLocation } from 'react-router-dom'
 import { useSelector } from 'react-redux'
@@ -104,40 +103,53 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ updateReviews, gameId }) => {
             placeholder="Write your review..."
             value={text}
             onChange={(e) => setText(e.target.value)}
-            className="resize-none mb-4 shadow-xl appearance-none rounded w-full py-5 px-3 text-gray-600 leading-tight focus:outline-none bg-white text-3xl"
+            className="resize-none mb-4 shadow-xl appearance-none rounded w-full py-5 px-3 text-gray-600 leading-tight focus:outline-none bg-white text-xl md:text-3xl"
             rows={8}
           />
-          <div className="flex items-center justify-around py-4">
-            <h2 className="text-2xl text-center">
+          <div className="flex flex-col xl:flex-row items-center justify-around py-4">
+            <h2 className="text-xl lg:text-2xl text-center">
               Do you recommend this game?
             </h2>
-            {reviewButtons.map((rvb, index) => (
+            <div className="my-3 lg:my-0">
+              {reviewButtons.map((rvb, index) => (
+                <button
+                  className={`rounded py-4 px-4 ${
+                    recommendation === rvb.value
+                      ? 'bg-gray-900'
+                      : 'hover:bg-gray-800'
+                  }`}
+                  style={{ minWidth: '5vw' }}
+                  onClick={(e) => onRecommendationChange(e, rvb.value)}
+                  key={index}
+                >
+                  <FontAwesomeIcon
+                    icon={getIcon(rvb.value)}
+                    color="#fff"
+                    size="2x"
+                  />
+                </button>
+              ))}
+            </div>
+            <div className="flex flex-col w-full lg:mt-4 xl:mt-0 md:w-auto md:flex-row">
               <button
-                className={`rounded py-4 px-4 ${
-                  recommendation === rvb.value
-                    ? 'bg-gray-900'
-                    : 'hover:bg-gray-800'
+                className={`w-full md:w-auto bg-gray-800 shadow-lg hover:bg-gray-900 text-white font-bold py-3 px-4 rounded focus:outline-none text-xl md:text-3xl ${
+                  submiting ? 'cursor-not-allowed opacity-25' : ''
                 }`}
-                style={{ minWidth: '10vw' }}
-                onClick={(e) => onRecommendationChange(e, rvb.value)}
-                key={index}
+                type="button"
+                onClick={onRecommendationSubmit}
               >
-                <FontAwesomeIcon
-                  icon={getIcon(rvb.value)}
-                  color="#fff"
-                  size="2x"
-                />
+                {existingReview ? 'UPDATE' : 'SUBMIT'} REVIEW
               </button>
-            ))}
-            <Button
-              className={`bg-gray-800 shadow-md hover:bg-gray-900 text-white font-bold py-3 px-4 rounded focus:outline-none text-3xl ${
-                submiting ? 'cursor-not-allowed opacity-25' : ''
-              }`}
-              type="button"
-              onClick={onRecommendationSubmit}
-            >
-              {existingReview ? 'UPDATE' : 'SUBMIT'} REVIEW
-            </Button>
+              {existingReview && (
+                <button
+                  className="w-full md:w-auto mt-3 md:mt-0 md:ml-3 bg-red-600 shadow-md hover:bg-red-800 text-white font-bold py-3 px-4 rounded focus:outline-none text-xl md:text-3xl"
+                  type="button"
+                  onClick={onRecommendationSubmit}
+                >
+                  DELETE REVIEW
+                </button>
+              )}
+            </div>
           </div>
         </form>
       ) : (

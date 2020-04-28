@@ -29,7 +29,9 @@ const Search: React.FC = () => {
         ) : error || !searchResult?.docs.length ? (
           <>
             <FontAwesomeIcon icon="times-circle" size="2x" />
-            <p className="mt-5">0 results match your search</p>
+            <p className="mt-5 text-center">
+              {error || '0 results match your search'}
+            </p>
           </>
         ) : (
           <SearchResult result={searchResult} refresh={update} />
