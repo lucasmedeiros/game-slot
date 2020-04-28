@@ -21,13 +21,13 @@ const getRecommendationValue = (
       return {
         icon: 'thumbs-up',
         title: 'Recommended',
-        bgClassName: 'bg-blue-900',
+        bgClassName: 'bg-blue-500',
       }
     case RECOMMENDED_NO:
       return {
         icon: 'thumbs-down',
         title: 'Not Recommended',
-        bgClassName: 'bg-red-900',
+        bgClassName: 'bg-red-600',
       }
     case RECOMMENDED_MEH:
       return {
@@ -65,7 +65,7 @@ const GameReview: React.FC<GameReviewProps> = ({ review }) => {
           </p>
         </div>
         <div
-          className={`md:ml-3 w-full md:w-auto flex text-white rounded p-4 items-center ${recomendationValue.bgClassName}`}
+          className={`md:ml-3 font-bold w-full md:w-auto flex text-white rounded p-4 items-center ${recomendationValue.bgClassName}`}
         >
           <p className="mr-5">
             <FontAwesomeIcon icon={recomendationValue.icon} size="2x" />
