@@ -63,7 +63,7 @@ const useReviewActions = (): ReviewActionsObject => {
 
     const response = await callAPI(`review/${reviewId}`, 'PUT', {
       recommendation: recommendation,
-      text: text,
+      text,
     })
 
     setSubmiting(false)

@@ -6,6 +6,7 @@ import { callAPI } from '../services/request.service'
 interface ObjectUserReview {
   loading: boolean
   existingReview: boolean
+  update: () => void
   review: IGameReview | null
 }
 
@@ -27,6 +28,10 @@ const useUserReview = (
     setLoading(false)
   }
 
+  const update = () => {
+    getUserReview()
+  }
+
   useEffect(() => {
     getUserReview()
   }, [gameId, ...deps])
@@ -35,6 +40,7 @@ const useUserReview = (
     loading,
     existingReview,
     review,
+    update,
   }
 }
 

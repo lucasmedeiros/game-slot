@@ -9,7 +9,7 @@ interface ConfigOptions {
 
 const config: ConfigOptions = {
   development: {
-    apiURL: 'http://192.168.1.4:8000',
+    apiURL: 'http://192.168.1.8:8000',
   },
   production: {
     apiURL: `${process.env.REACT_APP_API_URL}`,
