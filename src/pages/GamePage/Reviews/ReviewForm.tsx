@@ -100,14 +100,14 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ updateReviews, gameId }) => {
   }
 
   return (
-    <section className="text-white h-full py-10 flex flex-col justify-center">
+    <section className="text-white h-full flex flex-col justify-center">
       {user ? (
-        <form className="mb-4 rounded w-full md:w-100 flex flex-col">
+        <form className="mb-4 md:py-5 md:px-20 rounded w-full md:w-100 flex flex-col">
           <textarea
             placeholder="Write your review..."
             value={text}
             onChange={(e) => setText(e.target.value)}
-            className="resize-none mb-4 shadow-xl appearance-none rounded w-full py-5 px-3 text-gray-600 leading-tight focus:outline-none bg-gray-900 text-xl md:text-3xl"
+            className="resize-none mb-4 shadow-xl appearance-none rounded w-full py-5 px-3 text-gray-400 leading-tight focus:outline-none bg-dark-600 text-xl md:text-3xl"
             rows={8}
           />
           <div className="flex flex-col xl:flex-row items-center justify-around py-4">
@@ -119,8 +119,8 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ updateReviews, gameId }) => {
                 <button
                   className={`rounded py-4 px-4 ${
                     recommendation === rvb.value
-                      ? 'bg-gray-900'
-                      : 'hover:bg-gray-900'
+                      ? 'bg-dark-900'
+                      : 'hover:bg-dark-900'
                   }`}
                   style={{ minWidth: '5vw' }}
                   onClick={(e) => onRecommendationChange(e, rvb.value)}
@@ -136,7 +136,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ updateReviews, gameId }) => {
             </div>
             <div className="flex flex-col w-full lg:mt-4 xl:mt-0 md:w-auto md:flex-row">
               <button
-                className={`w-full md:w-auto bg-blue-900 shadow-lg hover:bg-gray-900 text-white font-bold py-3 px-4 rounded focus:outline-none text-xl md:text-3xl ${
+                className={`w-full md:w-auto bg-blue-900 shadow-lg hover:bg-blue-800 text-white font-bold py-3 px-4 rounded focus:outline-none text-xl md:text-3xl ${
                   submiting ? 'cursor-not-allowed opacity-25' : ''
                 }`}
                 type="button"
@@ -146,7 +146,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ updateReviews, gameId }) => {
               </button>
               {existingReview && (
                 <button
-                  className="w-full md:w-auto mt-3 md:mt-0 md:ml-3 bg-red-600 shadow-md hover:bg-red-800 text-white font-bold py-3 px-4 rounded focus:outline-none text-xl md:text-3xl"
+                  className="w-full md:w-auto mt-3 md:mt-0 md:ml-3 bg-red-700 shadow-md hover:bg-red-600 text-white font-bold py-3 px-4 rounded focus:outline-none text-xl md:text-3xl"
                   type="button"
                   onClick={onRecommendationSubmit}
                 >
@@ -157,11 +157,11 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ updateReviews, gameId }) => {
           </div>
         </form>
       ) : (
-        <div className="w-full flex items-center justify-center text-3xl">
+        <div className="w-full p-5 flex text-2xl">
           <p>
             <Link
               to={{ pathname: '/login', state: { from: location.pathname } }}
-              className="text-blue-300"
+              className="text-red-400"
             >
               Sign in
             </Link>{' '}

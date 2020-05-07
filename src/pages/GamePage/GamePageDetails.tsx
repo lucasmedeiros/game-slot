@@ -57,13 +57,13 @@ const GamePageDetails: React.FC<GamePageDetailsProps> = ({
       </div>
       <div className="flex flex-col md:flex-row p-4 justify-center items-center">
         <button
-          className="text-white rounded w-64 bg-blue-600 hover:bg-blue-700 py-4 px-3 md:w-40 lg:w-64"
+          className="text-white rounded w-64 bg-blue-700 py-4 px-3 md:w-40 lg:w-64"
           onClick={openModal}
         >
           Add to list...
         </button>
         <button
-          className="text-white rounded w-64 mt-3 bg-red-600 hover:bg-red-700 py-4 px-3 md:ml-2 md:mt-0 md:w-40 lg:w-64"
+          className="text-white rounded w-64 mt-3 bg-red-600 py-4 px-3 md:ml-2 md:mt-0 md:w-40 lg:w-64"
           onClick={openOnSteam}
         >
           View on Steam

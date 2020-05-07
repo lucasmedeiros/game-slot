@@ -30,7 +30,7 @@ const Header: React.FC<HeaderProps> = ({ className, user }) => {
 
   return (
     <LayoutHeader
-      className={`bg-gray-900 flex items-center justify-between flex-wrap p-2 ${className}`}
+      className={`bg-dark-900 flex items-center justify-between flex-wrap p-2 ${className}`}
     >
       <div className="flex items-center flex-shrink-0 text-white mr-6">
         <button onClick={goToHome} className="font-bold text-2xl md:text-xl">
@@ -46,7 +46,7 @@ const Header: React.FC<HeaderProps> = ({ className, user }) => {
       </button>
 
       <div
-        className={`flex flex-1 m-0 p-5 items-start md:p-0 md:flex md:items-center md:relative bg-gray-900 ${
+        className={`flex flex-1 m-0 p-5 items-start md:p-0 md:flex md:items-center md:relative bg-dark-900 ${
           navOpen ? 'hidden' : ''
         }`}
       >
@@ -76,7 +76,7 @@ const Header: React.FC<HeaderProps> = ({ className, user }) => {
             </div>
           ) : (
             <Link
-              className="text-white bg-gray-800 py-2 px-4 mr-2 rounded"
+              className="text-white bg-red-700 py-2 px-4 mr-2 rounded"
               to="/login"
             >
               Login

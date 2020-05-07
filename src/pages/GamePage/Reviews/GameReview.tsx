@@ -8,9 +8,11 @@ import {
   RECOMMENDED_NO,
   RECOMMENDED_MEH,
 } from '../../../constants'
+import BreakLine from '../../../components/BreakLine'
 
 interface GameReviewProps {
   review: IGameReview
+  showLineBreak?: boolean
 }
 
 const getRecommendationValue = (
@@ -44,7 +46,10 @@ const getRecommendationValue = (
   }
 }
 
-const GameReview: React.FC<GameReviewProps> = ({ review }) => {
+const GameReview: React.FC<GameReviewProps> = ({
+  review,
+  showLineBreak = true,
+}) => {
   const { recommended, text, user, createdAt } = review
   const recomendationValue = getRecommendationValue(recommended)
   return (
@@ -74,10 +79,11 @@ const GameReview: React.FC<GameReviewProps> = ({ review }) => {
         </div>
       </div>
       {text ? (
-        <div className="flex bg-white items-start justify-start rounded text-xl px-8 py-4 text-gray-800 mb-4">
+        <div className="flex items-start justify-start rounded text-xl px-8 pb-8 text-white mb-4">
           {text}
         </div>
       ) : null}
+      {showLineBreak && <BreakLine />}
     </article>
   )
 }

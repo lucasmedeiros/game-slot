@@ -27,7 +27,7 @@ export const LayoutHeader = styled.nav`
 `
 
 export const ContentWrapper = styled.div`
-  background-color: #2d3748;
+  background-color: #1d1f22;
   height: 100%;
 `
 

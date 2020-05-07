@@ -32,14 +32,14 @@ const HeaderSearch: React.FC<HeaderSearchProps> = ({ className }) => {
 
   return (
     <form className={`flex ${className}`} onSubmit={onFormSubmit}>
-      <div className="flex items-center rounded px-3 bg-gray-800 leading-tight">
+      <div className="flex items-center rounded px-3 bg-dark-600 leading-tight">
         <input
           type="text"
           name="search"
           value={searchTerm}
           autoComplete="off"
           onChange={onSearchInputChange}
-          className="appearance-none placeholder-white text-white leading-tight text-lg focus:outline-none bg-gray-800 w-64"
+          className="appearance-none placeholder-white text-white leading-tight text-lg focus:outline-none bg-dark-600 w-64"
           placeholder="Browse games..."
         />
         <button
@@ -54,7 +54,7 @@ const HeaderSearch: React.FC<HeaderSearchProps> = ({ className }) => {
       </div>
       <button
         type="submit"
-        className="bg-gray-800 py-2 px-5 ml-5 rounded hidden md:block"
+        className="bg-red-700 py-2 px-5 ml-5 rounded hidden md:block"
       >
         <FontAwesomeIcon icon="search" color="white" size="1x" />
       </button>
