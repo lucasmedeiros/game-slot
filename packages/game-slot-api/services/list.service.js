@@ -50,6 +50,19 @@ module.exports = {
     }
   },
 
+  getList: async function ({ listId }) {
+    if (!listId) throw new Error(`list id not provided`)
+
+    try {
+      const list = await List.findOne({ _id: listId })
+
+      if (!list) throw new Error(`list not found`)
+      return list
+    } catch (error) {
+      throw new Error(error.message)
+    }
+  },
+
   deleteUserList: async function ({ userId, listId }) {
     if (!userId) throw new Error(`user id not provided`)
     if (!listId) throw new Error(`list id not provided`)

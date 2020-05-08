@@ -5,6 +5,7 @@ const {
   addGameToList,
   removeGameFromList,
   updateList,
+  getList,
 } = require('../services/list.service')
 
 module.exports = {
@@ -21,11 +22,21 @@ module.exports = {
   },
 
   get: async function (req, res) {
-    const { _id } = req.user
+    const { id } = req.params
 
     try {
-      const lists = await getUserLists({ userId: _id })
+      const lists = await getUserLists({ userId: id })
       return res.status(200).json(lists)
+    } catch (error) {
+      return res.status(400).json({ error: error.message })
+    }
+  },
+
+  getOne: async function (req, res) {
+    const { id } = req.params
+    try {
+      const list = await getList({ listId: id })
+      return res.status(200).json(list)
     } catch (error) {
       return res.status(400).json({ error: error.message })
     }
