@@ -39,14 +39,14 @@ const Login: React.FC = () => {
   }
 
   return !isLoggedIn ? (
-    <section className="w-full flex items-center justify-center">
+    <section className="w-full h-full flex items-center justify-center">
       <form
-        className="bg-gray-200 w-full mt-5 mx-3 md:mx-0 md:w-1/2 px-3 py-2 md:px-8 md:py-6 rounded"
+        className="bg-dark-700 w-full mt-5 mx-3 md:mx-0 md:w-1/2 px-3 py-2 md:px-8 md:py-6 rounded-lg"
         onSubmit={onLogin}
       >
         <div className="mb-4">
           <label
-            className="block text-gray-700 text-sm font-bold mb-2"
+            className="block text-gray-200 text-sm font-bold mb-2"
             htmlFor="email"
           >
             E-mail
@@ -54,11 +54,11 @@ const Login: React.FC = () => {
           <input
             className={`shadow appearance-none border ${
               emailError ? 'border-red-600' : ''
-            } rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
+            } border-dark-500 rounded placeholder-dark-300 w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-dark-600`}
             id="email"
             type="text"
             autoComplete="none"
-            placeholder="Email"
+            placeholder="johndoe@example.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -68,7 +68,7 @@ const Login: React.FC = () => {
         </div>
         <div className="mb-6">
           <label
-            className="block text-gray-700 text-sm font-bold mb-2"
+            className="block text-gray-200 text-sm font-bold mb-2"
             htmlFor="password"
           >
             Password
@@ -76,10 +76,10 @@ const Login: React.FC = () => {
           <input
             className={`shadow appearance-none border ${
               passError ? 'border-red-600' : ''
-            } rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline`}
+            } border-dark-500 rounded w-full placeholder-dark-300 py-2 px-3 text-white mb-3 leading-tight focus:outline-none focus:shadow-outline bg-dark-600`}
             id="password"
             type="password"
-            placeholder="Password"
+            placeholder="********"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
@@ -91,15 +91,15 @@ const Login: React.FC = () => {
         <div className="flex flex-col md:flex-row items-center justify-between">
           <button
             onClick={onLogin}
-            className={`bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${
-              loggingIn ? 'opacity-50 cursor-not-allowed' : 'hover:bg-blue-700'
+            className={`bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${
+              loggingIn ? 'opacity-50 cursor-not-allowed' : 'hover:bg-red-600'
             }`}
             type="submit"
           >
             Sign In
           </button>
           <Link
-            className="inline-block mt-3 md:mt-0 align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
+            className="inline-block mt-3 md:mt-0 align-baseline font-bold text-sm text-blue-300 hover:text-blue-400"
             to="/"
           >
             Create account

@@ -107,7 +107,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ updateReviews, gameId }) => {
             placeholder="Write your review..."
             value={text}
             onChange={(e) => setText(e.target.value)}
-            className="resize-none mb-4 shadow-xl appearance-none rounded w-full py-5 px-3 text-gray-400 leading-tight focus:outline-none bg-dark-600 text-xl md:text-3xl"
+            className="resize-none mb-4 shadow-xl appearance-none rounded-lg w-full py-5 px-3 text-gray-400 leading-tight focus:outline-none bg-dark-600 text-xl md:text-3xl border border-dark-500"
             rows={8}
           />
           <div className="flex flex-col xl:flex-row items-center justify-around py-4">
@@ -119,7 +119,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ updateReviews, gameId }) => {
                 <button
                   className={`rounded py-4 px-4 ${
                     recommendation === rvb.value
-                      ? 'bg-dark-900'
+                      ? 'bg-red-600'
                       : 'hover:bg-dark-900'
                   }`}
                   style={{ minWidth: '5vw' }}
