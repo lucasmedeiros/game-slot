@@ -4,7 +4,7 @@ import ReactModal from 'react-modal'
 
 import './Modal.css'
 
-interface ModalProps {
+export interface ModalProps {
   isOpen: boolean
   onClose(): void
 }
@@ -17,17 +17,18 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
       shouldCloseOnEsc={true}
       shouldCloseOnOverlayClick={false}
       closeTimeoutMS={200}
+      ariaHideApp={false}
       style={{
         content: {
           top: 0,
           left: 0,
           right: 0,
           bottom: 0,
-          backgroundColor: '#2c5282',
+          backgroundColor: '#27292c',
           border: 'none',
         },
         overlay: {
-          backgroundColor: '#2c5282',
+          backgroundColor: '#27292c',
         },
       }}
     >

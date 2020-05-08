@@ -9,6 +9,7 @@ const Home: React.FC = () => {
   const lists = useSelector(
     (state: RootState) => state.gameListReducer.gameLists
   )
+
   return (
     <section className="w-full h-full justify-center items-center">
       {user?.user ? (

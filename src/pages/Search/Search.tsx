@@ -20,9 +20,11 @@ const Search: React.FC = () => {
             <img
               src={ScreenImage}
               alt="Search screen"
-              style={{ width: '200px' }}
+              style={{ width: '250px' }}
             />
-            <p className="mt-5 text-center">Search for games above</p>
+            <p className="mt-5 px-2 text-center">
+              Use the search bar above to find games
+            </p>
           </div>
         ) : loading ? (
           <ClipLoader size={50} color="white" />

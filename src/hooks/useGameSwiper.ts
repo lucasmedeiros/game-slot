@@ -43,8 +43,7 @@ const useGameSwiper = (): GameSwiperObject => {
         nextEl: `.${nextElName}`,
         prevEl: `.${prevElName}`,
       },
-      loop: true,
-      loopedSlides: slidesNumber,
+      loop: false,
     })
   }, [slidesNumber])
 
