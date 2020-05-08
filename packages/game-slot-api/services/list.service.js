@@ -2,7 +2,7 @@ const List = require('../models/List')
 const { getGameById } = require('./steam.service')
 
 module.exports = {
-  createList: async function({ userId, name }) {
+  createList: async function ({ userId, name }) {
     if (!userId) throw new Error(`user id not provided`)
     if (!name) throw new Error(`list name not provided`)
 
@@ -14,7 +14,31 @@ module.exports = {
     }
   },
 
-  getUserLists: async function({ userId }) {
+  updateList: async function ({ userId, listId, name, games }) {
+    if (!userId) throw new Error(`user id not provided`)
+    if (!listId) throw new Error(`list id not provided`)
+
+    try {
+      const list = await List.findOne({ _id: listId })
+      if (!list) throw new Error(`list not found`)
+
+      if (list.userId.toString() === userId) {
+        const body = {
+          ...(name ? { name } : {}),
+          ...(games && games.length ? { games } : {}),
+        }
+
+        const listUpdated = await List.findOneAndUpdate({ _id: listId }, body, {
+          new: true,
+        })
+        return listUpdated
+      } else throw new Error(`you don't have the permission for this action`)
+    } catch (error) {
+      throw new Error(error.message)
+    }
+  },
+
+  getUserLists: async function ({ userId }) {
     if (!userId) throw new Error(`user id not provided`)
 
     try {
@@ -26,7 +50,7 @@ module.exports = {
     }
   },
 
-  deleteUserList: async function({ userId, listId }) {
+  deleteUserList: async function ({ userId, listId }) {
     if (!userId) throw new Error(`user id not provided`)
     if (!listId) throw new Error(`list id not provided`)
 
@@ -44,7 +68,7 @@ module.exports = {
     }
   },
 
-  addGameToList: async function({ userId, listId, gameId }) {
+  addGameToList: async function ({ userId, listId, gameId }) {
     if (!userId) throw new Error(`user id not provided`)
     if (!listId) throw new Error(`list id not provided`)
     if (!gameId) throw new Error(`game id not provided`)
@@ -61,7 +85,8 @@ module.exports = {
       if (list.userId.toString() === userId) {
         const games = list.games
 
-        if (games.filter(g => g.steamAppId === gameId.toString()).length > 0) return list
+        if (games.filter((g) => g.steamAppId === gameId.toString()).length > 0)
+          return list
         else {
           const updatedGames = [...games, game]
           const listUpdated = await List.findOneAndUpdate(
@@ -81,7 +106,7 @@ module.exports = {
     }
   },
 
-  removeGameFromList: async function({ userId, listId, gameId }) {
+  removeGameFromList: async function ({ userId, listId, gameId }) {
     if (!userId) throw new Error(`user id not provided`)
     if (!listId) throw new Error(`list id not provided`)
     if (!gameId) throw new Error(`game id not provided`)
@@ -94,7 +119,7 @@ module.exports = {
       if (list.userId.toString() === userId) {
         const games = list.games
 
-        const updatedGames = games.filter(g => g.steamAppId !== gameId.toString())
+        const updatedGames = games.filter((g) => g.steamAppId !== gameId.toString())
         const listUpdated = await List.findOneAndUpdate(
           { _id: listId },
           {
