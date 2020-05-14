@@ -3,6 +3,7 @@ import { GameSlider, GameSliderItem } from '../../components/GameSlider'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../store'
 import NotLoggedHome from './NotLoggedHome'
+import { Link } from 'react-router-dom'
 
 const Home: React.FC = () => {
   const user = useSelector((state: RootState) => state.userReducer.user)
@@ -13,17 +14,25 @@ const Home: React.FC = () => {
   return (
     <section className="w-full h-full justify-center items-center">
       {user?.user ? (
-        lists.length ? (
-          lists.map((list) => (
-            <GameSlider key={list._id} title={list.name}>
-              {list.games.map((game, key) => (
-                <GameSliderItem key={key} game={game} />
-              ))}
-            </GameSlider>
-          ))
-        ) : (
-          <p>Ainda não há listas de jogos cadastradas...</p>
-        )
+        <div>
+          {lists.length
+            ? lists.map((list) => (
+                <GameSlider key={list._id} title={list.name}>
+                  {list.games.map((game, key) => (
+                    <GameSliderItem key={key} game={game} />
+                  ))}
+                </GameSlider>
+              ))
+            : null}
+          <div className="p-2 md:p-5">
+            <Link
+              to="/list/new"
+              className="bg-red-600 text-white p-5 w-full text-center block md:inline md:w-auto uppercase font-bold text-lg"
+            >
+              create new game list
+            </Link>
+          </div>
+        </div>
       ) : (
         <NotLoggedHome />
       )}

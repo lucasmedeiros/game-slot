@@ -1,5 +1,10 @@
 import { callAPI } from './request.service'
 
+export const createGameList = async (name: string): Promise<GameList> => {
+  const response = await callAPI(`list`, 'POST', { name })
+  return response.data
+}
+
 export const getGameLists = async (user?: IUser): Promise<GameList[]> => {
   if (user) {
     const response = await callAPI(`list/user/${user._id}`, 'GET', null)

@@ -44,9 +44,9 @@ const Login: React.FC = () => {
         className="bg-dark-700 w-full mt-5 mx-3 md:mx-0 md:w-1/2 px-3 py-2 md:px-8 md:py-6 rounded-lg"
         onSubmit={onLogin}
       >
-        <div className="mb-4">
+        <div className="mb-6">
           <label
-            className="block text-gray-200 text-sm font-bold mb-2"
+            className="block text-gray-200 text-sm font-bold mb-2 uppercase"
             htmlFor="email"
           >
             E-mail
@@ -54,7 +54,7 @@ const Login: React.FC = () => {
           <input
             className={`shadow appearance-none border ${
               emailError ? 'border-red-600' : ''
-            } border-dark-500 rounded placeholder-dark-300 w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-dark-600`}
+            } border-dark-500 rounded placeholder-dark-300 w-full py-2 px-3 text-white leading-tight focus:outline-none bg-dark-600`}
             id="email"
             type="text"
             autoComplete="none"
@@ -68,7 +68,7 @@ const Login: React.FC = () => {
         </div>
         <div className="mb-6">
           <label
-            className="block text-gray-200 text-sm font-bold mb-2"
+            className="block text-gray-200 text-sm font-bold mb-2 uppercase"
             htmlFor="password"
           >
             Password
@@ -76,7 +76,7 @@ const Login: React.FC = () => {
           <input
             className={`shadow appearance-none border ${
               passError ? 'border-red-600' : ''
-            } border-dark-500 rounded w-full placeholder-dark-300 py-2 px-3 text-white mb-3 leading-tight focus:outline-none focus:shadow-outline bg-dark-600`}
+            } border-dark-500 rounded w-full placeholder-dark-300 py-2 px-3 text-white mb-3 leading-tight focus:outline-none bg-dark-600`}
             id="password"
             type="password"
             placeholder="********"
