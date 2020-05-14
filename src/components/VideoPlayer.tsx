@@ -16,11 +16,11 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
     <ReactPlayer
       className="react-player"
       playing
+      muted
       url={url}
       width={`${width}%`}
       height={`${height}%`}
       controls
-      muted={true}
     />
   </div>
 )
