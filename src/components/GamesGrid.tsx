@@ -1,13 +1,13 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
-import { Grid } from '../../styles'
-import ImagePlaceholder from '../../assets/img/image_placeholder.png'
+import { Grid } from '../styles'
+import ImagePlaceholder from '../assets/img/image_placeholder.png'
 
-interface SearchResultGridProps {
-  result: PaginatedResult<IGame>
+interface GamesGridProps {
+  games: IGame[]
 }
 
-const SearchResultGrid: React.FC<SearchResultGridProps> = ({ result }) => {
+const GamesGrid: React.FC<GamesGridProps> = ({ games }) => {
   const history = useHistory()
 
   const goToGamePage = (id: string) => {
@@ -15,19 +15,19 @@ const SearchResultGrid: React.FC<SearchResultGridProps> = ({ result }) => {
   }
   return (
     <Grid className="p-4" min={300}>
-      {result.docs.map((element) => (
+      {games.map((game) => (
         <div
-          onClick={() => goToGamePage(element.steamAppId)}
-          key={element.steamAppId}
+          onClick={() => goToGamePage(game.steamAppId)}
+          key={game.steamAppId}
           className="cursor-pointer shadow"
         >
           <img
-            src={element.imageUrl}
+            src={game.imageUrl}
             onError={(e: any) => {
               e.target.onerror = null
               e.target.src = ImagePlaceholder
             }}
-            alt={element.name}
+            alt={game.name}
           />
         </div>
       ))}
@@ -35,4 +35,4 @@ const SearchResultGrid: React.FC<SearchResultGridProps> = ({ result }) => {
   )
 }
 
-export default SearchResultGrid
+export default GamesGrid

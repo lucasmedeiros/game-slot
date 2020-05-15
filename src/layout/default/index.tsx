@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { StaticContext, Redirect } from 'react-router'
 import { Route, RouteComponentProps, Switch } from 'react-router-dom'
@@ -22,26 +22,29 @@ const DefaultLayout: React.FC<RouteComponentProps<
     getGameLists(user?.user).then((lists) => dispatch(setGameLists(lists)))
   }, [dispatch, user])
 
-  const getRoutes = () =>
-    routes.map((route, key) =>
-      route.layout === '/default' ? (
-        route.private ? (
-          <PrivateRoute
-            path={route.path}
-            component={route.component}
-            exact={route.exact}
-            key={key}
-          />
-        ) : (
-          <Route
-            path={route.path}
-            component={route.component}
-            exact={route.exact}
-            key={key}
-          />
-        )
-      ) : null
-    )
+  const getRoutes = useCallback(
+    () =>
+      routes.map((route, key) =>
+        route.layout === '/default' ? (
+          route.private ? (
+            <PrivateRoute
+              path={route.path}
+              component={route.component}
+              exact={route.exact}
+              key={key}
+            />
+          ) : (
+            <Route
+              path={route.path}
+              component={route.component}
+              exact={route.exact}
+              key={key}
+            />
+          )
+        ) : null
+      ),
+    []
+  )
   return (
     <>
       <Header user={user} />

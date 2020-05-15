@@ -17,7 +17,11 @@ const Home: React.FC = () => {
         <div>
           {lists.length
             ? lists.map((list) => (
-                <GameSlider key={list._id} title={list.name}>
+                <GameSlider
+                  key={list._id}
+                  title={list.name}
+                  titleUrl={`/list/${list._id}`}
+                >
                   {list.games.map((game, key) => (
                     <GameSliderItem key={key} game={game} />
                   ))}

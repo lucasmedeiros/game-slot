@@ -1,6 +1,6 @@
 import React from 'react'
 import Pagination from '../../components/Pagination'
-import SearchResultGrid from './SearchResultGrid'
+import GamesGrid from '../../components/GamesGrid'
 
 interface SearchResultProps {
   result: PaginatedResult<IGame>
@@ -10,7 +10,7 @@ interface SearchResultProps {
 const SearchResult: React.FC<SearchResultProps> = ({ result, refresh }) => (
   <div className="h-full w-full">
     <Pagination result={result} refresh={refresh}>
-      <SearchResultGrid result={result} />
+      <GamesGrid games={result.docs} />
     </Pagination>
   </div>
 )

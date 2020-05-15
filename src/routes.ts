@@ -1,4 +1,4 @@
-import { Home, GamePage, Search, Login, NewList } from './pages'
+import { Home, GamePage, Search, Login, NewList, ViewList } from './pages'
 
 interface RouteObject {
   name: string
@@ -57,6 +57,14 @@ const routes: RouteObject[] = [
     layout: '/default',
     exact: true,
     private: true,
+  },
+  {
+    name: 'ViewList',
+    component: ViewList,
+    path: '/list/:id',
+    layout: '/default',
+    exact: true,
+    private: false,
   },
 ]
 

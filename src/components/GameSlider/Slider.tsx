@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { Fragment } from 'react'
+import classnames from 'classnames'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import useGameSwiper from '../../hooks/useGameSwiper'
 import './Slider.scss'
@@ -8,9 +9,14 @@ const EMPTY_BOX_SIZE: string = '8rem'
 
 interface GameSliderProps {
   title: string
+  titleUrl?: string
 }
 
-const GameSlider: React.FC<GameSliderProps> = ({ children, title }) => {
+const GameSlider: React.FC<GameSliderProps> = ({
+  children,
+  title,
+  titleUrl,
+}) => {
   const {
     swiperContainerName,
     nextElName,
@@ -24,10 +30,23 @@ const GameSlider: React.FC<GameSliderProps> = ({ children, title }) => {
   const goToSearchPage = () => {
     history.push('/search')
   }
+  const goToListPage = () => {
+    if (titleUrl) history.push(titleUrl)
+  }
 
   return (
-    <>
-      <h1 className="text-white ml-4 text-2xl pt-2">{title}</h1>
+    <Fragment>
+      <h1
+        onClick={goToListPage}
+        className={classnames(
+          'text-white pl-4 text-xl uppercase font-bold tracking-widest pt-2',
+          {
+            'cursor-pointer': titleUrl !== null && titleUrl !== undefined,
+          }
+        )}
+      >
+        {title}
+      </h1>
       <article className="game-slider px-4">
         <div className={swiperContainerName}>
           <div className={swiperWrapperName}>
@@ -51,7 +70,7 @@ const GameSlider: React.FC<GameSliderProps> = ({ children, title }) => {
           {hasContent && <div className={prevElName}></div>}
         </div>
       </article>
-    </>
+    </Fragment>
   )
 }
 
