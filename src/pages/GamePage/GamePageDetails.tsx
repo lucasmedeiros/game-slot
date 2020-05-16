@@ -26,10 +26,10 @@ const GamePageDetails: React.FC<GamePageDetailsProps> = ({
   }
   return (
     <div className="flex flex-col items-center md:w-1/2">
-      <h1 className="text-white text-center px-2 md:p-0 mb-2 font-black text-4xl md:text-5xl">
+      <h1 className="text-white text-center px-2 md:p-0 mb-2 font-black text-2xl md:text-5xl">
         {details?.game.name}
       </h1>
-      <p className="text-white w-80 px-5 md:p-0 text-center text-2xl">
+      <p className="text-white w-80 px-5 md:p-0 text-center text-xl">
         {details?.description}
       </p>
       <p className="text-blue-400 py-4 font-bold text-center text-xl">

@@ -24,7 +24,7 @@ const request = async (
   body: any,
   headers: any
 ): Promise<RequestResponse> => {
-  if (method !== 'GET' && !body)
+  if (method !== 'GET' && method !== 'DELETE' && !body)
     return {
       status: 400,
       success: false,
