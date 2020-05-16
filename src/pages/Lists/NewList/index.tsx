@@ -3,11 +3,13 @@ import classnames from 'classnames'
 import { useDispatch } from 'react-redux'
 import { createGameList } from '../../../services/gameLists.service'
 import { createGameList as createGameListAction } from '../../../store/lists/actions'
+import { useHistory } from 'react-router-dom'
 
 const NewList: React.FC = () => {
   const [blocked, setBlocked] = useState<boolean>(false)
   const [listName, setListName] = useState<string>('')
   const dispatch = useDispatch()
+  const history = useHistory()
 
   const onCreateList = async (e: React.FormEvent<any>) => {
     e.preventDefault()
@@ -15,8 +17,7 @@ const NewList: React.FC = () => {
       setBlocked(true)
       const list = await createGameList(listName)
       dispatch(createGameListAction(list))
-      setBlocked(false)
-      setListName('')
+      history.push('/')
     }
   }
 
