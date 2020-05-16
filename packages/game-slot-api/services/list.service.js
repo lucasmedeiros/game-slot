@@ -7,7 +7,7 @@ module.exports = {
     if (!name) throw new Error(`list name not provided`)
 
     try {
-      const list = await List.create({ userId, name, games: [] })
+      const list = await List.create({ user: userId, name, games: [] })
       return list
     } catch (error) {
       throw new Error(error.message)
@@ -22,7 +22,7 @@ module.exports = {
       const list = await List.findOne({ _id: listId })
       if (!list) throw new Error(`list not found`)
 
-      if (list.userId.toString() === userId) {
+      if (list.user.toString() === userId) {
         const body = {
           ...(name ? { name } : {}),
           ...(games && games.length ? { games } : {}),
@@ -42,7 +42,7 @@ module.exports = {
     if (!userId) throw new Error(`user id not provided`)
 
     try {
-      const lists = await List.find({ userId })
+      const lists = await List.find({ user: userId })
       if (!lists) return []
       return lists
     } catch (error) {
@@ -72,7 +72,7 @@ module.exports = {
 
       if (!list) throw new Error(`list not found`)
 
-      if (list.userId.toString() === userId) {
+      if (list.user.toString() === userId) {
         const listDeleted = await List.findByIdAndDelete(listId)
         return listDeleted
       } else throw new Error(`you don't have the permission for this action`)
@@ -95,7 +95,7 @@ module.exports = {
 
       if (!list) throw new Error(`list not found`)
 
-      if (list.userId.toString() === userId) {
+      if (list.user.toString() === userId) {
         const games = list.games
 
         if (games.filter((g) => g.steamAppId === gameId.toString()).length > 0)
@@ -129,7 +129,7 @@ module.exports = {
 
       if (!list) throw new Error(`list not found`)
 
-      if (list.userId.toString() === userId) {
+      if (list.user.toString() === userId) {
         const games = list.games
 
         const updatedGames = games.filter((g) => g.steamAppId !== gameId.toString())

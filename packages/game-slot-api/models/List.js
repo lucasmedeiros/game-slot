@@ -6,7 +6,7 @@ const List = new Schema({
     required: true,
   },
   games: [Schema.Types.Mixed],
-  userId: {
+  user: {
     type: Schema.Types.ObjectId,
     ref: 'User',
     required: true,
