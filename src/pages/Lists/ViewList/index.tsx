@@ -15,13 +15,10 @@ interface Params {
 const ViewList: React.FC = () => {
   const [blocked, setBlocked] = useState<boolean>(false)
   const { id } = useParams<Params>()
-
   const list = useSelector(
     (state: RootState) => state.gameListReducer.gameLists
   ).find((list) => list._id === id)
-
   const history = useHistory()
-
   const dispatch = useDispatch()
 
   const onAddGames = () => {
