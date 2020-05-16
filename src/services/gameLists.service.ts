@@ -5,6 +5,16 @@ export const createGameList = async (name: string): Promise<GameList> => {
   return response.data
 }
 
+export const removeGameFromList = async (
+  listId: string,
+  gameId: string
+): Promise<GameList> => {
+  const response = await callAPI(`list/${listId}/game/remove`, 'POST', {
+    gameId,
+  })
+  return response.data
+}
+
 export const deleteGameList = async (listId: string): Promise<boolean> => {
   const response = await callAPI(`list/${listId}`, 'DELETE', null)
   return response.success
@@ -18,13 +28,23 @@ export const getGameLists = async (user?: IUser): Promise<GameList[]> => {
   return []
 }
 
+export const getOneGameList = async (
+  listId: string
+): Promise<GameList | null> => {
+  const response = await callAPI(`list/${listId}`, 'GET', null)
+
+  if (response.success) return response.data
+
+  return null
+}
+
 export const addGameToList = async (
   game: IGame,
   listId: string
-): Promise<boolean> => {
+): Promise<GameList> => {
   const response = await callAPI(`list/${listId}/game`, 'POST', {
     gameId: game.steamAppId,
   })
 
-  return response.success
+  return response.data
 }

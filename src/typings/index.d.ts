@@ -29,7 +29,7 @@ interface GameList {
   _id: string
   games: IGame[]
   name: string
-  userId: string
+  user: string
   __v: number
 }
 

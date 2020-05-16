@@ -3,7 +3,7 @@ import { getFromLocalStorage } from '../utils'
 
 type Method = 'GET' | 'POST' | 'DELETE' | 'PUT'
 
-interface RequestResponse {
+export interface RequestResponse {
   status: number
   success: boolean
   message: string

@@ -53,7 +53,9 @@ export const gameListReducer = (
           item._id === action.payload.listId
             ? {
                 ...item,
-                games: [...item.games, action.payload.game],
+                games: item.games.includes(action.payload.game)
+                  ? item.games
+                  : [...item.games, action.payload.game],
               }
             : item
         ),

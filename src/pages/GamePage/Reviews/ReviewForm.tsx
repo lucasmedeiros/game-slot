@@ -107,7 +107,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ updateReviews, gameId }) => {
             placeholder="Write your review..."
             value={text}
             onChange={(e) => setText(e.target.value)}
-            className="resize-none mb-4 shadow-xl appearance-none rounded-lg w-full py-5 px-3 text-gray-400 leading-tight focus:outline-none bg-dark-600 text-xl md:text-3xl border border-dark-500"
+            className="resize-none mb-4 shadow-xl appearance-none rounded-lg w-full py-5 px-3 text-gray-400 leading-tight focus:outline-none bg-dark-600 text-xl md:text-xl border border-dark-500"
             rows={8}
           />
           <div className="flex flex-col xl:flex-row items-center justify-around py-4">
@@ -136,7 +136,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ updateReviews, gameId }) => {
             </div>
             <div className="flex flex-col w-full lg:mt-4 xl:mt-0 md:w-auto md:flex-row">
               <button
-                className={`w-full md:w-auto bg-blue-900 shadow-lg hover:bg-blue-800 text-white font-bold py-3 px-4 rounded focus:outline-none text-xl md:text-3xl ${
+                className={`w-full md:w-auto bg-blue-900 shadow-lg hover:bg-blue-800 text-white font-bold py-3 px-4 rounded focus:outline-none text-xl md:text-xl ${
                   submiting ? 'cursor-not-allowed opacity-25' : ''
                 }`}
                 type="button"
@@ -146,7 +146,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ updateReviews, gameId }) => {
               </button>
               {existingReview && (
                 <button
-                  className="w-full md:w-auto mt-3 md:mt-0 md:ml-3 bg-red-700 shadow-md hover:bg-red-600 text-white font-bold py-3 px-4 rounded focus:outline-none text-xl md:text-3xl"
+                  className="w-full md:w-auto mt-3 md:mt-0 md:ml-3 bg-red-700 shadow-md hover:bg-red-600 text-white font-bold py-3 px-4 rounded focus:outline-none text-xl md:text-xl"
                   type="button"
                   onClick={onRecommendationSubmit}
                 >

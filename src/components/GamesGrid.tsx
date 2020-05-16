@@ -1,38 +1,31 @@
-import React from 'react'
-import { useHistory } from 'react-router-dom'
+import React, { memo } from 'react'
 import { Grid } from '../styles'
 import ImagePlaceholder from '../assets/img/image_placeholder.png'
 
 interface GamesGridProps {
   games: IGame[]
+  onClick: (id: string) => void
 }
 
-const GamesGrid: React.FC<GamesGridProps> = ({ games }) => {
-  const history = useHistory()
+const GamesGrid: React.FC<GamesGridProps> = ({ games, onClick }) => (
+  <Grid className="p-4" min={300}>
+    {games.map((game) => (
+      <div
+        onClick={() => onClick(game.steamAppId)}
+        key={game.steamAppId}
+        className="cursor-pointer shadow"
+      >
+        <img
+          src={game.imageUrl}
+          onError={(e: any) => {
+            e.target.onerror = null
+            e.target.src = ImagePlaceholder
+          }}
+          alt={game.name}
+        />
+      </div>
+    ))}
+  </Grid>
+)
 
-  const goToGamePage = (id: string) => {
-    history.push(`/game/${id}`)
-  }
-  return (
-    <Grid className="p-4" min={300}>
-      {games.map((game) => (
-        <div
-          onClick={() => goToGamePage(game.steamAppId)}
-          key={game.steamAppId}
-          className="cursor-pointer shadow"
-        >
-          <img
-            src={game.imageUrl}
-            onError={(e: any) => {
-              e.target.onerror = null
-              e.target.src = ImagePlaceholder
-            }}
-            alt={game.name}
-          />
-        </div>
-      ))}
-    </Grid>
-  )
-}
-
-export default GamesGrid
+export default memo(GamesGrid)

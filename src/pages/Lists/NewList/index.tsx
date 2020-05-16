@@ -13,7 +13,7 @@ const NewList: React.FC = () => {
 
   const onCreateList = async (e: React.FormEvent<any>) => {
     e.preventDefault()
-    if (listName && !blocked) {
+    if (listName.trim() && !blocked) {
       setBlocked(true)
       const list = await createGameList(listName)
       dispatch(createGameListAction(list))

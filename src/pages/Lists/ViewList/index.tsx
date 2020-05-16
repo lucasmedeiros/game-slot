@@ -1,12 +1,19 @@
 /* eslint-disable no-restricted-globals */
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useParams, Redirect, useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import classnames from 'classnames'
 import { RootState } from '../../../store'
 import GamesGrid from '../../../components/GamesGrid'
-import { deleteGameList as deleteGameListAction } from '../../../store/lists/actions'
-import { deleteGameList } from '../../../services/gameLists.service'
+import {
+  deleteGameList as deleteGameListAction,
+  deleteGameListItem,
+} from '../../../store/lists/actions'
+import {
+  deleteGameList,
+  removeGameFromList,
+  getOneGameList,
+} from '../../../services/gameLists.service'
 
 interface Params {
   id: string
@@ -14,12 +21,19 @@ interface Params {
 
 const ViewList: React.FC = () => {
   const [blocked, setBlocked] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(true)
   const { id } = useParams<Params>()
-  const list = useSelector(
-    (state: RootState) => state.gameListReducer.gameLists
-  ).find((list) => list._id === id)
+  const [list, setList] = useState<GameList | null>()
+  const user = useSelector((state: RootState) => state.userReducer.user)
   const history = useHistory()
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    getOneGameList(id).then((listResponse) => {
+      setList(listResponse)
+      setLoading(false)
+    })
+  }, [id])
 
   const onAddGames = () => {
     history.push('/search')
@@ -30,9 +44,28 @@ const ViewList: React.FC = () => {
     if (mayDelete) {
       setBlocked(true)
       const success = await deleteGameList(id)
-      if (success) dispatch(deleteGameListAction(id))
+      if (success) {
+        dispatch(deleteGameListAction(id))
+        setList(null)
+      }
     }
   }
+
+  const onDeleteGameFromList = async (gameId: string) => {
+    const mayDelete = confirm(
+      'Are you sure you want to remove this game from this list?'
+    )
+
+    if (mayDelete) {
+      setBlocked(true)
+      const newList = await removeGameFromList(id, gameId)
+      setList(newList)
+      dispatch(deleteGameListItem(id, gameId))
+      setBlocked(false)
+    }
+  }
+
+  if (loading) return <div />
 
   if (!list) return <Redirect to="/" />
 
@@ -41,7 +74,14 @@ const ViewList: React.FC = () => {
       <h1 className="tracking-widest text-white font-bold text-2xl uppercase py-3">
         {list.name}
       </h1>
-      <div className="flex flex-col w-full xl:flex-row flex-wrap mt-2">
+      <div
+        className={classnames(
+          'flex flex-col w-full xl:flex-row flex-wrap mt-2',
+          {
+            hidden: list.user !== user?.user._id,
+          }
+        )}
+      >
         <button
           disabled={blocked}
           type="button"
@@ -53,7 +93,7 @@ const ViewList: React.FC = () => {
             }
           )}
         >
-          add game
+          edit
         </button>
         <button
           disabled={blocked}
@@ -70,7 +110,7 @@ const ViewList: React.FC = () => {
         </button>
       </div>
       <h1 className="text-white mt-10 uppercase">games on this list</h1>
-      <GamesGrid games={list.games} />
+      <GamesGrid onClick={onDeleteGameFromList} games={list.games} />
     </section>
   )
 }
