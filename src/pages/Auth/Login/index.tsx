@@ -1,44 +1,50 @@
 import React, { useEffect, useState } from 'react'
 import { Redirect, Link, useLocation } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import useAuth from '../../hooks/useAuth'
-import { setUser } from '../../store/user/actions'
+import { useDispatch, useSelector } from 'react-redux'
+import { setUser } from '../../../store/user/actions'
+import { RootState } from '../../../store'
+import { login } from '../../../services/auth.service'
 
 const Login: React.FC = () => {
-  const { isLoggedIn, loggingIn, error, login, user } = useAuth()
-  const [email, setEmail] = useState<string>('')
+  const user = useSelector((state: RootState) => state.userReducer.user)
+  const [submissionError, setSubmissionError] = useState<string>()
+  const [loggingIn, setLoggingIn] = useState<boolean>(false)
+  const [username, setUsername] = useState<string>('')
   const [password, setPassword] = useState<string>('')
-  const [emailError, setEmailError] = useState<string>('')
+  const [usernameError, setUsernameError] = useState<string>('')
   const [passError, setPassError] = useState<string>('')
   const dispatch = useDispatch()
   const location = useLocation<DefaultLocation>()
 
   useEffect(() => {
-    if (email) setEmailError('')
+    if (username) setUsernameError('')
     if (password) setPassError('')
-  }, [email, password])
-
-  useEffect(() => {
-    if (user) dispatch(setUser(user))
-  }, [dispatch, user])
+  }, [username, password])
 
   const validateInputs = () => {
-    if (!email) setEmailError(`'Email' is required`)
+    if (!username) setUsernameError(`'Username' is required`)
     if (!password) setPassError(`'Password' is required`)
   }
 
-  const onLogin = (e: any) => {
+  const onLogin = async (e: any) => {
     e.preventDefault()
     if (!loggingIn) {
       validateInputs()
 
-      if (email && password) {
-        login({ email, password })
+      if (username && password) {
+        setLoggingIn(true)
+        const response = await login({ email: username, password })
+        if (response.success) {
+          dispatch(setUser(response.data))
+        } else {
+          setSubmissionError(response.message)
+        }
+        setLoggingIn(false)
       }
     }
   }
 
-  return !isLoggedIn ? (
+  return !user ? (
     <section className="w-full h-full flex items-center justify-center">
       <form
         className="bg-dark-700 w-full mt-5 mx-3 md:mx-0 md:w-1/2 px-3 py-2 md:px-8 md:py-6 rounded-lg"
@@ -49,21 +55,21 @@ const Login: React.FC = () => {
             className="block text-gray-200 text-sm font-bold mb-2 uppercase"
             htmlFor="email"
           >
-            E-mail
+            Username
           </label>
           <input
             className={`shadow appearance-none border ${
-              emailError ? 'border-red-600' : ''
+              usernameError ? 'border-red-600' : ''
             } border-dark-500 rounded placeholder-dark-300 w-full py-2 px-3 text-white leading-tight focus:outline-none bg-dark-600`}
             id="email"
             type="text"
             autoComplete="none"
             placeholder="johndoe@example.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
           />
-          {emailError && (
-            <p className="text-red-500 text-xs italic mt-2">{emailError}</p>
+          {usernameError && (
+            <p className="text-red-500 text-xs italic mt-2">{usernameError}</p>
           )}
         </div>
         <div className="mb-6">
@@ -87,7 +93,9 @@ const Login: React.FC = () => {
             <p className="text-red-500 text-xs italic">{passError}</p>
           )}
         </div>
-        {error && <p className="text-red-500 mb-4 text-xs italic">{error}</p>}
+        {submissionError && (
+          <p className="text-red-500 mb-4 text-xs italic">{submissionError}</p>
+        )}
         <div className="flex flex-col md:flex-row items-center justify-between">
           <button
             onClick={onLogin}
@@ -99,8 +107,8 @@ const Login: React.FC = () => {
             Sign In
           </button>
           <Link
-            className="inline-block mt-3 md:mt-0 align-baseline font-bold text-sm text-blue-300 hover:text-blue-400"
-            to="/"
+            className="inline-block mt-3 md:mt-0 align-baseline font-bold text-sm text-white hover:text-blue-400"
+            to="/new/account"
           >
             Create account
           </Link>
