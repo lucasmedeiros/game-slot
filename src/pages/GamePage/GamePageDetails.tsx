@@ -1,6 +1,9 @@
 import React from 'react'
+import classnames from 'classnames'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { arrayUnique } from '../../utils'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../store'
 
 interface GamePageDetailsProps {
   details?: IGameDetails
@@ -17,6 +20,7 @@ const GamePageDetails: React.FC<GamePageDetailsProps> = ({
   count,
   openModal,
 }) => {
+  const user = useSelector((state: RootState) => state.userReducer.user)
   const openOnSteam = () => {
     if (window) {
       window.open(
@@ -57,7 +61,12 @@ const GamePageDetails: React.FC<GamePageDetailsProps> = ({
       </div>
       <div className="flex flex-col md:flex-row p-4 justify-center items-center">
         <button
-          className="text-white rounded w-64 bg-blue-700 py-4 px-3 md:w-40 lg:w-64"
+          className={classnames(
+            'text-white rounded w-64 bg-blue-700 py-4 px-3 md:w-40 lg:w-64',
+            {
+              'hidden ': !!!user,
+            }
+          )}
           onClick={openModal}
         >
           Add to list...

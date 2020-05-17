@@ -6,7 +6,10 @@ export interface LoginParams {
   password: string
 }
 
-export type SignUpParams = LoginParams & { confirmPassword: string }
+export type SignUpParams = LoginParams & {
+  confirmPassword: string
+  name: string
+}
 
 export const login = async (params: LoginParams) => {
   const { success, data, message } = await callAPI('auth', 'POST', params)
