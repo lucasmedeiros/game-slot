@@ -5,8 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { LayoutHeader } from '../../../styles'
 import AvatarPlaceholder from '../../../assets/img/avatar.png'
 import HeaderSearch from './HeaderSearch'
-import useAuth from '../../../hooks/useAuth'
 import { deleteUser } from '../../../store/user/actions'
+import { logout } from '../../../services/auth.service'
 
 interface HeaderProps {
   className?: string
@@ -15,7 +15,6 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ className, user }) => {
   const [navOpen, setNavOpen] = useState<boolean>(true)
-  const { logout } = useAuth()
   const dispatch = useDispatch()
   const history = useHistory()
 
