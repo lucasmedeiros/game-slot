@@ -64,7 +64,7 @@ const Login: React.FC = () => {
             id="email"
             type="text"
             autoComplete="none"
-            placeholder="johndoe@example.com"
+            placeholder="johndoe27"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
