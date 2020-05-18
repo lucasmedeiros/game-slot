@@ -1,4 +1,6 @@
+/* eslint-disable no-restricted-globals */
 import React, { useState, useEffect } from 'react'
+import classnames from 'classnames'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import useReviewActions from '../../../hooks/useReviewActions'
@@ -30,7 +32,12 @@ interface ReviewFormProps {
 
 const ReviewForm: React.FC<ReviewFormProps> = ({ updateReviews, gameId }) => {
   const [recommendation, setRecommendation] = useState<RecommendationValue>()
-  const { create, update: updateReview, submiting } = useReviewActions()
+  const {
+    create,
+    update: updateReview,
+    submiting,
+    remove: deleteReview,
+  } = useReviewActions()
   const [text, setText] = useState<string>('')
   const user = useSelector((state: RootState) => state.userReducer.user)
   const { review, existingReview, update: updateUserReview } = useUserReview(
@@ -99,6 +106,27 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ updateReviews, gameId }) => {
     }
   }
 
+  const onDeleteReview = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault()
+    try {
+      if (existingReview) {
+        if (confirm('Are you sure you want to delete your review?')) {
+          await deleteReview({
+            reviewId: review?._id as string,
+          })
+          updateReviews(1)
+          updateUserReview()
+          setText('')
+          setRecommendation(undefined)
+        }
+      }
+    } catch (error) {
+      alert(error.message)
+    }
+  }
+
   return (
     <section className="text-white h-full flex flex-col justify-center">
       {user ? (
@@ -136,9 +164,12 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ updateReviews, gameId }) => {
             </div>
             <div className="flex flex-col w-full lg:mt-4 xl:mt-0 md:w-auto md:flex-row">
               <button
-                className={`w-full md:w-auto bg-blue-900 shadow-lg hover:bg-blue-800 text-white font-bold py-3 px-4 rounded focus:outline-none text-xl md:text-xl ${
-                  submiting ? 'cursor-not-allowed opacity-25' : ''
-                }`}
+                className={classnames(
+                  'w-full md:w-auto bg-blue-900 shadow-lg hover:bg-blue-800 text-white font-bold py-3 px-4 rounded focus:outline-none text-xl md:text-xl',
+                  {
+                    'cursor-not-allowed opacity-25': submiting,
+                  }
+                )}
                 type="button"
                 onClick={onRecommendationSubmit}
               >
@@ -148,7 +179,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ updateReviews, gameId }) => {
                 <button
                   className="w-full md:w-auto mt-3 md:mt-0 md:ml-3 bg-red-700 shadow-md hover:bg-red-600 text-white font-bold py-3 px-4 rounded focus:outline-none text-xl md:text-xl"
                   type="button"
-                  onClick={onRecommendationSubmit}
+                  onClick={onDeleteReview}
                 >
                   DELETE REVIEW
                 </button>

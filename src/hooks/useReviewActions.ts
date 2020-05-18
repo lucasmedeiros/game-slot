@@ -21,6 +21,7 @@ interface ReviewActionsObject {
     recommendation: RecommendationValue
     text?: string
   }) => Promise<any>
+  remove: ({ reviewId }: { reviewId: string }) => Promise<void>
 }
 
 const useReviewActions = (): ReviewActionsObject => {
@@ -73,10 +74,21 @@ const useReviewActions = (): ReviewActionsObject => {
     throw new Error(response.message)
   }
 
+  const remove = async ({ reviewId }: { reviewId: string }): Promise<void> => {
+    setSubmiting(true)
+
+    const response = await callAPI(`review/${reviewId}`, 'DELETE', null)
+
+    setSubmiting(false)
+
+    if (!response.success) throw new Error(response.message)
+  }
+
   return {
     create,
     submiting,
     update,
+    remove,
   }
 }
 
