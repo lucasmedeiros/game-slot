@@ -20,7 +20,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 
-app.use('/', (req, res) => {
+app.get('/', (req, res) => {
   res.status(200).json({ ok: true })
 })
 app.use('/steam', steam)
