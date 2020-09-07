@@ -13,7 +13,7 @@ const App: React.FC = () => {
     <Provider store={store}>
       <BrowserRouter>
         <Switch>
-          <Route path="" render={props => <DefaultLayout {...props} />} />
+          <Route path="" render={(props) => <DefaultLayout {...props} />} />
         </Switch>
       </BrowserRouter>
     </Provider>

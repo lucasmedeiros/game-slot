@@ -14,7 +14,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
     <ReactModal
       isOpen={isOpen}
       onRequestClose={onClose}
-      shouldCloseOnEsc={true}
+      shouldCloseOnEsc
       shouldCloseOnOverlayClick={false}
       closeTimeoutMS={200}
       ariaHideApp={false}

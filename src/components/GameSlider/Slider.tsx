@@ -5,7 +5,7 @@ import useGameSwiper from '../../hooks/useGameSwiper'
 import './Slider.scss'
 import { useHistory } from 'react-router-dom'
 
-const EMPTY_BOX_SIZE: string = '8rem'
+const EMPTY_BOX_SIZE = '8rem'
 
 interface GameSliderProps {
   title: string
@@ -66,8 +66,8 @@ const GameSlider: React.FC<GameSliderProps> = ({
               </button>
             )}
           </div>
-          {hasContent && <div className={nextElName}></div>}
-          {hasContent && <div className={prevElName}></div>}
+          {hasContent && <div className={nextElName} />}
+          {hasContent && <div className={prevElName} />}
         </div>
       </article>
     </Fragment>
