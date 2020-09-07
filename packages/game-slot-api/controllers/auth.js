@@ -10,7 +10,7 @@ module.exports = {
    * @param {Request} req
    * @param {Response} res
    */
-  signup: async function(req, res) {
+  signup: async function (req, res) {
     const { name, password, confirmPassword, email } = req.body
 
     if (!name || !name.trim())
@@ -51,7 +51,7 @@ module.exports = {
    * @param {Request} req
    * @param {Response} res
    */
-  login: async function(req, res) {
+  login: async function (req, res) {
     const { email, password } = req.body
 
     if (!email || !email.trim())
@@ -77,7 +77,7 @@ module.exports = {
    * @param {Request} req
    * @param {Response} res
    */
-  remove: async function(req, res) {
+  remove: async function (req, res) {
     const user = await User.findOneAndDelete({ _id: req.params.id.trim() })
 
     if (!user) return res.status(400).json({ error: `user doesn't exist` })

@@ -7,7 +7,8 @@
   "private": true,
   "scripts": {
     "start": "node ./app.js",
-    "dev": "npx nodemon ./app.js"
+    "dev": "npx nodemon ./app.js",
+    "format": "prettier --write \"**/*.{js}\""
   },
   "dependencies": {
     "bcrypt": "^5.0.0",
@@ -24,6 +25,21 @@
     "node-fetch": "^2.6.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.2"
+    "eslint": "^7.8.1",
+    "husky": "^4.3.0",
+    "lint-staged": "^10.3.0",
+    "nodemon": "^2.0.2",
+    "prettier": "^2.1.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
   }
 }
