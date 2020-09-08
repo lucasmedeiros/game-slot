@@ -1,8 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect, memo } from 'react'
+import React, { useState, memo } from 'react'
 import { useHistory } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useDebounce } from '../../../hooks/useDebounce'
 
 interface HeaderSearchProps {
   className?: string
@@ -10,16 +9,11 @@ interface HeaderSearchProps {
 
 const HeaderSearch: React.FC<HeaderSearchProps> = ({ className }) => {
   const [searchTerm, setSearchTerm] = useState<string>('')
-  const searchDebounceValue = useDebounce(searchTerm, 500)
   const history = useHistory()
 
   const goToSearch = (value: string) => {
     history.push(`/search/${value.trim()}`)
   }
-
-  useEffect(() => {
-    if (searchDebounceValue) goToSearch(searchDebounceValue)
-  }, [searchDebounceValue])
 
   const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -46,7 +40,7 @@ const HeaderSearch: React.FC<HeaderSearchProps> = ({ className }) => {
           onClick={() => setSearchTerm('')}
           className={`flex-shrink-0 border-transparent border-4 focus:outline-none text-white py-1 px-2 ${
             !searchTerm ? 'opacity-0 cursor-default' : 'opacity-100'
-          }`}
+            }`}
           type="button"
         >
           <FontAwesomeIcon icon="times-circle" />
