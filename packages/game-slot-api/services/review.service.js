@@ -6,6 +6,8 @@ const RECOMMENDATION_ENUM = {
   no: 3,
 }
 
+const UNAUTHORIZED_MESSAGE = `you don't have the permission for this action`
+
 module.exports = {
   createUserReview: async function ({ gameId, userId, text, recommend }) {
     if (!userId) throw new Error('user id not provided')
@@ -52,7 +54,7 @@ module.exports = {
           new: true,
         })
         return reviewUpdated
-      } else throw new Error("you don't have the permission for this action")
+      } else throw new Error(UNAUTHORIZED_MESSAGE)
     } catch (error) {
       throw new Error(error.message)
     }
@@ -68,7 +70,7 @@ module.exports = {
       if (!review) throw new Error('review not found')
 
       if (review.user.toString() === userId) return review
-      else throw new Error("you don't have the permission for this action")
+      else throw new Error(UNAUTHORIZED_MESSAGE)
     } catch (error) {
       throw new Error(error.message)
     }
@@ -98,7 +100,7 @@ module.exports = {
       if (review.user.toString() === userId) {
         const reviewDeleted = await Review.findByIdAndDelete(reviewId)
         return reviewDeleted
-      } else throw new Error("you don't have the permission for this action")
+      } else throw new Error(UNAUTHORIZED_MESSAGE)
     } catch (error) {
       throw new Error(error.message)
     }
