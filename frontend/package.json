@@ -5,7 +5,7 @@
   "scripts": {
     "build:style": "npx postcss src/styles/index.css -o src/styles/tailwind.css",
     "start": "npm run build:style && react-scripts start",
-    "build": "npm run build:style && react-scripts build",
+    "serve": "npm run build:style && react-scripts build",
     "test": "react-scripts test",
     "format": "prettier --write \"./src/**/*.{ts,js,json,tsx}\"",
     "eject": "react-scripts eject"

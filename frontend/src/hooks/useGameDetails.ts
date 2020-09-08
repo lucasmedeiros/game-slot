@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react'
 import { callAPI } from '../services/request.service'
 
 interface ObjectGameDetails {
-  loading: boolean;
-  details: IGameDetails | undefined;
-  error: string | undefined;
+  loading: boolean
+  details: IGameDetails | undefined
+  error: string | undefined
 }
 
 const useGameDetails = (appId: string, deps: any[] = []): ObjectGameDetails => {
@@ -33,7 +33,7 @@ const useGameDetails = (appId: string, deps: any[] = []): ObjectGameDetails => {
           movies: data.movies,
         })
       } else {
-        if (response.status === 404) setError('Couldn\'t find the game :(')
+        if (response.status === 404) setError("Couldn't find the game :(")
         else setError(response.message)
       }
 

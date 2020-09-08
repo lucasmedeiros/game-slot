@@ -40,7 +40,7 @@ const HeaderSearch: React.FC<HeaderSearchProps> = ({ className }) => {
           onClick={() => setSearchTerm('')}
           className={`flex-shrink-0 border-transparent border-4 focus:outline-none text-white py-1 px-2 ${
             !searchTerm ? 'opacity-0 cursor-default' : 'opacity-100'
-            }`}
+          }`}
           type="button"
         >
           <FontAwesomeIcon icon="times-circle" />
