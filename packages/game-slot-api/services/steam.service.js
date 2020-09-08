@@ -17,7 +17,7 @@ module.exports = {
   },
 
   findGames: async function ({ search, page = 1, limit = 10 }) {
-    if (!search) throw new Error("query 'search' not provided")
+    if (!search) throw new Error(`query 'search' not provided`)
 
     const searchResultGames = games
       .filter((game) => game.name.toLowerCase().indexOf(search.toLowerCase()) !== -1)
@@ -38,6 +38,8 @@ module.exports = {
     if (!id) throw new Error('game id not provided')
 
     const found = games.find((game) => game.appid.toString() === id)
+
+    if (!found) throw new Error('game not found')
 
     return {
       name: found.name,

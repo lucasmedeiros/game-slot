@@ -1,6 +1,8 @@
 const List = require('../models/List')
 const { getGameById } = require('./steam.service')
 
+const UNAUTHORIZED_MESSAGE = `you don't have the permission for this action`
+
 module.exports = {
   createList: async function ({ userId, name }) {
     if (!userId) throw new Error('user id not provided')
@@ -32,7 +34,7 @@ module.exports = {
           new: true,
         })
         return listUpdated
-      } else throw new Error("you don't have the permission for this action")
+      } else throw new Error(UNAUTHORIZED_MESSAGE)
     } catch (error) {
       throw new Error(error.message)
     }
@@ -75,7 +77,7 @@ module.exports = {
       if (list.user.toString() === userId) {
         const listDeleted = await List.findByIdAndDelete(listId)
         return listDeleted
-      } else throw new Error("you don't have the permission for this action")
+      } else throw new Error(UNAUTHORIZED_MESSAGE)
     } catch (error) {
       throw new Error(error.message)
     }
@@ -113,7 +115,7 @@ module.exports = {
           )
           return listUpdated
         }
-      } else throw new Error("you don't have the permission for this action")
+      } else throw new Error(UNAUTHORIZED_MESSAGE)
     } catch (error) {
       throw new Error(error.message)
     }
@@ -143,7 +145,7 @@ module.exports = {
           }
         )
         return listUpdated
-      } else throw new Error("you don't have the permission for this action")
+      } else throw new Error(UNAUTHORIZED_MESSAGE)
     } catch (error) {
       throw new Error(error.message)
     }

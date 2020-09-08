@@ -8,7 +8,8 @@
   "scripts": {
     "start": "node ./app.js",
     "dev": "npx nodemon ./app.js",
-    "format": "prettier --write \"**/*.{js}\""
+    "format": "prettier --write \"**/*.js\"",
+    "update:lib": "node ./lib/update.js"
   },
   "dependencies": {
     "bcrypt": "^5.0.0",
