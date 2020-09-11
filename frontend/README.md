@@ -8,7 +8,7 @@ Game Slot is a [Create React App](https://create-react-app.dev/) project, and us
 
 ## Running in development mode
 
-First of all, you'll need to clone [Game Slot API](https://github.com/lucasmedeiros/game-slot-api), and then locally run it by following its README instructions.
+First of all, you'll need to run the API. For that, follow [these instructions](../backend/README.md).
 
 This is a React (CRA) project, so you should have **Node 10.16.0 or later** version installed on your local development machine system. You can use [nvm](https://github.com/nvm-sh/nvm#installation) (macOS/Linux) or [nvm-windows](https://github.com/coreybutler/nvm-windows#node-version-manager-nvm-for-windows) to switch Node versions between different projects.
 

@@ -15,8 +15,8 @@ This is a NodeJS / Express project. To run, you'll need to have both install `no
 Clone the project and install its dependencies by entering:
 
 ```zsh
-git clone https://github.com/lucasmedeiros/game-slot-api.git
-cd game-slot-api
+git clone https://github.com/lucasmedeiros/game-slot.git
+cd game-slot/backend
 npm install
 ```
 

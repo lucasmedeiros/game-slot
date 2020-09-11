@@ -9,5 +9,5 @@ With Game Slot, you can review games you've played on Steam, read other people o
 
 ## Running in development
 
-- Frontend: Follow the instructions on [frontend folder](./fontend/README.md).
-- Backend: WIP.
+- Frontend: Follow the instructions on [frontend folder](./frontend/README.md).
+- Backend: Follow the instructions on [backend folder](./backend/README.md)
