@@ -1,0 +1,8 @@
+{
+  "short_name": "Game Slot",
+  "name": "Game Slot - Review and organize your games",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}

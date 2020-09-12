@@ -1,0 +1,15 @@
+{
+  "name": "game-slot",
+  "private": true,
+  "devDependencies": {
+    "lerna": "^3.22.1"
+  },
+  "scripts": {
+    "lerna": "npx lerna",
+    "bootstrap": "lerna bootstrap",
+    "code:backend": "code game-slot/backend",
+    "code:frontend": "code game-slot/backend",
+    "start:backend": "yarn --cwd game-slot/backend dev",
+    "start:frontend": "yarn --cwd game-slot/frontend start"
+  }
+}
