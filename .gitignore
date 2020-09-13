@@ -24,6 +24,6 @@ yarn-debug.log*
 yarn-error.log*
 
 # Tailwind generated CSS
-frontend/src/styles/tailwind.css
+game-slot/frontend/src/styles/tailwind.css
 
 .env
