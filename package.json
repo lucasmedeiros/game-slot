@@ -9,7 +9,9 @@
     "bootstrap": "lerna bootstrap",
     "code:backend": "code game-slot/backend",
     "code:frontend": "code game-slot/backend",
-    "start:backend": "yarn --cwd game-slot/backend dev",
-    "start:frontend": "yarn --cwd game-slot/frontend start"
+    "start:backend": "npm run dev --prefix game-slot/backend",
+    "start:frontend": "npm run start --prefix game-slot/frontend",
+    "serve:backend": "npm run start --prefix game-slot/backend",
+    "serve:frontend": "npm run serve --prefix game-slot/frontend"
   }
 }
