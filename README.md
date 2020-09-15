@@ -29,5 +29,5 @@ You can also share to the world your feelings about a game. In the game page, th
 
 Loved Game Slot and want to contribute for it? Nice! For running in development mode, you can follow the steps below:
 
-- Frontend: Follow the instructions on [frontend folder](./frontend/README.md).
-- Backend: Follow the instructions on [backend folder](./backend/README.md)
+- Frontend: Follow the instructions on [frontend folder](./game-slot/frontend/README.md).
+- Backend: Follow the instructions on [backend folder](./game-slot/backend/README.md)
