@@ -27,7 +27,55 @@ You can also share to the world your feelings about a game. In the game page, th
 
 ## Running in development mode
 
-Loved Game Slot and want to contribute for it? Nice! For running in development mode, you can follow the steps below:
+Loved Game Slot and want to contribute for it? Nice! For running in development mode, you can follow the steps below.
 
-- Frontend: Follow the instructions on [frontend folder](./game-slot/frontend/README.md).
-- Backend: Follow the instructions on [backend folder](./game-slot/backend/README.md)
+> To run both **backend** and **frontend**, you'll need to have both `node` and `npm` installed in your local development machine. I highly recommend you to install both with [nvm (Node Version Manager)](https://github.com/nvm-sh/nvm#installing-and-updating).
+
+First of all, you'll need to clone and install the dependencies of this repository with the commands:
+
+```zsh
+git clone https://github.com/lucasmedeiros/game-slot.git
+cd game-slot
+npm install
+npm run bootstrap
+```
+
+### Backend configuration
+
+This is a NodeJS / Express project and also makes calls to **Steam Store API**, only for getting game details. To know more about the Steam Store API, you can start by [here](https://stackoverflow.com/q/41318655/11125096) (there isn't official documentation for it).
+
+The database chosen for this project was **[MongoDB](https://www.mongodb.com/)** and the authentication model chosen was **[JSON Web Tokens](https://jwt.io/)**. So, you'll need to define two **environment variables** on `.env` file, that should be located on this project's root folder, following the [backend .env.example file](./game-slot/backend/.env.example):
+
+```env
+# MongoDB URI
+MONGODB_URI=
+
+# Secret for JWT authentication
+JWT_SECRET=
+```
+
+The `MONGODB_URI` variable should follow this [format](https://docs.mongodb.com/manual/reference/connection-string/). And the `JWT_SECRET` may be any string, since it's private.
+
+Then, run with the command:
+
+```zsh
+npm run start:backend # in development mode
+npm run serve:backend # in production
+```
+
+### Frontend configuration
+
+This is a [Create React App](https://create-react-app.dev/) project, so make sure you have **Node 10.16.0 or later** version installed on your local development machine system. Again, I highly recommend to use **nvm**.
+
+You'll need to define the API URL in the .env following the [frontend .env.example file](./game-slot/frontend/.env.example):
+
+```env
+REACT_APP_API_URL=
+```
+
+Then, run with the command:
+
+```zsh
+npm run start:frontend # in development mode
+npm run serve:frontend # build
+```
