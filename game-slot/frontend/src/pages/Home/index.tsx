@@ -31,7 +31,7 @@ const Home: React.FC = () => {
           <div className="p-2 md:p-5">
             <Link
               to="/list/new"
-              className="bg-red-600 text-white p-5 w-full text-center block md:inline md:w-auto uppercase font-bold text-lg"
+              className="bg-red-600 text-white p-5 mb-3 w-full text-center block md:inline md:w-auto uppercase font-bold text-lg"
             >
               create new game list
             </Link>

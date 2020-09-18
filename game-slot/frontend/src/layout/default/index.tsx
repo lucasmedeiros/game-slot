@@ -47,12 +47,12 @@ const DefaultLayout: React.FC<RouteComponentProps<
   return (
     <>
       <Header user={user} />
-      <ContentWrapper>
-        <Switch>
+      <Switch>
+        <ContentWrapper>
           {getRoutes()}
           <Redirect from="*" to="/" />
-        </Switch>
-      </ContentWrapper>
+        </ContentWrapper>
+      </Switch>
     </>
   )
 }

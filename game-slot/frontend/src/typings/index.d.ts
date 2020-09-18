@@ -46,7 +46,7 @@ interface PaginatedResult<T> {
 interface SliderContextType {
   onSelectSlide: (game: IGame) => void
   currentSlide: IGame | null
-  elementRef: any
+  elementRef: unknown
 }
 
 interface DefaultLocation {

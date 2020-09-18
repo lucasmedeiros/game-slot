@@ -29,7 +29,7 @@ module.exports = {
     indent: ['error', 2],
     'linebreak-style': ['error', 'unix'],
     quotes: ['error', 'single', { allowTemplateLiterals: true }],
-    'no-unused-vars': 'off',
+    'no-unused-vars': ['error', { ignoreRestSiblings: true }],
     '@typescript-eslint/no-unused-vars': [
       'error',
       { ignoreRestSiblings: true },
@@ -44,7 +44,7 @@ module.exports = {
         functions: 'never',
       },
     ],
-    semi: 'off',
+    semi: ['error', 'never'],
     '@typescript-eslint/semi': ['error', 'never'],
     'react/jsx-no-target-blank': ['error', { enforceDynamicLinks: 'always' }],
     'react/prop-types': ['error', { skipUndeclared: true }],
