@@ -42,7 +42,9 @@ function saveGame(savedGames) {
 }
 
 async function addGame(savedGames, newGame) {
-  const found = savedGames.find(el => el.appid.toString() === newGame.steam_appid.toString())
+  const found = savedGames.find(
+    (el) => el.appid.toString() === newGame.steam_appid.toString()
+  )
   if (!found) {
     if (newGame.type === 'game') {
       savedGames.push({

@@ -2,7 +2,6 @@ import React, { useEffect, useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { StaticContext, Redirect } from 'react-router'
 import { Route, RouteComponentProps, Switch } from 'react-router-dom'
-import { History } from 'history'
 import routes from '../../routes'
 import Header from './Header'
 import { ContentWrapper } from '../../styles'
@@ -14,7 +13,7 @@ import { getGameLists } from '../../services/gameLists.service'
 const DefaultLayout: React.FC<RouteComponentProps<
   any,
   StaticContext,
-  History.PoorMansUnknown
+  unknown
 >> = () => {
   const user = useSelector((state: RootState) => state.userReducer.user)
   const dispatch = useDispatch()

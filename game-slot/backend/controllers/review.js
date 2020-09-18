@@ -15,7 +15,9 @@ module.exports = {
     try {
       const existingReview = await getUserReviewByGame({ gameId, userId: _id })
       if (existingReview)
-        throw new Error(`there's an existing review for this game from user ${_id}`)
+        throw new Error(
+          `there's an existing review for this game from user ${_id}`
+        )
       const review = await createUserReview({
         gameId,
         userId: _id,

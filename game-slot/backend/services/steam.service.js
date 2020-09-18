@@ -20,7 +20,9 @@ module.exports = {
     if (!search) throw new Error(`query 'search' not provided`)
 
     const searchResultGames = games
-      .filter((game) => game.name.toLowerCase().indexOf(search.toLowerCase()) !== -1)
+      .filter(
+        (game) => game.name.toLowerCase().indexOf(search.toLowerCase()) !== -1
+      )
       .map((game) => ({
         name: game.name,
         steamAppId: game.appid.toString(),

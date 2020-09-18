@@ -5,7 +5,12 @@ module.exports = {
   paginate: function ({ data, page, limit }) {
     page = parseInt(page)
     limit = parseInt(limit)
-    limit = limit > MAX_PAGE_SIZE ? MAX_PAGE_SIZE : limit < 0 ? DEFAULT_PAGE_SIZE : limit
+    limit =
+      limit > MAX_PAGE_SIZE
+        ? MAX_PAGE_SIZE
+        : limit < 0
+        ? DEFAULT_PAGE_SIZE
+        : limit
 
     const offset = (page - 1) * limit
 

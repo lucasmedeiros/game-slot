@@ -134,7 +134,9 @@ module.exports = {
       if (list.user.toString() === userId) {
         const games = list.games
 
-        const updatedGames = games.filter((g) => g.steamAppId !== gameId.toString())
+        const updatedGames = games.filter(
+          (g) => g.steamAppId !== gameId.toString()
+        )
         const listUpdated = await List.findOneAndUpdate(
           { _id: listId },
           {

@@ -14,7 +14,8 @@ module.exports = {
     if (!gameId) throw new Error('game steam id not provided')
 
     const recommendationValue = RECOMMENDATION_ENUM[recommend]
-    if (!recommendationValue) throw new Error('recommendation value not provided')
+    if (!recommendationValue)
+      throw new Error('recommendation value not provided')
 
     try {
       const reviewCreated = await Review.create({
@@ -44,15 +45,20 @@ module.exports = {
 
         if (recommend) {
           const recommendationValue = RECOMMENDATION_ENUM[recommend]
-          if (!recommendationValue) throw new Error('invalid recommendation value')
+          if (!recommendationValue)
+            throw new Error('invalid recommendation value')
           body.recommended = recommendationValue
         }
 
         if (text) body.text = text
 
-        const reviewUpdated = await Review.findOneAndUpdate({ _id: reviewId }, body, {
-          new: true,
-        })
+        const reviewUpdated = await Review.findOneAndUpdate(
+          { _id: reviewId },
+          body,
+          {
+            new: true,
+          }
+        )
         return reviewUpdated
       } else throw new Error(UNAUTHORIZED_MESSAGE)
     } catch (error) {

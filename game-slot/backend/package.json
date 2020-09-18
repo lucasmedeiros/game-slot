@@ -26,19 +26,6 @@
     "node-fetch": "^2.6.1"
   },
   "devDependencies": {
-    "eslint": "^7.9.0",
-    "husky": "^4.3.0",
-    "lint-staged": "^10.3.0",
     "nodemon": "^2.0.2"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.{js,jsx}": [
-      "eslint --fix"
-    ]
   }
 }

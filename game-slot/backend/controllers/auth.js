@@ -20,7 +20,9 @@ module.exports = {
       return res.status(400).json({ error: `'password' field not provided` })
 
     if (!confirmPassword || !confirmPassword.trim())
-      return res.status(400).json({ error: `'confirmPassword' field not provided` })
+      return res
+        .status(400)
+        .json({ error: `'confirmPassword' field not provided` })
 
     if (!email || !email.trim())
       return res.status(400).json({ error: `'email' field not provided` })
