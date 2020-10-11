@@ -29,6 +29,7 @@ export const LayoutHeader = styled.nav`
 export const ContentWrapper = styled.div`
   background-color: #1d1f22;
   height: 100%;
+  margin-top: ${process.env.NODE_ENV !== 'development' ? '3.5rem' : '0'};
 `
 
 export const GamePageHeader = styled.header`
