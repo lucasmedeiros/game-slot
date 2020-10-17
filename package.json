@@ -30,7 +30,7 @@
     "serve:frontend": "yarn --cwd game-slot/frontend serve",
     "remove:backend": "yarn --cwd game-slot/backend remove",
     "remove:frontend": "yarn --cwd game-slot/frontend remove",
-    "test:frontend": "yarn --cwd game-slot/frontend test"
+    "test:frontend": "yarn --cwd game-slot/frontend test --watchAll=false"
   },
   "husky": {
     "hooks": {
