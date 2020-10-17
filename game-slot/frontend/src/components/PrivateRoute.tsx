@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react'
 import { Route, Redirect, RouteProps, useLocation } from 'react-router-dom'
 import { useSelector } from 'react-redux'
@@ -12,7 +13,7 @@ const PrivateRoute: React.FC<RouteProps> = ({ component, ...rest }) => {
       {...rest}
       render={(props) =>
         user ? (
-          React.createElement(component ? component : () => <></>, props)
+          React.createElement(component as any, props as any)
         ) : (
           <Redirect to={{ pathname: '/', state: { from: location } }} />
         )
