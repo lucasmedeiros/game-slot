@@ -24,7 +24,7 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: 'module',
   },
-  plugins: ['react', '@typescript-eslint'],
+  plugins: ['react', '@typescript-eslint', 'react-hooks'],
   rules: {
     indent: ['error', 2],
     'linebreak-style': ['error', 'unix'],
@@ -87,5 +87,6 @@ module.exports = {
     'react/no-this-in-sfc': 'error',
     'react/style-prop-object': 'off',
     'react/void-dom-elements-no-children': 'error',
+    'react-hooks/exhaustive-deps': 'warn',
   },
 }
