@@ -64,7 +64,7 @@ const GamePageDetails: React.FC<GamePageDetailsProps> = ({
           className={classnames(
             'text-white rounded w-64 bg-blue-700 py-4 px-3 md:w-40 lg:w-64',
             {
-              'hidden ': !!!user,
+              'hidden ': !user,
             }
           )}
           onClick={openModal}

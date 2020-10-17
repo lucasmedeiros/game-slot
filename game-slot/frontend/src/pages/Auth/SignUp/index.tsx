@@ -41,7 +41,11 @@ const Login: React.FC = () => {
     setConfirmPassword('')
   }
 
-  const onLogin = async (e: any) => {
+  const onLogin = async (
+    e:
+      | React.MouseEvent<HTMLButtonElement, MouseEvent>
+      | React.FormEvent<HTMLFormElement>
+  ) => {
     e.preventDefault()
     if (!signingUp) {
       validateInputs()
@@ -189,7 +193,7 @@ const Login: React.FC = () => {
       </form>
     </section>
   ) : (
-    <Redirect to={'/'} />
+    <Redirect to="/" />
   )
 }
 

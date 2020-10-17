@@ -7,7 +7,7 @@ import ScreenImage from '../../assets/svg/search_screen_image.svg'
 import SearchResult from './SearchResult'
 
 const Search: React.FC = () => {
-  const { searchTerm } = useParams()
+  const { searchTerm } = useParams<{ searchTerm: string }>()
   const { searchResult, error, loading, update } = useGameSearch(
     searchTerm as string
   )

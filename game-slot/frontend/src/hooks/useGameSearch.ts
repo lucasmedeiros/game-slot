@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect } from 'react'
 import querystring from 'query-string'
 import { callAPI } from '../services/request.service'
@@ -20,7 +20,7 @@ const useGameSearch = (
   const [error, setError] = useState<string>()
 
   const getSearchResults = async (
-    page: number = 1,
+    page = 1,
     limit: number = DEFAULT_PAGE_SIZE
   ) => {
     const query = querystring.stringify({

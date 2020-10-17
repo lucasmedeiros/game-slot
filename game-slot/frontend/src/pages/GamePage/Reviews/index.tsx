@@ -46,7 +46,7 @@ const Reviews: React.FC<ReviewsProps> = ({
             </div>
           ) : (
             <p className="p-5 rounded text-2xl text-gray-200">
-              This game doesn't have any reviews at this moment...
+              This game doesn&apos;t have any reviews at this moment...
             </p>
           )}
         </div>

@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect } from 'react'
 import querystring from 'query-string'
 import { callAPI } from '../services/request.service'
@@ -34,7 +34,7 @@ const useGameReviews = (appId: string, deps: any[] = []): ObjectGameReviews => {
   const [result, setResult] = useState<IGameReviewsDetails>()
 
   const getGameReviews = async (
-    page: number = 1,
+    page = 1,
     limit: number = DEFAULT_PAGE_SIZE
   ) => {
     const query = querystring.stringify({
