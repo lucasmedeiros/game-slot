@@ -1,6 +1,6 @@
 # Game Slot
 [![Netlify Status](https://api.netlify.com/api/v1/badges/087ef7a3-dac9-4df1-bfec-80a6dc368298/deploy-status)](https://app.netlify.com/sites/gameslot/deploys)
-[![Heroku](https://heroku-badge.herokuapp.com/?app=game-slot)]
+![Heroku](https://heroku-badge.herokuapp.com/?app=game-slot)
 
 ## About the project
 
