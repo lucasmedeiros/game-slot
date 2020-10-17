@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { IGameReview } from './useGameReviews'
 import { useState, useEffect } from 'react'

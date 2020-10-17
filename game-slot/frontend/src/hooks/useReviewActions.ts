@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { callAPI } from '../services/request.service'
 import { useState } from 'react'
 

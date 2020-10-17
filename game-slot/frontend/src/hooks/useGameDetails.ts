@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from 'react'
 import { callAPI } from '../services/request.service'
@@ -34,7 +35,7 @@ const useGameDetails = (appId: string, deps: any[] = []): ObjectGameDetails => {
           movies: data.movies,
         })
       } else {
-        if (response.status === 404) setError("Couldn't find the game :(")
+        if (response.status === 404) setError('Couldn\'t find the game :(')
         else setError(response.message)
       }
 
