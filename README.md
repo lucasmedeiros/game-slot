@@ -79,3 +79,11 @@ Then, run with the command:
 npm run start:frontend # in development mode
 npm run serve:frontend # build
 ```
+
+## Testing
+
+To run all frontend tests, use:
+
+```zsh
+yarn test:frontend
+```
