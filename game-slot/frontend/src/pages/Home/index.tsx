@@ -17,20 +17,20 @@ const Home: React.FC = () => {
         <div>
           {lists.length
             ? lists.map((list) => (
-                <GameSlider
-                  key={list._id}
-                  title={list.name}
-                  titleUrl={`/list/${list._id}`}
-                >
-                  {list.games.map((game, key) => (
-                    <GameSliderItem key={key} game={game} />
-                  ))}
-                </GameSlider>
-              ))
+              <GameSlider
+                key={list._id}
+                title={list.name}
+                titleUrl={`/list/${list._id}`}
+              >
+                {list.games.map((game, key) => (
+                  <GameSliderItem key={key} game={game} />
+                ))}
+              </GameSlider>
+            ))
             : null}
           <div className="p-2 md:p-5">
             <Link
-              to="/list/new"
+              to="/list"
               className="bg-red-600 text-white p-5 mb-3 w-full text-center block md:inline md:w-auto uppercase font-bold text-lg"
             >
               create new game list

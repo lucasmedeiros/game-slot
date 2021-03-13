@@ -61,7 +61,7 @@ const routes: RouteObject[] = [
   {
     name: 'NewList',
     component: NewList,
-    path: '/list/new',
+    path: '/list',
     layout: '/default',
     exact: true,
     private: true,
