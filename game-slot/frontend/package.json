@@ -26,7 +26,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.12.1",
     "@fortawesome/react-fontawesome": "^0.1.9",
     "classnames": "^2.2.6",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "node-fetch": "^2.6.1",
     "node-sass": "^4.13.1",
     "query-string": "^6.11.1",
