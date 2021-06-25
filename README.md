@@ -30,15 +30,15 @@ You can also share to the world your feelings about a game. In the game page, th
 
 Loved Game Slot and want to contribute for it? Nice! For running in development mode, you can follow the steps below.
 
-> To run both **backend** and **frontend**, you'll need to have both `node` and `npm` installed in your local development machine. I highly recommend you to install both with [nvm (Node Version Manager)](https://github.com/nvm-sh/nvm#installing-and-updating).
+> To run both **backend** and **frontend**, you'll need to have both `node` and `yarn` installed in your local development machine. I highly recommend you to install node with [nvm (Node Version Manager)](https://github.com/nvm-sh/nvm#installing-and-updating), and yarn by its [official website](https://yarnpkg.com/).
 
 First of all, you'll need to clone and install the dependencies of this repository with the commands:
 
 ```zsh
 git clone https://github.com/lucasmedeiros/game-slot.git
 cd game-slot
-npm install
-npm run bootstrap
+yarn
+yarn bootstrap
 ```
 
 ### Backend configuration
@@ -60,8 +60,8 @@ The `MONGODB_URI` variable should follow this [format](https://docs.mongodb.com/
 Then, run with the command:
 
 ```zsh
-npm run start:backend # in development mode
-npm run serve:backend # in production
+yarn start:backend # in development mode
+yarn serve:backend # in production
 ```
 
 ### Frontend configuration
@@ -77,8 +77,8 @@ REACT_APP_API_URL=
 Then, run with the command:
 
 ```zsh
-npm run start:frontend # in development mode
-npm run serve:frontend # build
+yarn start:frontend # in development mode
+yarn serve:frontend # build
 ```
 
 ## Testing
