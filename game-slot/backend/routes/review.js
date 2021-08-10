@@ -1,5 +1,5 @@
 const express = require('express')
-const tokenCheck = require('../middlewares/jwt')
+const checkJwt = require('../middlewares/jwt')
 const {
   create,
   update,
@@ -10,11 +10,11 @@ const {
 } = require('../controllers/review')
 const router = express.Router()
 
-router.get('/:id', tokenCheck, get)
+router.get('/:id', checkJwt, get)
 router.get('/game/:id', getAll)
-router.get('/user/:gameId', tokenCheck, getByUserAndGame)
-router.post('/', tokenCheck, create)
-router.put('/:id', tokenCheck, update)
-router.delete('/:id', tokenCheck, remove)
+router.get('/user/:gameId', checkJwt, getByUserAndGame)
+router.post('/', checkJwt, create)
+router.put('/:id', checkJwt, update)
+router.delete('/:id', checkJwt, remove)
 
 module.exports = router
