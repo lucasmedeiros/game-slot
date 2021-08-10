@@ -7,8 +7,9 @@ config.mongoDB = {
   mongoDBUri: `${process.env.MONGODB_URI}`,
 }
 
-config.jwt = {
-  SECRET_KEY: `${process.env.JWT_SECRET}`,
+config.auth0 = {
+  AUDIENCE: `${process.env.AUTH0_AUDIENCE}`,
+  URI: `${process.env.AUTH0_URI}`,
 }
 
 config.host = {
