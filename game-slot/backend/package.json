@@ -1,7 +1,7 @@
 {
   "name": "@game-slot/backend",
   "engines": {
-    "node": "12.x"
+    "node": "14.x"
   },
   "version": "0.0.0",
   "private": true,
