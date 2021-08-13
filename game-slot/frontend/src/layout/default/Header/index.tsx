@@ -73,6 +73,12 @@ const Header: React.FC<HeaderProps> = Radium(() => {
               Login
             </button>
           )}
+          <Link
+            className="text-white bg-red-700 py-2 px-4 mr-2 rounded"
+            to="/user/0"
+          >
+            User Page
+          </Link>
         </div>
       </div>
     </LayoutHeader>

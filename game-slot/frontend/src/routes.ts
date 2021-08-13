@@ -6,6 +6,7 @@ import {
   NewList,
   ViewList,
   SignUp,
+  UserPage,
 } from './pages'
 
 interface RouteObject {
@@ -78,6 +79,14 @@ const routes: RouteObject[] = [
     name: 'SignUp',
     component: SignUp,
     path: '/new/account',
+    layout: '/default',
+    exact: true,
+    private: false,
+  },
+  {
+    name: 'UserPage',
+    component: UserPage,
+    path: '/user/0',
     layout: '/default',
     exact: true,
     private: false,

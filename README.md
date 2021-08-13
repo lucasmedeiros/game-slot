@@ -1,4 +1,5 @@
 # Game Slot
+
 [![Netlify Status](https://api.netlify.com/api/v1/badges/087ef7a3-dac9-4df1-bfec-80a6dc368298/deploy-status)](https://app.netlify.com/sites/gameslot/deploys)
 ![Heroku](https://heroku-badge.herokuapp.com/?app=game-slot)
 
@@ -16,7 +17,7 @@ When you log in, you can create your own lists of games you've played that exist
 
 ### Adding games to your lists
 
-To add a game to a list, you can search the game by using the **search bar** on the top menu and clicking on *Add to list...* button on the game page. This will open a modal for selecting the list.
+To add a game to a list, you can search the game by using the **search bar** on the top menu and clicking on _Add to list..._ button on the game page. This will open a modal for selecting the list.
 
 ![game page](https://i.imgur.com/x5yrViD.png)
 
