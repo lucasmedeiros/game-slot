@@ -1,11 +1,13 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const image =
-  'https://cache.skoob.com.br/local/images//0IobvjBfoc_GDUEqqj4fiVqt8tM=/170x170/center/top/smart/filters:format(jpeg)/https://skoob.s3.amazonaws.com/usuarios/394638/394638SK-V11624626632G.jpg'
+  'https://www.comboinfinito.com.br/principal/wp-content/uploads/2019/12/the_witcher_3-_wild_hunt.jpg'
 
 const data = {
   name: 'Mary D. Senters',
-  image: image,
+  image:
+    'https://cache.skoob.com.br/local/images//0IobvjBfoc_GDUEqqj4fiVqt8tM=/170x170/center/top/smart/filters:format(jpeg)/https://skoob.s3.amazonaws.com/usuarios/394638/394638SK-V11624626632G.jpg',
   followers: ['some', 'some', 'some', 'some', 'some'],
   foolowing: ['some', 'some', 'some', 'some', 'some', 'some', 'some'],
   gameLists: [1, 2, 3, 4],
@@ -28,34 +30,105 @@ const data = {
       image: image,
       comment: 'I hate that one',
     },
-    {
-      game: 'game4',
-      score: 0,
-      image: image,
-      comment: 'I hate that one',
-    },
   ],
 }
 
 interface Review {
-  game: string
   score: number
   image: string
   comment: string
 }
 
-function ReviewItem({ game, score, image, comment }: Review) {
+interface List {
+  name: string
+  image: string
+}
+
+interface UserPageProps {
+  id: number
+}
+
+function ListItem({ name, image }: List) {
   return (
     <div style={{ padding: '10px' }}>
-      <img src={image} alt="" width="206px" height="161px" />
-      <div>{game}</div>
-      {score}
-      <p>{comment}</p>
+      <img
+        src={image}
+        alt=""
+        style={{
+          width: '206px',
+          height: '161px',
+        }}
+      />
+      <div
+        style={{
+          fontSize: '16px',
+          marginTop: '16px',
+        }}
+      >
+        {name}
+      </div>
     </div>
   )
 }
 
-const UserPage: React.FC = () => {
+function ReviewItem({ score, image, comment }: Review) {
+  return (
+    <div style={{ padding: '10px', textAlign: 'center' }}>
+      <img
+        src={image}
+        alt=""
+        style={{
+          width: '206px',
+          height: '161px',
+          marginBottom: '10px',
+        }}
+      />
+      <span
+        style={{
+          color: '#F1C644',
+          width: '39px',
+          height: '39px',
+        }}
+      >
+        {[...Array(score)].map((i) => (
+          <span key={i}>{'\u2605'}</span>
+        ))}
+        {[...Array(5 - score)].map((i) => (
+          <span key={i}>{'\u2606'}</span>
+        ))}
+      </span>
+      <p
+        style={{
+          marginTop: '10px',
+        }}
+      >
+        {comment}
+      </p>
+    </div>
+  )
+}
+
+function More() {
+  return (
+    <Link
+      to="/"
+      style={{
+        width: '206px',
+        height: '161px',
+        background: '#36383B',
+        marginTop: '10px',
+        textAlign: 'center',
+        paddingTop: '65px',
+        padding: 'auto',
+        fontSize: '30px',
+      }}
+    >
+      More
+    </Link>
+  )
+}
+
+const UserPage: React.FC<any> = ({ id }: UserPageProps) => {
   return (
     <div
       style={{
@@ -89,7 +162,7 @@ const UserPage: React.FC = () => {
             marginBottom: '15px',
           }}
         >
-          {data.name}
+          {id} - {data.name}
         </p>
         <div
           style={{
@@ -102,6 +175,18 @@ const UserPage: React.FC = () => {
           <span>{data.followers.length} Followers</span>
           <span>{data.foolowing.length} Following</span>
         </div>
+        <button
+          style={{
+            width: '106px',
+            height: '50px',
+            background: '#2B6EAD',
+            borderRadius: '4px',
+            marginLeft: '-20px',
+            marginTop: '39px',
+          }}
+        >
+          Follow
+        </button>
       </div>
       <div
         style={{
@@ -126,14 +211,13 @@ const UserPage: React.FC = () => {
           }}
         >
           {data.reviews.map((review) => (
-            <ReviewItem
-              game={review.game}
-              score={review.score}
+            <ListItem
+              name={review.game}
               image={review.image}
-              comment={review.comment}
               key={review.game}
             />
           ))}
+          <More />
         </div>
         <h3
           style={{
@@ -153,13 +237,13 @@ const UserPage: React.FC = () => {
         >
           {data.reviews.map((review) => (
             <ReviewItem
-              game={review.game}
               score={review.score}
               image={review.image}
               comment={review.comment}
               key={review.game}
             />
           ))}
+          <More />
         </div>
       </div>
     </div>

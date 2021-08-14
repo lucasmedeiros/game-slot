@@ -86,7 +86,7 @@ const routes: RouteObject[] = [
   {
     name: 'UserPage',
     component: UserPage,
-    path: '/user/0',
+    path: '/user/:id',
     layout: '/default',
     exact: true,
     private: false,
