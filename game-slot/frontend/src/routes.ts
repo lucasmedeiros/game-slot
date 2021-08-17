@@ -8,6 +8,8 @@ import {
   SignUp,
   UserPage,
 } from './pages'
+import { UserList } from './pages/UserList'
+import { UserReviews } from './pages/UserReviews'
 
 interface RouteObject {
   name: string
@@ -87,6 +89,22 @@ const routes: RouteObject[] = [
     name: 'UserPage',
     component: UserPage,
     path: '/user/:id',
+    layout: '/default',
+    exact: true,
+    private: false,
+  },
+  {
+    name: 'UserList',
+    component: UserList,
+    path: '/user/:id/lists',
+    layout: '/default',
+    exact: true,
+    private: false,
+  },
+  {
+    name: 'UserReviews',
+    component: UserReviews,
+    path: '/user/:id/reviews',
     layout: '/default',
     exact: true,
     private: false,

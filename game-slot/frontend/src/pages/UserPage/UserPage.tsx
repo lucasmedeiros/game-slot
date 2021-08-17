@@ -1,11 +1,11 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 const image =
   'https://www.comboinfinito.com.br/principal/wp-content/uploads/2019/12/the_witcher_3-_wild_hunt.jpg'
 
 const data = {
-  name: 'Mary D. Senters',
+  name: 'Douglas Lima',
   image:
     'https://cache.skoob.com.br/local/images//0IobvjBfoc_GDUEqqj4fiVqt8tM=/170x170/center/top/smart/filters:format(jpeg)/https://skoob.s3.amazonaws.com/usuarios/394638/394638SK-V11624626632G.jpg',
   followers: ['some', 'some', 'some', 'some', 'some'],
@@ -42,10 +42,6 @@ interface Review {
 interface List {
   name: string
   image: string
-}
-
-interface UserPageProps {
-  id: number
 }
 
 function ListItem({ name, image }: List) {
@@ -108,10 +104,17 @@ function ReviewItem({ score, image, comment }: Review) {
   )
 }
 
-function More() {
+interface UserPageProps {
+  type?: string
+  id: string
+}
+
+function More({ type, id }: UserPageProps) {
   return (
     <Link
-      to="/"
+      to={
+        type === 'list' ? '/user/' + id + '/lists' : '/user/' + id + '/reviews'
+      }
       style={{
         width: '206px',
         height: '161px',
@@ -128,7 +131,9 @@ function More() {
   )
 }
 
-const UserPage: React.FC<any> = ({ id }: UserPageProps) => {
+const UserPage: React.FC = () => {
+  const { id } = useParams<UserPageProps>()
+  const DEFAULT_LENGTH = 5
   return (
     <div
       style={{
@@ -162,7 +167,7 @@ const UserPage: React.FC<any> = ({ id }: UserPageProps) => {
             marginBottom: '15px',
           }}
         >
-          {id} - {data.name}
+          {data.name}
         </p>
         <div
           style={{
@@ -210,14 +215,14 @@ const UserPage: React.FC<any> = ({ id }: UserPageProps) => {
             marginBottom: '30px',
           }}
         >
-          {data.reviews.map((review) => (
+          {data.reviews.slice(0, DEFAULT_LENGTH).map((review) => (
             <ListItem
               name={review.game}
               image={review.image}
               key={review.game}
             />
           ))}
-          <More />
+          <More type="list" id={id} />
         </div>
         <h3
           style={{
@@ -235,7 +240,7 @@ const UserPage: React.FC<any> = ({ id }: UserPageProps) => {
             marginBottom: '30px',
           }}
         >
-          {data.reviews.map((review) => (
+          {data.reviews.slice(0, DEFAULT_LENGTH).map((review) => (
             <ReviewItem
               score={review.score}
               image={review.image}
@@ -243,7 +248,7 @@ const UserPage: React.FC<any> = ({ id }: UserPageProps) => {
               key={review.game}
             />
           ))}
-          <More />
+          <More type="reviews" id={id} />
         </div>
       </div>
     </div>
