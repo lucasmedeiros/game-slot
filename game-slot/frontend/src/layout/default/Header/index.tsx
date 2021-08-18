@@ -1,27 +1,19 @@
 import React, { useState } from 'react'
-import { useHistory, Link } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { LayoutHeader } from '../../../styles'
 import AvatarPlaceholder from '../../../assets/img/avatar.png'
 import HeaderSearch from './HeaderSearch'
-import { deleteUser } from '../../../store/user/actions'
-import { logout } from '../../../services/auth.service'
+import { useAuth0 } from '@auth0/auth0-react'
 
 interface HeaderProps {
   className?: string
-  user: User | undefined
 }
 
-const Header: React.FC<HeaderProps> = ({ className, user }) => {
+const Header: React.FC<HeaderProps> = ({ className }) => {
   const [navOpen, setNavOpen] = useState<boolean>(true)
-  const dispatch = useDispatch()
   const history = useHistory()
-
-  const onLogout = () => {
-    logout()
-    dispatch(deleteUser())
-  }
+  const { loginWithRedirect, logout, user } = useAuth0()
 
   const goToHome = () => {
     history.push('/')
@@ -55,10 +47,10 @@ const Header: React.FC<HeaderProps> = ({ className, user }) => {
             <div className="flex items-center">
               <div className="flex flex-col items-end">
                 <p className="text-white mr-4">
-                  Hello, {user.user.name.split(' ')[0]}
+                  Hello, {user.name?.split(' ')[0] ?? 'user'}
                 </p>
                 <button
-                  onClick={onLogout}
+                  onClick={() => logout()}
                   className="text-white mr-4 text-xs hover:underline"
                 >
                   Logout
@@ -69,17 +61,17 @@ const Header: React.FC<HeaderProps> = ({ className, user }) => {
                 style={{ width: '2.5rem', height: '2.5rem' }}
               >
                 <button>
-                  <img src={AvatarPlaceholder} alt="User" />
+                  <img src={user.picture ?? AvatarPlaceholder} alt="User" />
                 </button>
               </div>
             </div>
           ) : (
-            <Link
+            <button
               className="text-white bg-red-700 py-2 px-4 mr-2 rounded"
-              to="/login"
+              onClick={() => loginWithRedirect()}
             >
               Login
-            </Link>
+            </button>
           )}
         </div>
       </div>

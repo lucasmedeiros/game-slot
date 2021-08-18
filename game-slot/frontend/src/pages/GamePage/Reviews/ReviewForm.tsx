@@ -4,10 +4,10 @@ import classnames from 'classnames'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import useReviewActions from '../../../hooks/useReviewActions'
-import { Link, useLocation } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../store'
 import useUserReview from '../../../hooks/useUserReview'
+import { useAuth0 } from '@auth0/auth0-react'
 
 interface IReviewButtons {
   value: RecommendationValue
@@ -45,7 +45,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ updateReviews, gameId }) => {
     existingReview,
     update: updateUserReview,
   } = useUserReview(gameId, user?.user)
-  const location = useLocation()
+  const { isAuthenticated, loginWithRedirect } = useAuth0()
 
   useEffect(() => {
     if (review) {
@@ -130,7 +130,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ updateReviews, gameId }) => {
 
   return (
     <section className="text-white h-full flex flex-col justify-center">
-      {user ? (
+      {isAuthenticated ? (
         <form className="mb-4 md:py-5 md:px-20 rounded w-full md:w-100 flex flex-col">
           <textarea
             placeholder="Write your review..."
@@ -191,12 +191,12 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ updateReviews, gameId }) => {
       ) : (
         <div className="w-full p-5 flex text-2xl">
           <p>
-            <Link
-              to={{ pathname: '/login', state: { from: location.pathname } }}
+            <button
+              onClick={() => loginWithRedirect()}
               className="text-red-400"
             >
               Sign in
-            </Link>{' '}
+            </button>{' '}
             to write a review!
           </p>
         </div>

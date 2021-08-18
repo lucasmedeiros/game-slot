@@ -1,16 +1,14 @@
 import React from 'react'
 import ScreenImage from '../../assets/svg/home_screen_image.svg'
 import { useHistory } from 'react-router-dom'
+import { useAuth0 } from '@auth0/auth0-react'
 
 const NotLoggedHome: React.FC = () => {
   const history = useHistory()
+  const { isAuthenticated, loginWithRedirect } = useAuth0()
 
   const goToSearchPage = () => {
     history.push('/search')
-  }
-
-  const goToLoginPage = () => {
-    history.push('/login')
   }
 
   return (
@@ -39,12 +37,14 @@ const NotLoggedHome: React.FC = () => {
             >
               Browse now
             </button>
-            <button
-              onClick={goToLoginPage}
-              className="p-3 w-32 md:w-56 ml-5 font-bold md:text-2xl rounded bg-red-600 text-white"
-            >
-              Sign in
-            </button>
+            {!isAuthenticated && (
+              <button
+                onClick={() => loginWithRedirect()}
+                className="p-3 w-32 md:w-56 ml-5 font-bold md:text-2xl rounded bg-red-600 text-white"
+              >
+                Sign in
+              </button>
+            )}
           </div>
         </div>
       </article>

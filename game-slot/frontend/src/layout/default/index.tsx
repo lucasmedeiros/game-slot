@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { StaticContext, Redirect } from 'react-router'
+import { StaticContext } from 'react-router'
 import { Route, RouteComponentProps, Switch } from 'react-router-dom'
 import routes from '../../routes'
 import Header from './Header'
@@ -45,12 +45,9 @@ const DefaultLayout: React.FC<
   )
   return (
     <>
-      <Header user={user} />
+      <Header />
       <Switch>
-        <ContentWrapper>
-          {getRoutes()}
-          <Redirect from="*" to="/" />
-        </ContentWrapper>
+        <ContentWrapper>{getRoutes()}</ContentWrapper>
       </Switch>
     </>
   )
