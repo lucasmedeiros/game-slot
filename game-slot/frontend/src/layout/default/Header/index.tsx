@@ -47,7 +47,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
             <div className="flex items-center">
               <div className="flex flex-col items-end">
                 <p className="text-white mr-4">
-                  Hello, {user.name?.split(' ')[0] ?? 'user'}
+                  Hello, {user.given_name ?? 'user'}
                 </p>
                 <button
                   onClick={() => logout()}
