@@ -40,10 +40,11 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ updateReviews, gameId }) => {
   } = useReviewActions()
   const [text, setText] = useState<string>('')
   const user = useSelector((state: RootState) => state.userReducer.user)
-  const { review, existingReview, update: updateUserReview } = useUserReview(
-    gameId,
-    user?.user
-  )
+  const {
+    review,
+    existingReview,
+    update: updateUserReview,
+  } = useUserReview(gameId, user?.user)
   const location = useLocation()
 
   useEffect(() => {

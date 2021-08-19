@@ -27,9 +27,10 @@ const NotLoggedHome: React.FC = () => {
             <span className="text-yellow-500">favorite games!</span>
           </h1>
           <p className="mt-5 text-white sm:text-xl">
-            With Game Slot, you can review games you've played on Steam, read
-            other people opinions, create a personal wishlist with the games
-            you're willing to play and build a lovely community of game lovers!
+            With Game Slot, you can review games you&apos;ve played on Steam,
+            read other people opinions, create a personal wishlist with the
+            games you&apos;re willing to play and build a lovely community of
+            game lovers!
           </p>
           <div className="flex mt-5">
             <button

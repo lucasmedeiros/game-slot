@@ -11,11 +11,9 @@ import PrivateRoute from '../../components/PrivateRoute'
 import { setGameLists } from '../../store/lists/actions'
 import { getGameLists } from '../../services/gameLists.service'
 
-const DefaultLayout: React.FC<RouteComponentProps<
-  any,
-  StaticContext,
-  unknown
->> = () => {
+const DefaultLayout: React.FC<
+  RouteComponentProps<any, StaticContext, unknown>
+> = () => {
   const user = useSelector((state: RootState) => state.userReducer.user)
   const dispatch = useDispatch()
   useEffect(() => {

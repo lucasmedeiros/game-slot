@@ -1,6 +1,7 @@
 # rules/
 **/node_modules
 node_modules/
+game-slot/backend/lib/*.json
 **/build/
 /.pnp
 .pnp.js
