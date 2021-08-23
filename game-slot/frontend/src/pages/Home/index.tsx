@@ -11,23 +11,27 @@ const Home: React.FC = () => {
     (state: RootState) => state.gameListReducer.gameLists
   )
 
+  const renderLists = (lists: GameList[]) => {
+    return lists.map((list) => {
+      return (
+        <GameSlider
+          key={list._id}
+          title={list.name}
+          titleUrl={`/list/${list._id}`}
+        >
+          {list.games.map((game, key) => (
+            <GameSliderItem key={key} game={game} />
+          ))}
+        </GameSlider>
+      )
+    })
+  }
+
   return (
     <section className="w-full h-full justify-center items-center">
       {user?.user ? (
         <div>
-          {lists.length
-            ? lists.map((list) => (
-              <GameSlider
-                key={list._id}
-                title={list.name}
-                titleUrl={`/list/${list._id}`}
-              >
-                {list.games.map((game, key) => (
-                  <GameSliderItem key={key} game={game} />
-                ))}
-              </GameSlider>
-            ))
-            : null}
+          {lists.length ? renderLists(lists) : null}
           <div className="p-2 md:p-5">
             <Link
               to="/list"

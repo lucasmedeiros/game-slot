@@ -1,0 +1,9 @@
+# Keep in sync with .eslintignore + .gitignore
+**/node_modules
+**/dist
+**/.cache
+**/coverage
+game-slot/backend/lib/*.json
+
+# Others to be ignored
+**/__snapshots__

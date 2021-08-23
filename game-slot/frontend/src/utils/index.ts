@@ -8,7 +8,7 @@ export function getRandomItemFromArray(a: any[] | undefined): any {
   return a ? _.sample(a) : null
 }
 
-export function getObjectFromPath(object: object, path: string): any {
+export function getObjectFromPath(object: unknown, path: string): any {
   return _.get(object, path)
 }
 

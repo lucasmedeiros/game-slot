@@ -17,12 +17,8 @@ const GameSlider: React.FC<GameSliderProps> = ({
   title,
   titleUrl,
 }) => {
-  const {
-    swiperContainerName,
-    nextElName,
-    prevElName,
-    swiperWrapperName,
-  } = useGameSwiper()
+  const { swiperContainerName, nextElName, prevElName, swiperWrapperName } =
+    useGameSwiper()
 
   const history = useHistory()
 

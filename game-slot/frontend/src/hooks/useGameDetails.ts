@@ -35,7 +35,7 @@ const useGameDetails = (appId: string, deps: any[] = []): ObjectGameDetails => {
           movies: data.movies,
         })
       } else {
-        if (response.status === 404) setError('Couldn\'t find the game :(')
+        if (response.status === 404) setError(`Couldn't find the game :(`)
         else setError(response.message)
       }
 
