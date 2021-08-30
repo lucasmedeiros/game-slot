@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import devices from './devices'
+import { colors } from './theme'
 
 interface GamePageHeaderProps {
   backgroundImage?: string
@@ -24,6 +25,9 @@ export const LayoutHeader = styled.nav`
   alignitems: center;
   transition: all 0.2s ease-in-out;
   top: 0;
+  background-color: ${colors.dark['900']};
+  padding: 0.5rem;
+  flex-wrap: wrap;
 `
 
 export const ContentWrapper = styled.div`
