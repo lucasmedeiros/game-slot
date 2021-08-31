@@ -93,5 +93,7 @@ module.exports = {
     'react/style-prop-object': 'off',
     'react/void-dom-elements-no-children': 'error',
     'react-hooks/exhaustive-deps': 'warn',
+    '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
   },
 }
