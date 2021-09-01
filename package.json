@@ -9,7 +9,7 @@
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-react": "^7.20.6",
     "eslint-plugin-react-hooks": "^4.1.2",
-    "husky": "^4.3.0",
+    "husky": "^7.0.0",
     "lerna": "^4.0.0",
     "lint-staged": "^10.4.0",
     "prettier": "^2.3.2",
@@ -33,7 +33,8 @@
     "remove:backend": "yarn --cwd game-slot/backend remove",
     "remove:frontend": "yarn --cwd game-slot/frontend remove",
     "test:frontend": "yarn --cwd game-slot/frontend test --watchAll=false",
-    "update:lib": "yarn --cwd game-slot/backend update:lib"
+    "update:lib": "yarn --cwd game-slot/backend update:lib",
+    "prepare": "husky install"
   },
   "husky": {
     "hooks": {
