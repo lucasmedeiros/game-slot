@@ -4,7 +4,7 @@ const cookieParser = require('cookie-parser')
 const logger = require('morgan')
 const cors = require('cors')
 const mongoose = require('mongoose')
-const { steam, auth, review, list } = require('./routes')
+const { steam, auth, review, list, user } = require('./routes')
 const { host, mongoDB } = require('./config')
 
 const app = express()
@@ -27,6 +27,7 @@ app.use('/steam', steam)
 app.use('/auth', auth)
 app.use('/review', review)
 app.use('/list', list)
+app.use('/users', user)
 
 if (host.production) app.listen(host.port)
 else
