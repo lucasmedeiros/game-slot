@@ -1,13 +1,4 @@
-import {
-  Home,
-  GamePage,
-  Search,
-  Login,
-  NewList,
-  ViewList,
-  SignUp,
-  UserPage,
-} from './pages'
+import { Home, GamePage, Search, NewList, ViewList, UserPage } from './pages'
 import { UserList } from './pages/UserList'
 import { UserReviews } from './pages/UserReviews'
 
@@ -54,14 +45,6 @@ const routes: RouteObject[] = [
     private: false,
   },
   {
-    name: 'Login',
-    component: Login,
-    path: '/login',
-    layout: '/default',
-    exact: true,
-    private: false,
-  },
-  {
     name: 'NewList',
     component: NewList,
     path: '/list',
@@ -73,14 +56,6 @@ const routes: RouteObject[] = [
     name: 'ViewList',
     component: ViewList,
     path: '/list/:id',
-    layout: '/default',
-    exact: true,
-    private: false,
-  },
-  {
-    name: 'SignUp',
-    component: SignUp,
-    path: '/new/account',
     layout: '/default',
     exact: true,
     private: false,
