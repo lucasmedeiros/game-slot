@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import Radium from 'radium'
 import { useHistory } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { LayoutHeader } from '../../../styles'
@@ -6,11 +7,13 @@ import AvatarPlaceholder from '../../../assets/img/avatar.png'
 import HeaderSearch from './HeaderSearch'
 import { useAuth0 } from '@auth0/auth0-react'
 
+import styles from './styles'
+
 interface HeaderProps {
   className?: string
 }
 
-const Header: React.FC<HeaderProps> = ({ className }) => {
+const Header: React.FC<HeaderProps> = Radium(() => {
   const [navOpen, setNavOpen] = useState<boolean>(true)
   const history = useHistory()
   const { loginWithRedirect, logout, user } = useAuth0()
@@ -20,26 +23,23 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
   }
 
   return (
-    <LayoutHeader
-      className={`bg-dark-900 flex items-center justify-between flex-wrap p-2 ${className}`}
-    >
-      <div className="flex items-center flex-shrink-0 text-white mr-6">
-        <button onClick={goToHome} className="font-bold text-2xl md:text-xl">
+    <LayoutHeader>
+      <div style={styles.logoContainer}>
+        <button onClick={goToHome} style={styles.logoButton}>
           GAME SLOT
         </button>
       </div>
 
       <button
         onClick={() => setNavOpen((prev) => !prev)}
-        className="text-white mr-2 md:hidden"
+        style={styles.hamburgerButton}
       >
         <FontAwesomeIcon icon="bars" size="2x" />
       </button>
 
       <div
-        className={`flex flex-1 m-0 p-5 items-start md:p-0 md:flex md:items-center md:relative bg-dark-900 ${
-          navOpen ? 'hidden' : ''
-        }`}
+        className={`flex flex-1 m-0 p-5 items-start md:p-0 md:flex md:items-center md:relative bg-dark-900 
+        ${navOpen ? 'hidden' : ''}`}
       >
         <div className="flex w-full flex-col flex-1 md:flex-row justify-between">
           <HeaderSearch className="mb-4 md:mb-0" />
@@ -77,6 +77,6 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
       </div>
     </LayoutHeader>
   )
-}
+})
 
 export default Header
