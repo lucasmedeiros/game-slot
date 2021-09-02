@@ -13,7 +13,7 @@ const checkJwt = jwt({
     jwksUri: `${uri}/.well-known/jwks.json`,
   }),
   audience,
-  issuer: [uri],
+  issuer: `${uri}/`,
   algorithms: ['RS256'],
 })
 

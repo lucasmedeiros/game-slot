@@ -3,4 +3,5 @@ module.exports = {
   auth: require('./auth'),
   review: require('./review'),
   list: require('./list'),
+  user: require('./user'),
 }
