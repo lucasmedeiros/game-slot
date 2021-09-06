@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Radium from 'radium'
-import { useHistory } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { LayoutHeader } from '../../../styles'
 import AvatarPlaceholder from '../../../assets/img/avatar.png'
@@ -12,6 +12,8 @@ import styles from './styles'
 interface HeaderProps {
   className?: string
 }
+
+const userId = 0
 
 const Header: React.FC<HeaderProps> = Radium(() => {
   const [navOpen, setNavOpen] = useState<boolean>(true)
@@ -60,9 +62,14 @@ const Header: React.FC<HeaderProps> = Radium(() => {
                 className="mr-5 rounded-full overflow-hidden text-white"
                 style={{ width: '2.5rem', height: '2.5rem' }}
               >
-                <button>
-                  <img src={user.picture ?? AvatarPlaceholder} alt="User" />
-                </button>
+                <Link
+                  className="text-white bg-red-700 py-2 px-4 mr-2 rounded"
+                  to={'/user/' + userId}
+                >
+                  <button>
+                    <img src={user.picture ?? AvatarPlaceholder} alt="User" />
+                  </button>
+                </Link>
               </div>
             </div>
           ) : (

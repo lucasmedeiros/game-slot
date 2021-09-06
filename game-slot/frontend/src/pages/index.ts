@@ -1,5 +1,6 @@
 export { default as Home } from './Home'
 export { default as GamePage } from './GamePage'
+export * from './UserPage'
 export * from './Auth'
 export * from './Lists'
 export * from './Search'

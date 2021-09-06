@@ -8,6 +8,7 @@ import { useHistory } from 'react-router-dom'
 const EMPTY_BOX_SIZE = '8rem'
 
 interface GameSliderProps {
+  children: any
   title: string
   titleUrl?: string
 }
