@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link, useParams } from 'react-router-dom'
+import { useAuth0 } from '@auth0/auth0-react'
 
 const image =
   'https://www.comboinfinito.com.br/principal/wp-content/uploads/2019/12/the_witcher_3-_wild_hunt.jpg'
@@ -133,7 +134,9 @@ function More({ type, id }: UserPageProps) {
 
 const UserPage: React.FC = () => {
   const { id } = useParams<UserPageProps>()
+  const { user } = useAuth0()
   const DEFAULT_LENGTH = 5
+
   return (
     <div
       style={{
@@ -150,19 +153,23 @@ const UserPage: React.FC = () => {
           textAlign: 'center',
           justifySelf: 'center',
           marginTop: '20%',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
         }}
       >
         <img
           style={{
             borderRadius: '50%',
+            height: 'auto',
+            width: '150px',
           }}
-          src={data.image}
+          src={user?.picture}
           alt=""
         />
         <p
           style={{
             fontSize: '32px',
-            marginLeft: '-30px',
             marginTop: '20px',
             marginBottom: '15px',
           }}
@@ -171,14 +178,15 @@ const UserPage: React.FC = () => {
         </p>
         <div
           style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
+            display: 'flex',
+            justifyContent: 'space-between',
             fontSize: '16px',
-            marginLeft: '-30px',
           }}
         >
           <span>{data.followers.length} Followers</span>
-          <span>{data.foolowing.length} Following</span>
+          <span style={{ marginLeft: '24px' }}>
+            {data.foolowing.length} Following
+          </span>
         </div>
         <button
           style={{
@@ -186,7 +194,6 @@ const UserPage: React.FC = () => {
             height: '50px',
             background: '#2B6EAD',
             borderRadius: '4px',
-            marginLeft: '-20px',
             marginTop: '39px',
           }}
         >

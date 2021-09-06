@@ -69,7 +69,6 @@ const Header: React.FC<HeaderProps> = Radium(() => {
                   <button>
                     <img src={user.picture ?? AvatarPlaceholder} alt="User" />
                   </button>
-                  User Page
                 </Link>
               </div>
             </div>
