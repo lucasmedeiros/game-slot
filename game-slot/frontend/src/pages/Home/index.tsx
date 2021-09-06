@@ -31,23 +31,7 @@ const Home: React.FC = () => {
     <section className="w-full h-full justify-center items-center">
       {user?.user ? (
         <div>
-<<<<<<< HEAD
           {lists.length ? renderLists(lists) : null}
-=======
-          {lists.length
-            ? lists.map((list) => (
-                <GameSlider
-                  key={list._id}
-                  title={list.name}
-                  titleUrl={`/list/${list._id}`}
-                >
-                  {list.games.map((game, key) => (
-                    <GameSliderItem key={key} game={game} />
-                  ))}
-                </GameSlider>
-              ))
-            : null}
->>>>>>> add user section
           <div className="p-2 md:p-5">
             <Link
               to="/list"

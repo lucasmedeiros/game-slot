@@ -5,6 +5,7 @@ import { ClipLoader } from 'react-spinners'
 interface PaginationProps {
   result: PaginatedResult<any>
   loading?: boolean
+  children: any
   refresh: (page: number, pageSize: number) => void
 }
 

@@ -62,9 +62,15 @@ const Header: React.FC<HeaderProps> = Radium(() => {
                 className="mr-5 rounded-full overflow-hidden text-white"
                 style={{ width: '2.5rem', height: '2.5rem' }}
               >
-                <button>
-                  <img src={user.picture ?? AvatarPlaceholder} alt="User" />
-                </button>
+                <Link
+                  className="text-white bg-red-700 py-2 px-4 mr-2 rounded"
+                  to={'/user/' + userId}
+                >
+                  <button>
+                    <img src={user.picture ?? AvatarPlaceholder} alt="User" />
+                  </button>
+                  User Page
+                </Link>
               </div>
             </div>
           ) : (
@@ -75,12 +81,6 @@ const Header: React.FC<HeaderProps> = Radium(() => {
               Login
             </button>
           )}
-          <Link
-            className="text-white bg-red-700 py-2 px-4 mr-2 rounded"
-            to={'/user/' + userId}
-          >
-            User Page
-          </Link>
         </div>
       </div>
     </LayoutHeader>

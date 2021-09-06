@@ -45,11 +45,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ updateReviews, gameId }) => {
     existingReview,
     update: updateUserReview,
   } = useUserReview(gameId, user?.user)
-<<<<<<< HEAD
   const { isAuthenticated, loginWithRedirect } = useAuth0()
-=======
-  const location = useLocation()
->>>>>>> add user section
 
   useEffect(() => {
     if (review) {
