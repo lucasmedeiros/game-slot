@@ -101,7 +101,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ updateReviews, gameId }) => {
         }
         updateReviews(1)
         updateUserReview()
-      } catch (error) {
+      } catch (error: any) {
         alert(error.message)
       }
     }
@@ -123,7 +123,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ updateReviews, gameId }) => {
           setRecommendation(undefined)
         }
       }
-    } catch (error) {
+    } catch (error: any) {
       alert(error.message)
     }
   }
