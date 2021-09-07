@@ -4,10 +4,10 @@ import { useSelector } from 'react-redux'
 import { RootState } from '../../store'
 import NotLoggedHome from './NotLoggedHome'
 import { Link } from 'react-router-dom'
-import { useCurrentUser } from '../../contexts/UserContext'
+import { useAuth0 } from '@auth0/auth0-react'
 
 const Home: React.FC = () => {
-  const { user } = useCurrentUser()
+  const { isAuthenticated } = useAuth0()
   const lists = useSelector(
     (state: RootState) => state.gameListReducer.gameLists
   )
@@ -30,7 +30,7 @@ const Home: React.FC = () => {
 
   return (
     <section className="w-full h-full justify-center items-center">
-      {user ? (
+      {isAuthenticated ? (
         <div>
           {lists.length ? renderLists(lists) : null}
           <div className="p-2 md:p-5">

@@ -3,6 +3,8 @@ import React, { useEffect, useCallback } from 'react'
 import { useDispatch } from 'react-redux'
 import { StaticContext } from 'react-router'
 import { Route, RouteComponentProps, Switch } from 'react-router-dom'
+import { ClipLoader } from 'react-spinners'
+
 import routes from '../../routes'
 import Header from './Header'
 import { ContentWrapper } from '../../styles'
@@ -10,12 +12,29 @@ import PrivateRoute from '../../components/PrivateRoute'
 import { setGameLists } from '../../store/lists/actions'
 import { getGameLists } from '../../services/gameLists.service'
 import { useCurrentUser } from '../../contexts/UserContext'
+import { useAuth0 } from '@auth0/auth0-react'
 
 const DefaultLayout: React.FC<
   RouteComponentProps<any, StaticContext, unknown>
 > = () => {
   const dispatch = useDispatch()
+  const { isLoading } = useAuth0()
   const { user } = useCurrentUser()
+
+  if (isLoading)
+    return (
+      <div
+        style={{
+          width: '100vw',
+          height: '90vh',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <ClipLoader size={100} color="white" />
+      </div>
+    )
 
   useEffect(() => {
     if (user) getGameLists(user).then((lists) => dispatch(setGameLists(lists)))
@@ -44,6 +63,7 @@ const DefaultLayout: React.FC<
       ),
     []
   )
+
   return (
     <>
       <Header />
