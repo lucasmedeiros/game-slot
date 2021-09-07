@@ -49,11 +49,10 @@ module.exports = {
   },
 
   get: async function (req, res) {
-    const { _id } = req.user
     const { id } = req.params
 
     try {
-      const review = await getReview({ reviewId: id, userId: _id })
+      const review = await getReview({ reviewId: id })
       return res.status(200).json(review)
     } catch (error) {
       return res.status(400).json({ error: error.message })

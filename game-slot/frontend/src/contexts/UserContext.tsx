@@ -31,7 +31,12 @@ const UserContextProvider: React.FC = ({ children }) => {
           const response = await callAPI(
             'auth',
             'POST',
-            { name: userAuth?.name, email: userAuth?.email },
+            {
+              name: userAuth.name,
+              email: userAuth.email,
+              nickname: userAuth.nickname,
+              picture: userAuth.picture,
+            },
             token
           )
           return response

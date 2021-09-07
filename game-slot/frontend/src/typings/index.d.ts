@@ -47,4 +47,8 @@ interface User {
   _id: string
   name: string
   email: string
+  nickname: string
+  picture?: string
+  followings: string[]
+  followers: string[]
 }

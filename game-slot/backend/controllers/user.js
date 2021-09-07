@@ -2,7 +2,11 @@ const User = require('../models/User')
 
 module.exports = {
   list: async function (req, res) {
-    const users = await User.find()
+    const { nickname, email } = req.query
+    const users = await User.find({
+      ...(!!nickname && { nickname }),
+      ...(!!email && { email }),
+    })
     return res.status(200).json(users)
   },
   getById: async function (req, res) {

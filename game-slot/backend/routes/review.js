@@ -10,7 +10,7 @@ const {
 } = require('../controllers/review')
 const router = express.Router()
 
-router.get('/:id', checkJwt, get)
+router.get('/:id', get)
 router.get('/game/:id', getAll)
 router.get('/user/:gameId', checkJwt, getByUserAndGame)
 router.post('/', checkJwt, create)

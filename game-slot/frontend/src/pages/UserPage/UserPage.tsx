@@ -1,17 +1,17 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { useAuth0 } from '@auth0/auth0-react'
+import { ClipLoader } from 'react-spinners'
+import { useCurrentUser } from '../../contexts/UserContext'
+import {
+  followUser,
+  getUserByNickname,
+  unfollowUser,
+} from '../../services/users.service'
 
 const image =
   'https://www.comboinfinito.com.br/principal/wp-content/uploads/2019/12/the_witcher_3-_wild_hunt.jpg'
 
 const data = {
-  name: 'Douglas Lima',
-  image:
-    'https://cache.skoob.com.br/local/images//0IobvjBfoc_GDUEqqj4fiVqt8tM=/170x170/center/top/smart/filters:format(jpeg)/https://skoob.s3.amazonaws.com/usuarios/394638/394638SK-V11624626632G.jpg',
-  followers: ['some', 'some', 'some', 'some', 'some'],
-  foolowing: ['some', 'some', 'some', 'some', 'some', 'some', 'some'],
-  gameLists: [1, 2, 3, 4],
   reviews: [
     {
       game: 'game',
@@ -107,14 +107,16 @@ function ReviewItem({ score, image, comment }: Review) {
 
 interface UserPageProps {
   type?: string
-  id: string
+  nickname: string
 }
 
-function More({ type, id }: UserPageProps) {
+function More({ type, nickname }: UserPageProps) {
   return (
     <Link
       to={
-        type === 'list' ? '/user/' + id + '/lists' : '/user/' + id + '/reviews'
+        type === 'list'
+          ? `/user/${nickname}/lists`
+          : `/user/${nickname}/reviews`
       }
       style={{
         width: '206px',
@@ -132,10 +134,91 @@ function More({ type, id }: UserPageProps) {
   )
 }
 
+const containerStyles: React.CSSProperties = {
+  width: '100vw',
+  height: '85vh',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  color: 'white',
+  fontSize: '30px',
+}
+
 const UserPage: React.FC = () => {
-  const { id } = useParams<UserPageProps>()
-  const { user } = useAuth0()
+  const { nickname } = useParams<UserPageProps>()
+  const { user: currentUser, setUser: setCurrentUser } = useCurrentUser()
+  const [user, setUser] = useState<User | undefined>()
+  const [fetchingUser, setFetchingUser] = useState(true)
+  const [errorMessage, setErrorMessage] = useState<string | undefined>()
+  const [followButtonDisabled, setFollowButtonDisabled] = useState(true)
+  const [currentUserIsFollowing, setCurrentUserIsFollowing] = useState(true)
+
   const DEFAULT_LENGTH = 5
+
+  useEffect(() => {
+    const getUser = async () => {
+      setErrorMessage(undefined)
+      setFetchingUser(true)
+      const response = await getUserByNickname(nickname)
+      if (!response) {
+        setErrorMessage(`Sorry! User ${nickname} not found :(`)
+      } else {
+        setUser(response)
+      }
+      setFetchingUser(false)
+    }
+
+    getUser()
+  }, [nickname])
+
+  useEffect(() => {
+    if (currentUser && user) {
+      setFollowButtonDisabled(nickname === currentUser.nickname)
+      setCurrentUserIsFollowing(currentUser.followings.includes(user._id))
+    }
+  }, [nickname, currentUser, user])
+
+  const onFollowButtonClick = async () => {
+    if (user && currentUser) {
+      setFollowButtonDisabled(true)
+      if (currentUserIsFollowing) {
+        await unfollowUser(user._id, currentUser._id)
+        setUser({
+          ...user,
+          followers: user.followers.filter((id) => id !== currentUser._id),
+        })
+        setCurrentUser({
+          ...currentUser,
+          followings: currentUser.followings.filter((id) => id !== user._id),
+        })
+        setCurrentUserIsFollowing(false)
+      } else {
+        await followUser(user._id, currentUser._id)
+        setUser({
+          ...user,
+          followers: [...user.followers, currentUser._id],
+        })
+        setCurrentUser({
+          ...currentUser,
+          followings: [...currentUser.followings, user._id],
+        })
+        setCurrentUserIsFollowing(true)
+      }
+      setFollowButtonDisabled(false)
+    }
+  }
+
+  if (fetchingUser) {
+    return (
+      <div style={containerStyles}>
+        <ClipLoader size={100} color="white" />
+      </div>
+    )
+  }
+
+  if (errorMessage) {
+    return <div style={containerStyles}>{errorMessage}</div>
+  }
 
   return (
     <div
@@ -174,7 +257,7 @@ const UserPage: React.FC = () => {
             marginBottom: '15px',
           }}
         >
-          {data.name}
+          {user?.name}
         </p>
         <div
           style={{
@@ -183,9 +266,9 @@ const UserPage: React.FC = () => {
             fontSize: '16px',
           }}
         >
-          <span>{data.followers.length} Followers</span>
+          <span>{user?.followers.length} Followers</span>
           <span style={{ marginLeft: '24px' }}>
-            {data.foolowing.length} Following
+            {user?.followings.length} Following
           </span>
         </div>
         <button
@@ -195,9 +278,13 @@ const UserPage: React.FC = () => {
             background: '#2B6EAD',
             borderRadius: '4px',
             marginTop: '39px',
+            cursor: followButtonDisabled ? 'not-allowed' : 'pointer',
+            opacity: followButtonDisabled ? 0.5 : 1,
           }}
+          disabled={followButtonDisabled}
+          onClick={onFollowButtonClick}
         >
-          Follow
+          {currentUserIsFollowing ? 'Unfollow' : 'Follow'}
         </button>
       </div>
       <div
@@ -229,7 +316,7 @@ const UserPage: React.FC = () => {
               key={review.game}
             />
           ))}
-          <More type="list" id={id} />
+          <More type="list" nickname={nickname} />
         </div>
         <h3
           style={{
@@ -255,7 +342,7 @@ const UserPage: React.FC = () => {
               key={review.game}
             />
           ))}
-          <More type="reviews" id={id} />
+          <More type="reviews" nickname={nickname} />
         </div>
       </div>
     </div>

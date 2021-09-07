@@ -14,27 +14,20 @@ import { getGameLists } from '../../services/gameLists.service'
 import { useCurrentUser } from '../../contexts/UserContext'
 import { useAuth0 } from '@auth0/auth0-react'
 
+const loadingContainerStyles: React.CSSProperties = {
+  width: '100vw',
+  height: '90vh',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+}
+
 const DefaultLayout: React.FC<
   RouteComponentProps<any, StaticContext, unknown>
 > = () => {
   const dispatch = useDispatch()
   const { isLoading } = useAuth0()
   const { user } = useCurrentUser()
-
-  if (isLoading)
-    return (
-      <div
-        style={{
-          width: '100vw',
-          height: '90vh',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <ClipLoader size={100} color="white" />
-      </div>
-    )
 
   useEffect(() => {
     if (user) getGameLists(user).then((lists) => dispatch(setGameLists(lists)))
@@ -63,6 +56,13 @@ const DefaultLayout: React.FC<
       ),
     []
   )
+
+  if (isLoading)
+    return (
+      <div style={loadingContainerStyles}>
+        <ClipLoader size={100} color="white" />
+      </div>
+    )
 
   return (
     <>
