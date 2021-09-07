@@ -17,8 +17,7 @@ const NewList: React.FC = () => {
 
   const onCreateList = async (e: React.FormEvent<any>) => {
     e.preventDefault()
-    console.log(user)
-    if (listName.trim() && !blocked && user) {
+    if (listName.trim() && !blocked && user?._id) {
       setBlocked(true)
       const token = await getAccessTokenSilently()
       const list = await createGameList(listName, user._id, token)
