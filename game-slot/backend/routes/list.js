@@ -13,11 +13,13 @@ const {
 const router = express.Router()
 
 router.get('/:id', getOne)
-router.get('/user/:id', get)
-router.post('/', checkJwt, create)
-router.post('/:id/game', checkJwt, addGame)
-router.post('/:id/game/remove', checkJwt, removeGame)
 router.put('/:id', checkJwt, update)
 router.delete('/:id', checkJwt, remove)
+
+router.post('/:id/game', checkJwt, addGame)
+router.post('/:id/game/remove', checkJwt, removeGame)
+
+router.get('/user/:userId', get)
+router.post('/user/:userId', checkJwt, create)
 
 module.exports = router
