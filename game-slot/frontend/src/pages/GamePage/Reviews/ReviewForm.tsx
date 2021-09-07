@@ -43,7 +43,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ updateReviews, gameId }) => {
     review,
     existingReview,
     update: updateUserReview,
-  } = useUserReview(gameId, user)
+  } = useUserReview(gameId, user, [user])
   const { isAuthenticated, loginWithPopup } = useAuth0()
 
   useEffect(() => {

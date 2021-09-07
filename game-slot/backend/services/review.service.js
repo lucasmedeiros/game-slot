@@ -80,6 +80,17 @@ module.exports = {
     }
   },
 
+  getUserReviews: async function (userId) {
+    if (!userId) throw new Error('user id not provided')
+
+    try {
+      const review = await Review.findOne({ user: userId })
+      return review
+    } catch (error) {
+      throw new Error(error.message)
+    }
+  },
+
   getUserReviewByGame: async function ({ userId, gameId }) {
     if (!userId) throw new Error('user id not provided')
     if (!gameId) throw new Error('game id not provided')

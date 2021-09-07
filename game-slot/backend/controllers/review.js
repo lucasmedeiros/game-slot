@@ -5,22 +5,22 @@ const {
   deleteUserReview,
   getGameReviews,
   getUserReviewByGame,
+  getUserReviews,
 } = require('../services/review.service')
 
 module.exports = {
   create: async function (req, res) {
-    const { _id } = req.user
-    const { gameId, text, recommendation } = req.body
+    const { gameId, text, recommendation, userId } = req.body
 
     try {
-      const existingReview = await getUserReviewByGame({ gameId, userId: _id })
+      const existingReview = await getUserReviewByGame({ gameId, userId })
       if (existingReview)
         throw new Error(
-          `there's an existing review for this game from user ${_id}`
+          `there's an existing review for this game from user ${userId}`
         )
       const review = await createUserReview({
         gameId,
-        userId: _id,
+        userId,
         recommend: recommendation,
         text: text || '',
       })
@@ -31,14 +31,13 @@ module.exports = {
   },
 
   update: async function (req, res) {
-    const { _id } = req.user
     const { id } = req.params
-    const { text, recommendation } = req.body
+    const { text, recommendation, userId } = req.body
 
     try {
       const review = await updateUserReview({
         reviewId: id,
-        userId: _id,
+        userId,
         text,
         recommend: recommendation,
       })
@@ -71,12 +70,22 @@ module.exports = {
     }
   },
 
-  getByUserAndGame: async function (req, res) {
-    const { _id } = req.user
-    const { gameId } = req.params
+  getByUser: async function (req, res) {
+    const { userId } = req.params
 
     try {
-      const reviews = await getUserReviewByGame({ userId: _id, gameId })
+      const reviews = await getUserReviews(userId)
+      return res.status(200).json(reviews)
+    } catch (error) {
+      return res.status(400).json({ error: error.message })
+    }
+  },
+
+  getByUserAndGame: async function (req, res) {
+    const { gameId, userId } = req.params
+
+    try {
+      const reviews = await getUserReviewByGame({ userId, gameId })
       return res.status(200).json(reviews)
     } catch (error) {
       return res.status(400).json({ error: error.message })
@@ -84,11 +93,11 @@ module.exports = {
   },
 
   remove: async function (req, res) {
-    const { _id } = req.user
     const { id } = req.params
+    const { userId } = req.body
 
     try {
-      const review = await deleteUserReview({ reviewId: id, userId: _id })
+      const review = await deleteUserReview({ reviewId: id, userId })
       return res.status(200).json(review)
     } catch (error) {
       return res.status(400).json({ error: error.message })
