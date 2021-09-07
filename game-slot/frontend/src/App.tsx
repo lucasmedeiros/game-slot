@@ -7,6 +7,7 @@ import DefaultLayout from './layout/default'
 import { store } from './store'
 import { Auth0Provider } from '@auth0/auth0-react'
 import Radium from 'radium'
+import UserContextProvider from './contexts/UserContext'
 
 const { StyleRoot } = Radium
 
@@ -15,6 +16,7 @@ library.add(fas)
 const providerConfig = {
   domain: process.env.REACT_APP_AUTH0_DOMAIN ?? '',
   clientId: process.env.REACT_APP_AUTH0_CLIENT_ID ?? '',
+  audience: process.env.REACT_APP_AUTH0_AUDIENCE ?? '',
   redirectUri: window.location.origin,
   scope: 'read:current_user',
 }
@@ -24,11 +26,16 @@ const App: React.FC = () => {
     <StyleRoot>
       <Provider store={store}>
         <Auth0Provider {...providerConfig}>
-          <BrowserRouter>
-            <Switch>
-              <Route path="" render={(props) => <DefaultLayout {...props} />} />
-            </Switch>
-          </BrowserRouter>
+          <UserContextProvider>
+            <BrowserRouter>
+              <Switch>
+                <Route
+                  path=""
+                  render={(props) => <DefaultLayout {...props} />}
+                />
+              </Switch>
+            </BrowserRouter>
+          </UserContextProvider>
         </Auth0Provider>
       </Provider>
     </StyleRoot>

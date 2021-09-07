@@ -8,7 +8,7 @@ import { DEFAULT_PAGE_SIZE } from '../constants'
 export interface IGameReview {
   _id: string
   gameId: string
-  user: IUser
+  user: User
   text: string
   recommended: number
   createdAt: string

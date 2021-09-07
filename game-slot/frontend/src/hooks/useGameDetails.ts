@@ -21,7 +21,6 @@ const useGameDetails = (appId: string, deps: any[] = []): ObjectGameDetails => {
 
       if (response.success) {
         const { data } = response
-        console.log(data)
         setDetails({
           game: {
             steamAppId: appId,

@@ -13,7 +13,7 @@ interface ObjectUserReview {
 
 const useUserReview = (
   gameId: string,
-  user?: IUser,
+  user?: User,
   deps: any[] = []
 ): ObjectUserReview => {
   const [loading, setLoading] = useState<boolean>(true)

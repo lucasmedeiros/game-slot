@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../store'
 import { addGameToList } from '../../services/gameLists.service'
 import { addItemToList } from '../../store/lists/actions'
+import { useAuth0 } from '@auth0/auth0-react'
 
 type Props = ModalProps & { game: IGame | undefined }
 
@@ -14,11 +15,13 @@ const AddToListModal: React.FC<Props> = ({ isOpen, onClose, game }) => {
   const dispatch = useDispatch()
   const [listId, setListId] = useState<string>('')
   const [submiting, setSubmiting] = useState<boolean>(false)
+  const { getAccessTokenSilently } = useAuth0()
 
   const onSubmitClick = async () => {
     if (game && listId) {
       setSubmiting(true)
-      await addGameToList(game, listId)
+      const token = await getAccessTokenSilently()
+      await addGameToList(game, listId, token)
       dispatch(addItemToList(listId, game))
       setSubmiting(false)
       onClose()

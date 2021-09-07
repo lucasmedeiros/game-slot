@@ -13,18 +13,6 @@ interface IGameDetails {
   movies?: string[]
 }
 
-interface IUser {
-  _id: string
-  name: string
-  email: string
-  __v: number
-}
-
-interface User {
-  user: IUser
-  token: string
-}
-
 interface GameList {
   _id: string
   games: IGame[]
@@ -54,3 +42,9 @@ interface DefaultLocation {
 }
 
 type RecommendationValue = 'yes' | 'no' | 'meh' | undefined
+
+interface User {
+  _id: string
+  name: string
+  email: string
+}

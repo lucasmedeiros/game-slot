@@ -1,9 +1,8 @@
 /* eslint-disable no-restricted-globals */
 import React, { useState, useEffect } from 'react'
 import { useParams, Redirect, useHistory } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import classnames from 'classnames'
-import { RootState } from '../../../store'
 import GamesGrid from '../../../components/GamesGrid'
 import {
   deleteGameList as deleteGameListAction,
@@ -14,6 +13,8 @@ import {
   removeGameFromList,
   getOneGameList,
 } from '../../../services/gameLists.service'
+import { useCurrentUser } from '../../../contexts/UserContext'
+import { useAuth0 } from '@auth0/auth0-react'
 
 interface Params {
   id: string
@@ -24,9 +25,10 @@ const ViewList: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true)
   const { id } = useParams<Params>()
   const [list, setList] = useState<GameList | null>()
-  const user = useSelector((state: RootState) => state.userReducer.user)
+  const { user } = useCurrentUser()
   const history = useHistory()
   const dispatch = useDispatch()
+  const { getAccessTokenSilently } = useAuth0()
 
   useEffect(() => {
     getOneGameList(id).then((listResponse) => {
@@ -43,7 +45,8 @@ const ViewList: React.FC = () => {
     const mayDelete = confirm('Are you sure you want to delete this list?')
     if (mayDelete) {
       setBlocked(true)
-      const success = await deleteGameList(id)
+      const token = await getAccessTokenSilently()
+      const success = await deleteGameList(id, token)
       if (success) {
         dispatch(deleteGameListAction(id))
         setList(null)
@@ -58,7 +61,8 @@ const ViewList: React.FC = () => {
 
     if (mayDelete) {
       setBlocked(true)
-      const newList = await removeGameFromList(id, gameId)
+      const token = await getAccessTokenSilently()
+      const newList = await removeGameFromList(id, gameId, token)
       setList(newList)
       dispatch(deleteGameListItem(id, gameId))
       setBlocked(false)
@@ -78,7 +82,7 @@ const ViewList: React.FC = () => {
         className={classnames(
           'flex flex-col w-full xl:flex-row flex-wrap mt-2',
           {
-            hidden: list.user !== user?.user._id,
+            hidden: list.user !== user?._id,
           }
         )}
       >

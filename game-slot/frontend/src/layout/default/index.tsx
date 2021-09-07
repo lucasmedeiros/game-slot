@@ -1,23 +1,24 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useCallback } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { StaticContext } from 'react-router'
 import { Route, RouteComponentProps, Switch } from 'react-router-dom'
 import routes from '../../routes'
 import Header from './Header'
 import { ContentWrapper } from '../../styles'
-import { RootState } from '../../store'
 import PrivateRoute from '../../components/PrivateRoute'
 import { setGameLists } from '../../store/lists/actions'
 import { getGameLists } from '../../services/gameLists.service'
+import { useCurrentUser } from '../../contexts/UserContext'
 
 const DefaultLayout: React.FC<
   RouteComponentProps<any, StaticContext, unknown>
 > = () => {
-  const user = useSelector((state: RootState) => state.userReducer.user)
   const dispatch = useDispatch()
+  const { user } = useCurrentUser()
+
   useEffect(() => {
-    getGameLists(user?.user).then((lists) => dispatch(setGameLists(lists)))
+    if (user) getGameLists(user).then((lists) => dispatch(setGameLists(lists)))
   }, [dispatch, user])
 
   const getRoutes = useCallback(

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Radium from 'radium'
-import { Link, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { LayoutHeader } from '../../../styles'
 import AvatarPlaceholder from '../../../assets/img/avatar.png'
@@ -8,6 +8,7 @@ import HeaderSearch from './HeaderSearch'
 import { useAuth0 } from '@auth0/auth0-react'
 
 import styles from './styles'
+import { useCurrentUser } from '../../../contexts/UserContext'
 
 interface HeaderProps {
   className?: string
@@ -18,10 +19,15 @@ const userId = 0
 const Header: React.FC<HeaderProps> = Radium(() => {
   const [navOpen, setNavOpen] = useState<boolean>(true)
   const history = useHistory()
-  const { loginWithRedirect, logout, user } = useAuth0()
+  const { loginWithPopup, logout, user: userAuth } = useAuth0()
+  const { user } = useCurrentUser()
 
   const goToHome = () => {
     history.push('/')
+  }
+
+  const onLogout = () => {
+    logout({ returnTo: `${window.location.protocol}//${window.location.host}` })
   }
 
   return (
@@ -45,14 +51,12 @@ const Header: React.FC<HeaderProps> = Radium(() => {
       >
         <div className="flex w-full flex-col flex-1 md:flex-row justify-between">
           <HeaderSearch className="mb-4 md:mb-0" />
-          {user ? (
+          {user && userAuth ? (
             <div className="flex items-center">
               <div className="flex flex-col items-end">
-                <p className="text-white mr-4">
-                  Hello, {user.given_name ?? 'user'}
-                </p>
+                <p className="text-white mr-4">Hello, {user.name ?? 'user'}</p>
                 <button
-                  onClick={() => logout()}
+                  onClick={onLogout}
                   className="text-white mr-4 text-xs hover:underline"
                 >
                   Logout
@@ -62,20 +66,15 @@ const Header: React.FC<HeaderProps> = Radium(() => {
                 className="mr-5 rounded-full overflow-hidden text-white"
                 style={{ width: '2.5rem', height: '2.5rem' }}
               >
-                <Link
-                  className="text-white bg-red-700 py-2 px-4 mr-2 rounded"
-                  to={'/user/' + userId}
-                >
-                  <button>
-                    <img src={user.picture ?? AvatarPlaceholder} alt="User" />
-                  </button>
-                </Link>
+                <button onClick={() => history.push(`/user/${userId}`)}>
+                  <img src={userAuth.picture ?? AvatarPlaceholder} alt="User" />
+                </button>
               </div>
             </div>
           ) : (
             <button
               className="text-white bg-red-700 py-2 px-4 mr-2 rounded"
-              onClick={() => loginWithRedirect()}
+              onClick={() => loginWithPopup()}
             >
               Login
             </button>

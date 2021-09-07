@@ -9,7 +9,7 @@ interface ConfigOptions {
 
 const config: ConfigOptions = {
   development: {
-    apiURL: 'http://localhost:8000',
+    apiURL: `${process.env.REACT_APP_API_URL ?? 'http://localhost:5000'}`,
   },
   production: {
     apiURL: `${process.env.REACT_APP_API_URL}`,

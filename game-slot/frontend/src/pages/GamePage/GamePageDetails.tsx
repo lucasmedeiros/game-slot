@@ -2,8 +2,7 @@ import React from 'react'
 import classnames from 'classnames'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { arrayUnique } from '../../utils'
-import { useSelector } from 'react-redux'
-import { RootState } from '../../store'
+import { useCurrentUser } from '../../contexts/UserContext'
 
 interface GamePageDetailsProps {
   details?: IGameDetails
@@ -20,7 +19,7 @@ const GamePageDetails: React.FC<GamePageDetailsProps> = ({
   count,
   openModal,
 }) => {
-  const user = useSelector((state: RootState) => state.userReducer.user)
+  const { user } = useCurrentUser()
   const openOnSteam = () => {
     if (window) {
       window.open(
