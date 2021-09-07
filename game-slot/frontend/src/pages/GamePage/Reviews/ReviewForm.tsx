@@ -4,10 +4,9 @@ import classnames from 'classnames'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import useReviewActions from '../../../hooks/useReviewActions'
-import { useSelector } from 'react-redux'
-import { RootState } from '../../../store'
 import useUserReview from '../../../hooks/useUserReview'
 import { useAuth0 } from '@auth0/auth0-react'
+import { useCurrentUser } from '../../../contexts/UserContext'
 
 interface IReviewButtons {
   value: RecommendationValue
@@ -39,13 +38,13 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ updateReviews, gameId }) => {
     remove: deleteReview,
   } = useReviewActions()
   const [text, setText] = useState<string>('')
-  const user = useSelector((state: RootState) => state.userReducer.user)
+  const { user } = useCurrentUser()
   const {
     review,
     existingReview,
     update: updateUserReview,
-  } = useUserReview(gameId, user?.user)
-  const { isAuthenticated, loginWithRedirect } = useAuth0()
+  } = useUserReview(gameId, user)
+  const { isAuthenticated, loginWithPopup } = useAuth0()
 
   useEffect(() => {
     if (review) {
@@ -191,10 +190,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ updateReviews, gameId }) => {
       ) : (
         <div className="w-full p-5 flex text-2xl">
           <p>
-            <button
-              onClick={() => loginWithRedirect()}
-              className="text-red-400"
-            >
+            <button onClick={() => loginWithPopup()} className="text-red-400">
               Sign in
             </button>{' '}
             to write a review!

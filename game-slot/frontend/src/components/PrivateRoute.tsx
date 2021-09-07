@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React from 'react'
+import React, { Fragment } from 'react'
 import { Route, Redirect, RouteProps, useLocation } from 'react-router-dom'
-import { useSelector } from 'react-redux'
-import { RootState } from '../store'
+import { useAuth0 } from '@auth0/auth0-react'
 
 const PrivateRoute: React.FC<RouteProps> = ({ component, ...rest }) => {
-  const user = useSelector((state: RootState) => state.userReducer.user)
+  const { user, isLoading } = useAuth0()
   const location = useLocation()
+
+  if (isLoading) return <Fragment />
 
   return (
     <Route

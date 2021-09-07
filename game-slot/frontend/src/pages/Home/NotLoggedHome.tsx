@@ -5,7 +5,7 @@ import { useAuth0 } from '@auth0/auth0-react'
 
 const NotLoggedHome: React.FC = () => {
   const history = useHistory()
-  const { isAuthenticated, loginWithRedirect } = useAuth0()
+  const { isAuthenticated, loginWithPopup } = useAuth0()
 
   const goToSearchPage = () => {
     history.push('/search')
@@ -39,7 +39,7 @@ const NotLoggedHome: React.FC = () => {
             </button>
             {!isAuthenticated && (
               <button
-                onClick={() => loginWithRedirect()}
+                onClick={() => loginWithPopup()}
                 className="p-3 w-32 md:w-56 ml-5 font-bold md:text-2xl rounded bg-red-600 text-white"
               >
                 Sign in

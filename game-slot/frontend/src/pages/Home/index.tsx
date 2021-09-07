@@ -4,9 +4,10 @@ import { useSelector } from 'react-redux'
 import { RootState } from '../../store'
 import NotLoggedHome from './NotLoggedHome'
 import { Link } from 'react-router-dom'
+import { useCurrentUser } from '../../contexts/UserContext'
 
 const Home: React.FC = () => {
-  const user = useSelector((state: RootState) => state.userReducer.user)
+  const { user } = useCurrentUser()
   const lists = useSelector(
     (state: RootState) => state.gameListReducer.gameLists
   )
@@ -29,7 +30,7 @@ const Home: React.FC = () => {
 
   return (
     <section className="w-full h-full justify-center items-center">
-      {user?.user ? (
+      {user ? (
         <div>
           {lists.length ? renderLists(lists) : null}
           <div className="p-2 md:p-5">

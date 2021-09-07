@@ -1,5 +1,4 @@
 import config from '../config'
-import { getFromLocalStorage } from '../utils'
 
 type Method = 'GET' | 'POST' | 'DELETE' | 'PUT'
 
@@ -10,10 +9,9 @@ export interface RequestResponse {
   data: any
 }
 
-const generateHeader = () => {
-  const user = getFromLocalStorage('user') as User | undefined
+const generateHeader = (token?: string) => {
   return {
-    Authorization: user ? `Bearer ${user.token}` : undefined,
+    Authorization: token ? `Bearer ${token}` : undefined,
     'Content-Type': 'application/json',
   }
 }
@@ -59,12 +57,13 @@ const request = async (
 export const callAPI = async (
   path: string,
   method: Method,
-  body: any
+  body: any,
+  token?: string
 ): Promise<RequestResponse> => {
   return await request(
     `${config.apiURL}/${path}`,
     method,
     body,
-    generateHeader()
+    generateHeader(token)
   )
 }

@@ -4,18 +4,24 @@ import { useDispatch } from 'react-redux'
 import { createGameList } from '../../../services/gameLists.service'
 import { createGameList as createGameListAction } from '../../../store/lists/actions'
 import { useHistory } from 'react-router-dom'
+import { useAuth0 } from '@auth0/auth0-react'
+import { useCurrentUser } from '../../../contexts/UserContext'
 
 const NewList: React.FC = () => {
   const [blocked, setBlocked] = useState<boolean>(false)
   const [listName, setListName] = useState<string>('')
   const dispatch = useDispatch()
   const history = useHistory()
+  const { getAccessTokenSilently } = useAuth0()
+  const { user } = useCurrentUser()
 
   const onCreateList = async (e: React.FormEvent<any>) => {
     e.preventDefault()
-    if (listName.trim() && !blocked) {
+    console.log(user)
+    if (listName.trim() && !blocked && user) {
       setBlocked(true)
-      const list = await createGameList(listName)
+      const token = await getAccessTokenSilently()
+      const list = await createGameList(listName, user._id, token)
       dispatch(createGameListAction(list))
       history.push('/')
     }
