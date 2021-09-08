@@ -54,6 +54,7 @@ export const getOneGameList = async (
 export const addGameToList = async (
   game: IGame,
   listId: string,
+  userId: string,
   token: string
 ): Promise<GameList> => {
   const response = await callAPI(
@@ -61,6 +62,7 @@ export const addGameToList = async (
     'POST',
     {
       gameId: game.steamAppId,
+      userId,
     },
     token
   )

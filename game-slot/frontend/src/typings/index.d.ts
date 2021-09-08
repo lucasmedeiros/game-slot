@@ -52,3 +52,11 @@ interface User {
   followings: string[]
   followers: string[]
 }
+
+interface Review {
+  gameId: string
+  user: string
+  text: string
+  recommended: number
+  _id: string
+}
