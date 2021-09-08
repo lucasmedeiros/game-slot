@@ -73,12 +73,11 @@ module.exports = {
   },
 
   addGame: async function (req, res) {
-    const { _id } = req.user
     const { id } = req.params
-    const { gameId } = req.body
+    const { gameId, userId } = req.body
 
     try {
-      const list = await addGameToList({ userId: _id, listId: id, gameId })
+      const list = await addGameToList({ userId, listId: id, gameId })
       return res.status(200).json(list)
     } catch (error) {
       return res.status(400).json({ error: error.message })
@@ -86,12 +85,11 @@ module.exports = {
   },
 
   removeGame: async function (req, res) {
-    const { _id } = req.user
-    const { id } = req.params
+    const { id, userId } = req.params
     const { gameId } = req.body
 
     try {
-      const list = await removeGameFromList({ userId: _id, listId: id, gameId })
+      const list = await removeGameFromList({ userId, listId: id, gameId })
       return res.status(200).json(list)
     } catch (error) {
       return res.status(400).json({ error: error.message })

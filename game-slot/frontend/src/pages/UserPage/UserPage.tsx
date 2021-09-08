@@ -1,141 +1,103 @@
-import React from 'react'
-import { Link, useParams } from 'react-router-dom'
-import { useAuth0 } from '@auth0/auth0-react'
-
-const image =
-  'https://www.comboinfinito.com.br/principal/wp-content/uploads/2019/12/the_witcher_3-_wild_hunt.jpg'
-
-const data = {
-  name: 'Douglas Lima',
-  image:
-    'https://cache.skoob.com.br/local/images//0IobvjBfoc_GDUEqqj4fiVqt8tM=/170x170/center/top/smart/filters:format(jpeg)/https://skoob.s3.amazonaws.com/usuarios/394638/394638SK-V11624626632G.jpg',
-  followers: ['some', 'some', 'some', 'some', 'some'],
-  foolowing: ['some', 'some', 'some', 'some', 'some', 'some', 'some'],
-  gameLists: [1, 2, 3, 4],
-  reviews: [
-    {
-      game: 'game',
-      score: 4,
-      image: image,
-      comment: 'I like that one',
-    },
-    {
-      game: 'game2',
-      score: 5,
-      image: image,
-      comment: 'I love that one',
-    },
-    {
-      game: 'game3',
-      score: 1,
-      image: image,
-      comment: 'I hate that one',
-    },
-  ],
-}
-
-interface Review {
-  score: number
-  image: string
-  comment: string
-}
-
-interface List {
-  name: string
-  image: string
-}
-
-function ListItem({ name, image }: List) {
-  return (
-    <div style={{ padding: '10px' }}>
-      <img
-        src={image}
-        alt=""
-        style={{
-          width: '206px',
-          height: '161px',
-        }}
-      />
-      <div
-        style={{
-          fontSize: '16px',
-          marginTop: '16px',
-        }}
-      >
-        {name}
-      </div>
-    </div>
-  )
-}
-
-function ReviewItem({ score, image, comment }: Review) {
-  return (
-    <div style={{ padding: '10px', textAlign: 'center' }}>
-      <img
-        src={image}
-        alt=""
-        style={{
-          width: '206px',
-          height: '161px',
-          marginBottom: '10px',
-        }}
-      />
-      <span
-        style={{
-          color: '#F1C644',
-          width: '39px',
-          height: '39px',
-        }}
-      >
-        {[...Array(score)].map((i) => (
-          <span key={i}>{'\u2605'}</span>
-        ))}
-        {[...Array(5 - score)].map((i) => (
-          <span key={i}>{'\u2606'}</span>
-        ))}
-      </span>
-      <p
-        style={{
-          marginTop: '10px',
-        }}
-      >
-        {comment}
-      </p>
-    </div>
-  )
-}
+import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { ClipLoader } from 'react-spinners'
+import { useCurrentUser } from '../../contexts/UserContext'
+import {
+  followUser,
+  getUserByNickname,
+  unfollowUser,
+} from '../../services/users.service'
+import Reviews from './Reviews'
+import Lists from './Lists'
 
 interface UserPageProps {
   type?: string
-  id: string
+  nickname: string
 }
 
-function More({ type, id }: UserPageProps) {
-  return (
-    <Link
-      to={
-        type === 'list' ? '/user/' + id + '/lists' : '/user/' + id + '/reviews'
-      }
-      style={{
-        width: '206px',
-        height: '161px',
-        background: '#36383B',
-        marginTop: '10px',
-        textAlign: 'center',
-        paddingTop: '65px',
-        padding: 'auto',
-        fontSize: '30px',
-      }}
-    >
-      More
-    </Link>
-  )
+const containerStyles: React.CSSProperties = {
+  width: '100vw',
+  height: '85vh',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  color: 'white',
+  fontSize: '30px',
 }
 
 const UserPage: React.FC = () => {
-  const { id } = useParams<UserPageProps>()
-  const { user } = useAuth0()
-  const DEFAULT_LENGTH = 5
+  const { nickname } = useParams<UserPageProps>()
+  const { user: currentUser, setUser: setCurrentUser } = useCurrentUser()
+  const [user, setUser] = useState<User | undefined>()
+  const [fetchingUser, setFetchingUser] = useState(true)
+  const [errorMessage, setErrorMessage] = useState<string | undefined>()
+  const [followButtonDisabled, setFollowButtonDisabled] = useState(true)
+  const [currentUserIsFollowing, setCurrentUserIsFollowing] = useState(true)
+
+  useEffect(() => {
+    const getUser = async () => {
+      setErrorMessage(undefined)
+      setFetchingUser(true)
+      const response = await getUserByNickname(nickname)
+      if (!response) {
+        setErrorMessage(`Sorry! User ${nickname} not found :(`)
+      } else {
+        setUser(response)
+      }
+      setFetchingUser(false)
+    }
+
+    getUser()
+  }, [nickname])
+
+  useEffect(() => {
+    if (currentUser && user) {
+      setFollowButtonDisabled(nickname === currentUser.nickname)
+      setCurrentUserIsFollowing(currentUser.followings.includes(user._id))
+    }
+  }, [nickname, currentUser, user])
+
+  const onFollowButtonClick = async () => {
+    if (user && currentUser) {
+      setFollowButtonDisabled(true)
+      if (currentUserIsFollowing) {
+        await unfollowUser(user._id, currentUser._id)
+        setUser({
+          ...user,
+          followers: user.followers.filter((id) => id !== currentUser._id),
+        })
+        setCurrentUser({
+          ...currentUser,
+          followings: currentUser.followings.filter((id) => id !== user._id),
+        })
+        setCurrentUserIsFollowing(false)
+      } else {
+        await followUser(user._id, currentUser._id)
+        setUser({
+          ...user,
+          followers: [...user.followers, currentUser._id],
+        })
+        setCurrentUser({
+          ...currentUser,
+          followings: [...currentUser.followings, user._id],
+        })
+        setCurrentUserIsFollowing(true)
+      }
+      setFollowButtonDisabled(false)
+    }
+  }
+
+  if (fetchingUser || !user) {
+    return (
+      <div style={containerStyles}>
+        <ClipLoader size={100} color="white" />
+      </div>
+    )
+  }
+
+  if (errorMessage) {
+    return <div style={containerStyles}>{errorMessage}</div>
+  }
 
   return (
     <div
@@ -174,7 +136,7 @@ const UserPage: React.FC = () => {
             marginBottom: '15px',
           }}
         >
-          {data.name}
+          {user?.name}
         </p>
         <div
           style={{
@@ -183,9 +145,9 @@ const UserPage: React.FC = () => {
             fontSize: '16px',
           }}
         >
-          <span>{data.followers.length} Followers</span>
+          <span>{user?.followers.length} Followers</span>
           <span style={{ marginLeft: '24px' }}>
-            {data.foolowing.length} Following
+            {user?.followings.length} Following
           </span>
         </div>
         <button
@@ -195,9 +157,13 @@ const UserPage: React.FC = () => {
             background: '#2B6EAD',
             borderRadius: '4px',
             marginTop: '39px',
+            cursor: followButtonDisabled ? 'not-allowed' : 'pointer',
+            opacity: followButtonDisabled ? 0.5 : 1,
           }}
+          disabled={followButtonDisabled}
+          onClick={onFollowButtonClick}
         >
-          Follow
+          {currentUserIsFollowing ? 'Unfollow' : 'Follow'}
         </button>
       </div>
       <div
@@ -214,23 +180,7 @@ const UserPage: React.FC = () => {
         >
           Game Lists
         </h3>
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 1fr 1fr 1fr',
-            marginTop: '30px',
-            marginBottom: '30px',
-          }}
-        >
-          {data.reviews.slice(0, DEFAULT_LENGTH).map((review) => (
-            <ListItem
-              name={review.game}
-              image={review.image}
-              key={review.game}
-            />
-          ))}
-          <More type="list" id={id} />
-        </div>
+        <Lists id={user._id} nickname={user.nickname} />
         <h3
           style={{
             fontSize: '32px',
@@ -239,24 +189,7 @@ const UserPage: React.FC = () => {
         >
           Reviews
         </h3>
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 1fr 1fr 1fr',
-            marginTop: '30px',
-            marginBottom: '30px',
-          }}
-        >
-          {data.reviews.slice(0, DEFAULT_LENGTH).map((review) => (
-            <ReviewItem
-              score={review.score}
-              image={review.image}
-              comment={review.comment}
-              key={review.game}
-            />
-          ))}
-          <More type="reviews" id={id} />
-        </div>
+        <Reviews id={user._id} nickname={user.nickname} />
       </div>
     </div>
   )

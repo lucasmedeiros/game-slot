@@ -66,8 +66,7 @@ module.exports = {
     }
   },
 
-  getReview: async function ({ reviewId, userId }) {
-    if (!userId) throw new Error('user id not provided')
+  getReview: async function ({ reviewId }) {
     if (!reviewId) throw new Error('review id not provided')
 
     try {
@@ -75,8 +74,18 @@ module.exports = {
 
       if (!review) throw new Error('review not found')
 
-      if (review.user.toString() === userId) return review
-      else throw new Error(UNAUTHORIZED_MESSAGE)
+      return review
+    } catch (error) {
+      throw new Error(error.message)
+    }
+  },
+
+  getUserReviews: async function (userId) {
+    if (!userId) throw new Error('user id not provided')
+
+    try {
+      const review = await Review.find({ user: userId })
+      return review
     } catch (error) {
       throw new Error(error.message)
     }

@@ -10,6 +10,12 @@ const UserSchema = new Schema({
     required: true,
     unique: true,
   },
+  nickname: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  picture: String,
   followers: {
     type: Array,
     default: [],

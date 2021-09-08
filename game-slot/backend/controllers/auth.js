@@ -8,10 +8,13 @@ module.exports = {
    * @param {Response} res
    */
   login: async function (req, res) {
-    const { name, email } = req.body
+    const { name, email, nickname, picture } = req.body
 
     if (!email || !email.trim())
       return res.status(400).json({ error: `email not provided` })
+
+    if (!nickname || !nickname.trim())
+      return res.status(400).json({ error: 'nickname not provided' })
 
     let user = await User.findOne({ email })
     let statusCode = 200
@@ -22,6 +25,8 @@ module.exports = {
       user = await User.create({
         name: name.trim(),
         email: email.trim(),
+        nickname: nickname.trim(),
+        picture: picture ? picture : '',
       })
 
       statusCode = 201

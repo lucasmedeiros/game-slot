@@ -2,6 +2,7 @@
 import { callAPI } from '../services/request.service'
 import { useState } from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
+import { useCurrentUser } from '../contexts/UserContext'
 
 interface ReviewActionsObject {
   submiting: boolean
@@ -29,6 +30,7 @@ interface ReviewActionsObject {
 const useReviewActions = (): ReviewActionsObject => {
   const [submiting, setSubmiting] = useState<boolean>(false)
   const { getAccessTokenSilently } = useAuth0()
+  const { user } = useCurrentUser()
 
   const create = async ({
     gameId,
@@ -42,12 +44,17 @@ const useReviewActions = (): ReviewActionsObject => {
     setSubmiting(true)
     const token = await getAccessTokenSilently()
 
-    const response = await callAPI('review', 'POST', {
-      gameId,
-      recommendation: recommendation ?? 'yes',
-      text,
-      token,
-    })
+    const response = await callAPI(
+      'review',
+      'POST',
+      {
+        gameId,
+        recommendation: recommendation ?? 'yes',
+        text,
+        userId: user?._id,
+      },
+      token
+    )
 
     setSubmiting(false)
 
@@ -68,11 +75,16 @@ const useReviewActions = (): ReviewActionsObject => {
     setSubmiting(true)
     const token = await getAccessTokenSilently()
 
-    const response = await callAPI(`review/${reviewId}`, 'PUT', {
-      recommendation: recommendation,
-      text,
-      token,
-    })
+    const response = await callAPI(
+      `review/${reviewId}`,
+      'PUT',
+      {
+        recommendation: recommendation,
+        text,
+        userId: user?._id,
+      },
+      token
+    )
 
     setSubmiting(false)
 
@@ -85,7 +97,12 @@ const useReviewActions = (): ReviewActionsObject => {
     setSubmiting(true)
     const token = await getAccessTokenSilently()
 
-    const response = await callAPI(`review/${reviewId}`, 'DELETE', null, token)
+    const response = await callAPI(
+      `review/${reviewId}`,
+      'DELETE',
+      { userId: user?._id },
+      token
+    )
 
     setSubmiting(false)
 

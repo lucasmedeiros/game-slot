@@ -22,7 +22,11 @@ const useUserReview = (
 
   const getUserReview = async () => {
     if (user) {
-      const response = await callAPI(`review/user/${gameId}`, 'GET', null)
+      const response = await callAPI(
+        `review/game/${gameId}/user/${user._id}`,
+        'GET',
+        null
+      )
       setReview(response.success ? response.data : null)
       setExistingReview(response.success ? response.data !== null : false)
     }

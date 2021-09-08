@@ -63,7 +63,7 @@ const routes: RouteObject[] = [
   {
     name: 'UserPage',
     component: UserPage,
-    path: '/user/:id',
+    path: '/user/:nickname',
     layout: '/default',
     exact: true,
     private: false,
@@ -71,7 +71,7 @@ const routes: RouteObject[] = [
   {
     name: 'UserList',
     component: UserList,
-    path: '/user/:id/lists',
+    path: '/user/:nickname/lists',
     layout: '/default',
     exact: true,
     private: false,
@@ -79,7 +79,7 @@ const routes: RouteObject[] = [
   {
     name: 'UserReviews',
     component: UserReviews,
-    path: '/user/:id/reviews',
+    path: '/user/:nickname/reviews',
     layout: '/default',
     exact: true,
     private: false,

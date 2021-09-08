@@ -9,8 +9,8 @@ module.exports = {
       limit > MAX_PAGE_SIZE
         ? MAX_PAGE_SIZE
         : limit < 0
-          ? DEFAULT_PAGE_SIZE
-          : limit
+        ? DEFAULT_PAGE_SIZE
+        : limit
 
     const offset = (page - 1) * limit
 

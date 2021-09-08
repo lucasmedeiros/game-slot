@@ -47,4 +47,16 @@ interface User {
   _id: string
   name: string
   email: string
+  nickname: string
+  picture?: string
+  followings: string[]
+  followers: string[]
+}
+
+interface Review {
+  gameId: string
+  user: string
+  text: string
+  recommended: number
+  _id: string
 }

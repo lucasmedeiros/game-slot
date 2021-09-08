@@ -8,19 +8,15 @@ import HeaderSearch from './HeaderSearch'
 import { useAuth0 } from '@auth0/auth0-react'
 
 import styles from './styles'
-import { useCurrentUser } from '../../../contexts/UserContext'
 
 interface HeaderProps {
   className?: string
 }
 
-const userId = 0
-
 const Header: React.FC<HeaderProps> = Radium(() => {
   const [navOpen, setNavOpen] = useState<boolean>(true)
   const history = useHistory()
   const { loginWithPopup, logout, user: userAuth } = useAuth0()
-  const { user } = useCurrentUser()
 
   const goToHome = () => {
     history.push('/')
@@ -51,10 +47,12 @@ const Header: React.FC<HeaderProps> = Radium(() => {
       >
         <div className="flex w-full flex-col flex-1 md:flex-row justify-between">
           <HeaderSearch className="mb-4 md:mb-0" />
-          {user && userAuth ? (
+          {userAuth ? (
             <div className="flex items-center">
               <div className="flex flex-col items-end">
-                <p className="text-white mr-4">Hello, {user.name ?? 'user'}</p>
+                <p className="text-white mr-4">
+                  Hello, {userAuth.given_name ?? 'user'}
+                </p>
                 <button
                   onClick={onLogout}
                   className="text-white mr-4 text-xs hover:underline"
@@ -66,7 +64,9 @@ const Header: React.FC<HeaderProps> = Radium(() => {
                 className="mr-5 rounded-full overflow-hidden text-white"
                 style={{ width: '2.5rem', height: '2.5rem' }}
               >
-                <button onClick={() => history.push(`/user/${userId}`)}>
+                <button
+                  onClick={() => history.push(`/user/${userAuth.nickname}`)}
+                >
                   <img src={userAuth.picture ?? AvatarPlaceholder} alt="User" />
                 </button>
               </div>
