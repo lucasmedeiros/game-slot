@@ -12,7 +12,7 @@ const ReviewSchema = new Schema(
       ref: 'User',
       required: true,
     },
-    recommended: {
+    note: {
       type: Number,
       required: true,
     },
