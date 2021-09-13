@@ -7,7 +7,7 @@ module.exports = {
     if (!userId) throw new Error('user id not provided')
     if (!gameId) throw new Error('game steam id not provided')
 
-    if (note < 0 && note > 5)
+    if (note < 0 || note > 5)
       throw new Error(
         'invalid recommendation value. Only integer values between 0-5'
       )
@@ -39,7 +39,7 @@ module.exports = {
         const body = {}
 
         if (note) {
-          if (note < 0 && note > 5)
+          if (note < 0 || note > 5)
             throw new Error(
               'invalid recommendation value. Only integer values between 0-5'
             )
