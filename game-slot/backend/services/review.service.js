@@ -178,7 +178,6 @@ module.exports = {
   },
   updateLike: async function ({ reviewId, userId, like }) {
     const review = await Review.findById({ _id: reviewId })
-    console.log(review)
 
     if (!review) throw new Error('review not found')
     if (like && review.likes.includes(userId))
