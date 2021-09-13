@@ -165,4 +165,17 @@ module.exports = {
       throw new Error(error.message)
     }
   },
+  updateLike: async function ({ reviewId, userId, like }) {
+    const review = await Review.findById({ _id: reviewId })
+    console.log(review)
+
+    if (!review) throw new Error('review not found')
+    if (like && review.likes.includes(userId))
+      throw new Error('review already liked by this user')
+    if (!like && !review.likes.includes(userId))
+      throw new Error('review cannot be disliked. this user didnt liked it yet')
+
+    if (like) await review.updateOne({ $push: { likes: userId } })
+    else await review.updateOne({ $pull: { likes: userId } })
+  },
 }

@@ -1,3 +1,4 @@
+const reviewService = require('../services/review.service')
 const {
   createUserReview,
   updateUserReview,
@@ -7,6 +8,24 @@ const {
   getUserReviewByGame,
   getUserReviews,
 } = require('../services/review.service')
+
+async function updateLike(req, res, like) {
+  const { id: reviewId } = req.params
+  const { userId } = req.body
+
+  if (!userId) {
+    return res
+      .status(400)
+      .json({ error: 'you must provide userId in request body' })
+  }
+
+  try {
+    await reviewService.updateLike({ reviewId, userId, like })
+    return res.status(200).send()
+  } catch (e) {
+    return res.status(400).json({ error: e.message })
+  }
+}
 
 module.exports = {
   create: async function (req, res) {
@@ -102,5 +121,11 @@ module.exports = {
     } catch (error) {
       return res.status(400).json({ error: error.message })
     }
+  },
+  like: async function (req, res) {
+    await updateLike(req, res, true)
+  },
+  dislike: async function (req, res) {
+    await updateLike(req, res, false)
   },
 }
