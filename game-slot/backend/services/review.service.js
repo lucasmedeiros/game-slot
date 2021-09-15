@@ -1,28 +1,23 @@
 const Review = require('../models/Review')
 
-const RECOMMENDATION_ENUM = {
-  yes: 1,
-  meh: 2,
-  no: 3,
-}
-
 const UNAUTHORIZED_MESSAGE = `you don't have the permission for this action`
 
 module.exports = {
-  createUserReview: async function ({ gameId, userId, text, recommend }) {
+  createUserReview: async function ({ gameId, userId, text, note }) {
     if (!userId) throw new Error('user id not provided')
     if (!gameId) throw new Error('game steam id not provided')
 
-    const recommendationValue = RECOMMENDATION_ENUM[recommend]
-    if (!recommendationValue)
-      throw new Error('recommendation value not provided')
+    if (note < 0 || note > 5)
+      throw new Error(
+        'invalid recommendation value. Only integer values between 0-5'
+      )
 
     try {
       const reviewCreated = await Review.create({
         gameId,
         user: userId,
         text,
-        recommended: recommendationValue,
+        note,
       })
 
       return reviewCreated
@@ -31,7 +26,7 @@ module.exports = {
     }
   },
 
-  updateUserReview: async function ({ reviewId, userId, text, recommend }) {
+  updateUserReview: async function ({ reviewId, userId, text, note }) {
     if (!userId) throw new Error('user id not provided')
     if (!reviewId) throw new Error('review id not provided')
 
@@ -43,11 +38,12 @@ module.exports = {
       if (reviewToUpdate.user.toString() === userId) {
         const body = {}
 
-        if (recommend) {
-          const recommendationValue = RECOMMENDATION_ENUM[recommend]
-          if (!recommendationValue)
-            throw new Error('invalid recommendation value')
-          body.recommended = recommendationValue
+        if (note) {
+          if (note < 0 || note > 5)
+            throw new Error(
+              'invalid recommendation value. Only integer values between 0-5'
+            )
+          body.note = note
         }
 
         if (text) body.text = text
@@ -130,15 +126,27 @@ module.exports = {
     try {
       const values = await Promise.all([
         Review.countDocuments({
-          recommended: RECOMMENDATION_ENUM.yes,
+          note: 0,
           gameId,
         }),
         Review.countDocuments({
-          recommended: RECOMMENDATION_ENUM.meh,
+          note: 1,
           gameId,
         }),
         Review.countDocuments({
-          recommended: RECOMMENDATION_ENUM.no,
+          note: 2,
+          gameId,
+        }),
+        Review.countDocuments({
+          note: 3,
+          gameId,
+        }),
+        Review.countDocuments({
+          note: 4,
+          gameId,
+        }),
+        Review.countDocuments({
+          note: 5,
           gameId,
         }),
         Review.paginate(
@@ -155,14 +163,29 @@ module.exports = {
       ])
       return {
         count: {
-          positive: values[0],
-          neutral: values[1],
-          negative: values[2],
+          0: values[0],
+          1: values[1],
+          2: values[2],
+          3: values[3],
+          4: values[4],
+          5: values[5],
         },
-        reviews: values[3],
+        reviews: values[6],
       }
     } catch (error) {
       throw new Error(error.message)
     }
+  },
+  updateLike: async function ({ reviewId, userId, like }) {
+    const review = await Review.findById({ _id: reviewId })
+
+    if (!review) throw new Error('review not found')
+    if (like && review.likes.includes(userId))
+      throw new Error('review already liked by this user')
+    if (!like && !review.likes.includes(userId))
+      throw new Error('review cannot be disliked. this user didnt liked it yet')
+
+    if (like) await review.updateOne({ $push: { likes: userId } })
+    else await review.updateOne({ $pull: { likes: userId } })
   },
 }

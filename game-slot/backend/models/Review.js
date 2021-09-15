@@ -12,13 +12,17 @@ const ReviewSchema = new Schema(
       ref: 'User',
       required: true,
     },
-    recommended: {
+    note: {
       type: Number,
       required: true,
     },
     text: {
       type: String,
       required: false,
+    },
+    likes: {
+      type: Array,
+      default: [],
     },
   },
   {
