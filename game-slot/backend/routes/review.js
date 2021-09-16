@@ -10,6 +10,7 @@ const {
   getByUserAndGame,
   like,
   dislike,
+  getTimeline,
 } = require('../controllers/review')
 const router = express.Router()
 
@@ -23,5 +24,7 @@ router.delete('/:id', checkJwt, remove)
 
 router.post('/:id/like', checkJwt, like)
 router.post('/:id/dislike', checkJwt, dislike)
+
+router.get('/user/:userId/timeline', checkJwt, getTimeline)
 
 module.exports = router

@@ -1,5 +1,4 @@
 const Review = require('../models/Review')
-
 const UNAUTHORIZED_MESSAGE = `you don't have the permission for this action`
 
 module.exports = {
@@ -187,5 +186,37 @@ module.exports = {
 
     if (like) await review.updateOne({ $push: { likes: userId } })
     else await review.updateOne({ $pull: { likes: userId } })
+  },
+  getTimeline: async function ({ users, page, limit }) {
+    if (!users) throw new Error('users not provided')
+    if (!limit) limit = 10
+
+    const query = { user: { $in: users } }
+    const options = {
+      sort: { createdAt: -1 },
+      page,
+      limit,
+      pagination: true,
+    }
+
+    const {
+      totalDocs: total,
+      limit: perPage,
+      docs: reviews,
+      totalPages,
+      page: currentPage,
+      hasPrevPage,
+      hasNextPage,
+    } = await Review.paginate(query, options)
+
+    return {
+      reviews,
+      total,
+      perPage,
+      totalPages,
+      currentPage,
+      hasPrevPage,
+      hasNextPage,
+    }
   },
 }
