@@ -4,7 +4,7 @@ module.exports = {
   list: async function (req, res) {
     const { nickname, email } = req.query
     const users = await User.find({
-      ...(!!nickname && { nickname }),
+      ...(!!nickname && { nickname: { $regex: nickname, $options: 'i' } }),
       ...(!!email && { email }),
     })
     return res.status(200).json(users)
