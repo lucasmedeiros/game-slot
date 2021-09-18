@@ -5,12 +5,22 @@ import { ClipLoader } from 'react-spinners'
 import useGameSearch from '../../hooks/useGameSearch'
 import ScreenImage from '../../assets/svg/search_screen_image.svg'
 import SearchResult from './SearchResult'
+import useUserSearch from '../../hooks/useUserSearch'
 
 const Search: React.FC = () => {
   const { searchTerm } = useParams<{ searchTerm: string }>()
-  const { searchResult, error, loading, update } = useGameSearch(
-    searchTerm as string
-  )
+  const {
+    searchResult: searchGamesResult,
+    error: errorGames,
+    loading: loadingGames,
+    update: updateGames,
+  } = useGameSearch(searchTerm)
+
+  const {
+    searchResult: searchUsersResult,
+    error: errorUsers,
+    loading: loadingUsers,
+  } = useUserSearch(searchTerm)
 
   return (
     <section className="flex flex-col w-full h-full text-gray-400 text-4xl">
@@ -26,17 +36,21 @@ const Search: React.FC = () => {
               Use the search bar above to find games
             </p>
           </div>
-        ) : loading ? (
+        ) : loadingGames || loadingUsers ? (
           <ClipLoader size={50} color="white" />
-        ) : error || !searchResult?.docs.length ? (
+        ) : !!errorGames || !!errorUsers ? (
           <>
             <FontAwesomeIcon icon="times-circle" size="2x" />
             <p className="mt-5 text-center">
-              {error || '0 results match your search'}
+              {errorGames || errorUsers || '0 results match your search'}
             </p>
           </>
         ) : (
-          <SearchResult result={searchResult} refresh={update} />
+          <SearchResult
+            resultGames={searchGamesResult}
+            refreshGames={updateGames}
+            resultUsers={searchUsersResult}
+          />
         )}
       </div>
     </section>
