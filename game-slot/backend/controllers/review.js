@@ -8,6 +8,7 @@ const {
   getUserReviewByGame,
   getUserReviews,
 } = require('../services/review.service')
+const User = require('../models/User')
 
 async function updateLike(req, res, like) {
   const { id: reviewId } = req.params
@@ -127,5 +128,25 @@ module.exports = {
   },
   dislike: async function (req, res) {
     await updateLike(req, res, false)
+  },
+  getTimeline: async function (req, res) {
+    const { userId } = req.params
+    let { page, limit } = req.query
+
+    if (!page || page <= 0) page = 1
+    if (!limit || limit <= 0) limit = 10
+    page = parseInt(page)
+    limit = parseInt(limit)
+
+    const user = await User.findById(userId)
+    if (!user) res.status(404).json({ error: 'user not found' })
+
+    const response = await reviewService.getTimeline({
+      users: user.followings,
+      page,
+      limit,
+    })
+
+    return res.status(200).json(response)
   },
 }
