@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { callAPI } from '../../services/request.service'
 import More from './More'
+import Star from '../../icons/Star'
 
 const DEFAULT_LENGTH = 3
+const TOTAL_STARS_REVIEWS = 5
 
-function ReviewItem({ gameId, text }: Review) {
+function ReviewItem({ gameId, text, note }: Review) {
   return (
     <div
       style={{
@@ -26,18 +28,19 @@ function ReviewItem({ gameId, text }: Review) {
           marginBottom: '10px',
         }}
       />
-      <span
+      <div
         style={{
-          color: '#F1C644',
+          display: 'flex',
+          justifyContent: 'space-between',
+          width: '100%',
         }}
       >
-        <span>{'\u2605'}</span>
-        <span>{'\u2605'}</span>
-        <span>{'\u2605'}</span>
-        <span>{'\u2606'}</span>
-        <span>{'\u2606'}</span>
-        {/* TODO: Substituir método de avaliação */}
-      </span>
+        {[...Array(TOTAL_STARS_REVIEWS)].map((_, index) => (
+          <div key={`star-review-${index}`}>
+            <Star filled={index + 1 <= note} size={50} />
+          </div>
+        ))}
+      </div>
       <div
         style={{
           marginTop: '10px',

@@ -8,20 +8,20 @@ interface ReviewActionsObject {
   submiting: boolean
   create: ({
     gameId,
-    recommendation,
+    note,
     text,
   }: {
     gameId: string
-    recommendation: RecommendationValue
+    note: number
     text?: string
   }) => Promise<any>
   update: ({
     reviewId,
-    recommendation,
+    note,
     text,
   }: {
     reviewId: string
-    recommendation: RecommendationValue
+    note: number
     text?: string
   }) => Promise<any>
   remove: ({ reviewId }: { reviewId: string }) => Promise<void>
@@ -35,10 +35,10 @@ const useReviewActions = (): ReviewActionsObject => {
   const create = async ({
     gameId,
     text = '',
-    recommendation,
+    note,
   }: {
     gameId: string
-    recommendation: RecommendationValue
+    note: number
     text?: string
   }) => {
     setSubmiting(true)
@@ -49,7 +49,7 @@ const useReviewActions = (): ReviewActionsObject => {
       'POST',
       {
         gameId,
-        recommendation: recommendation ?? 'yes',
+        note,
         text,
         userId: user?._id,
       },
@@ -65,11 +65,11 @@ const useReviewActions = (): ReviewActionsObject => {
 
   const update = async ({
     reviewId,
-    recommendation,
+    note,
     text,
   }: {
     reviewId: string
-    recommendation: RecommendationValue
+    note: number
     text?: string
   }) => {
     setSubmiting(true)
@@ -79,7 +79,7 @@ const useReviewActions = (): ReviewActionsObject => {
       `review/${reviewId}`,
       'PUT',
       {
-        recommendation: recommendation,
+        note,
         text,
         userId: user?._id,
       },

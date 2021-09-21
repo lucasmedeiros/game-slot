@@ -1,28 +1,13 @@
 /* eslint-disable no-restricted-globals */
 import React, { useState, useEffect } from 'react'
 import classnames from 'classnames'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import useReviewActions from '../../../hooks/useReviewActions'
 import useUserReview from '../../../hooks/useUserReview'
 import { useAuth0 } from '@auth0/auth0-react'
 import { useCurrentUser } from '../../../contexts/UserContext'
+import Star from '../../../icons/Star'
 
-interface IReviewButtons {
-  value: RecommendationValue
-}
-
-const reviewButtons: IReviewButtons[] = [
-  {
-    value: 'yes',
-  },
-  {
-    value: 'meh',
-  },
-  {
-    value: 'no',
-  },
-]
+const TOTAL_STARS_REVIEWS = 5
 
 interface ReviewFormProps {
   gameId: string
@@ -30,7 +15,7 @@ interface ReviewFormProps {
 }
 
 const ReviewForm: React.FC<ReviewFormProps> = ({ updateReviews, gameId }) => {
-  const [recommendation, setRecommendation] = useState<RecommendationValue>()
+  const [recommendation, setRecommendation] = useState<number>()
   const {
     create,
     update: updateReview,
@@ -48,30 +33,17 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ updateReviews, gameId }) => {
 
   useEffect(() => {
     if (review) {
-      setRecommendation(reviewButtons[review.recommended - 1].value)
+      setRecommendation(review.note)
       setText(review.text)
     }
   }, [review])
 
-  const getIcon = (value: RecommendationValue): IconProp => {
-    switch (value) {
-      case 'yes':
-        return 'thumbs-up'
-      case 'meh':
-        return 'meh'
-      case 'no':
-        return 'thumbs-down'
-      default:
-        return 'thumbs-up'
-    }
-  }
-
   const onRecommendationChange = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    value: RecommendationValue
+    value: number
   ) => {
     e.preventDefault()
-    setRecommendation((prev) => (prev === value ? undefined : value))
+    setRecommendation(value)
   }
 
   const onRecommendationSubmit = async (
@@ -88,13 +60,13 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ updateReviews, gameId }) => {
         if (!existingReview) {
           await create({
             gameId,
-            recommendation,
+            note: recommendation,
             text: text ?? '',
           })
         } else {
           await updateReview({
             reviewId: review?._id as string,
-            recommendation,
+            note: recommendation,
             text: text ?? '',
           })
         }
@@ -139,26 +111,17 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ updateReviews, gameId }) => {
             rows={8}
           />
           <div className="flex flex-col xl:flex-row items-center justify-around py-4">
-            <h2 className="text-xl lg:text-2xl text-center">
-              Do you recommend this game?
-            </h2>
-            <div className="my-3 lg:my-0">
-              {reviewButtons.map((rvb, index) => (
+            <div className="flex items-center my-3 lg:my-0">
+              <span style={{ marginRight: '10px', fontSize: '2rem' }}>
+                Nota:
+              </span>
+              {[...Array(TOTAL_STARS_REVIEWS)].map((_, index) => (
                 <button
-                  className={`rounded py-4 px-4 ${
-                    recommendation === rvb.value
-                      ? 'bg-red-600'
-                      : 'hover:bg-dark-900'
-                  }`}
-                  style={{ minWidth: '5vw' }}
-                  onClick={(e) => onRecommendationChange(e, rvb.value)}
-                  key={index}
+                  key={`star-review-${index}`}
+                  onClick={(e) => onRecommendationChange(e, index + 1)}
+                  style={{ outline: 'none' }}
                 >
-                  <FontAwesomeIcon
-                    icon={getIcon(rvb.value)}
-                    color="#fff"
-                    size="2x"
-                  />
+                  <Star filled={index + 1 <= (recommendation ?? 0)} />
                 </button>
               ))}
             </div>
