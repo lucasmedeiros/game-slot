@@ -33,11 +33,12 @@ function ReviewItem({ gameId, text, note }: Review) {
           display: 'flex',
           justifyContent: 'space-between',
           width: '100%',
+          padding: '0px 15px',
         }}
       >
         {[...Array(TOTAL_STARS_REVIEWS)].map((_, index) => (
           <div key={`star-review-${index}`}>
-            <Star filled={index + 1 <= note} size={50} />
+            <Star filled={index + 1 <= note} size={40} />
           </div>
         ))}
       </div>
