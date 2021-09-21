@@ -10,7 +10,7 @@ export interface IGameReview {
   gameId: string
   user: User
   text: string
-  recommended: number
+  note: number
   createdAt: string
   updatedAt: string
 }

@@ -41,8 +41,6 @@ interface DefaultLocation {
   from: string
 }
 
-type RecommendationValue = 'yes' | 'no' | 'meh' | undefined
-
 interface User {
   _id: string
   name: string
@@ -57,6 +55,6 @@ interface Review {
   gameId: string
   user: string
   text: string
-  recommended: number
+  note: number
   _id: string
 }

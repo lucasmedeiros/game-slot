@@ -1,57 +1,22 @@
 import React from 'react'
 import { IGameReview } from '../../../hooks/useGameReviews'
 import AvatarPlaceholder from '../../../assets/img/avatar.png'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { IconProp } from '@fortawesome/fontawesome-svg-core'
-import {
-  RECOMMENDED_YES,
-  RECOMMENDED_NO,
-  RECOMMENDED_MEH,
-} from '../../../constants'
 import BreakLine from '../../../components/BreakLine'
+import Star from '../../../icons/Star'
+import Radium from 'radium'
+
+const TOTAL_STARS_REVIEWS = 5
 
 interface GameReviewProps {
   review: IGameReview
   showLineBreak?: boolean
 }
 
-const getRecommendationValue = (
-  value: number
-): { icon: IconProp; title: string; bgClassName: string } => {
-  switch (value) {
-    case RECOMMENDED_YES:
-      return {
-        icon: 'thumbs-up',
-        title: 'Recommended',
-        bgClassName: 'bg-blue-500',
-      }
-    case RECOMMENDED_NO:
-      return {
-        icon: 'thumbs-down',
-        title: 'Not Recommended',
-        bgClassName: 'bg-red-600',
-      }
-    case RECOMMENDED_MEH:
-      return {
-        icon: 'meh',
-        title: 'Partially Recommended',
-        bgClassName: 'bg-yellow-600',
-      }
-    default:
-      return {
-        icon: 'thumbs-up',
-        title: 'Recommended',
-        bgClassName: 'bg-blue-900',
-      }
-  }
-}
-
 const GameReview: React.FC<GameReviewProps> = ({
   review,
   showLineBreak = true,
 }) => {
-  const { recommended, text, user, createdAt } = review
-  const recomendationValue = getRecommendationValue(recommended)
+  const { note, text, user, createdAt } = review
   return (
     <article className="py-4">
       <div className="flex flex-col md:flex-row items-center py-5">
@@ -69,13 +34,12 @@ const GameReview: React.FC<GameReviewProps> = ({
             {new Date(createdAt).toLocaleDateString()}
           </p>
         </div>
-        <div
-          className={`md:ml-3 font-bold w-full md:w-auto flex text-white rounded p-4 items-center ${recomendationValue.bgClassName}`}
-        >
-          <p className="mr-5">
-            <FontAwesomeIcon icon={recomendationValue.icon} size="2x" />
-          </p>
-          <p>{recomendationValue.title}</p>
+        <div style={{ display: 'flex', marginLeft: '16px' }}>
+          {[...Array(TOTAL_STARS_REVIEWS)].map((_, index) => (
+            <div key={`star-review-${index}`}>
+              <Star filled={index + 1 <= note} size={30} />
+            </div>
+          ))}
         </div>
       </div>
       {text ? (
@@ -88,4 +52,4 @@ const GameReview: React.FC<GameReviewProps> = ({
   )
 }
 
-export default GameReview
+export default Radium(GameReview)
