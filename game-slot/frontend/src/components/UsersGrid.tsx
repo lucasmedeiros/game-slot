@@ -11,18 +11,26 @@ const UsersGrid = ({ users, onClick }: Props) => (
   <Grid className="p-4" min={300}>
     {users.map((user) => (
       <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
         onClick={() => onClick(user.nickname)}
         key={user._id}
-        className="cursor-pointer shadow"
       >
         <img
-          src={user.picture ?? AvatarPlaceholder}
-          onError={(e: any) => {
-            e.target.onerror = null
-            e.target.src = AvatarPlaceholder
+          style={{
+            width: 128,
+            borderRadius: '50%',
+            marginTop: 16,
+            marginBottom: 16,
+            cursor: 'pointer',
           }}
+          src={user.picture ?? AvatarPlaceholder}
           alt={user.nickname}
         />
+        <span style={{ fontSize: 24, cursor: 'pointer' }}>{user.nickname}</span>
       </div>
     ))}
   </Grid>

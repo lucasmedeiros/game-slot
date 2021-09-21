@@ -31,12 +31,29 @@ const SearchResult: React.FC<SearchResultProps> = ({
       <div style={{ width: '100%', alignSelf: 'center', paddingLeft: '16px' }}>
         Games
       </div>
-      {resultGames && (
+      {resultGames && resultGames.docs.length > 0 ? (
         <Pagination result={resultGames} refresh={refreshGames}>
           <GamesGrid games={resultGames.docs} onClick={goToGamePage} />
         </Pagination>
+      ) : (
+        <div style={{ fontSize: 20, padding: 16 }}>No games found.</div>
       )}
-      {resultUsers && <UsersGrid users={resultUsers} onClick={goToUserPage} />}
+
+      <div
+        style={{
+          width: '100%',
+          alignSelf: 'center',
+          paddingLeft: 16,
+          paddingTop: 32,
+        }}
+      >
+        Users
+      </div>
+      {resultUsers && resultUsers.length > 0 ? (
+        <UsersGrid users={resultUsers} onClick={goToUserPage} />
+      ) : (
+        <div style={{ fontSize: 20, padding: 16 }}>No users found.</div>
+      )}
     </div>
   )
 }
