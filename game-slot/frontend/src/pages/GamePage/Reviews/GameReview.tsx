@@ -1,54 +1,109 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { IGameReview } from '../../../hooks/useGameReviews'
 import AvatarPlaceholder from '../../../assets/img/avatar.png'
-import BreakLine from '../../../components/BreakLine'
 import Star from '../../../icons/Star'
 import Radium from 'radium'
+import Like from '../../../icons/Like'
+import { useHistory } from 'react-router'
+import { useCurrentUser } from '../../../contexts/UserContext'
+import useReviewActions from '../../../hooks/useReviewActions'
 
 const TOTAL_STARS_REVIEWS = 5
 
 interface GameReviewProps {
   review: IGameReview
-  showLineBreak?: boolean
 }
 
-const GameReview: React.FC<GameReviewProps> = ({
-  review,
-  showLineBreak = true,
-}) => {
-  const { note, text, user, createdAt } = review
+const GameReview: React.FC<GameReviewProps> = ({ review }) => {
+  const {
+    note,
+    text,
+    user: userReview,
+    createdAt,
+    likes,
+    _id: reviewId,
+  } = review
+  const history = useHistory()
+  const currentUser = useCurrentUser()
+  const { like, dislike } = useReviewActions()
+
+  const [liked, setLiked] = useState(
+    !!likes.find((likes) => likes === currentUser.user?._id)
+  )
+
+  const [likesCount, setLikesCount] = useState(likes.length)
+
   return (
-    <article className="py-4">
-      <div className="flex flex-col md:flex-row items-center py-5">
-        <div className="flex items-center mb-4 md:mb-0">
-          <div
-            className="mr-2 md:mr-5 rounded-full overflow-hidden text-white"
-            style={{ width: '3rem', height: '3rem' }}
-          >
-            <button>
-              <img src={AvatarPlaceholder} alt="User" />
-            </button>
-          </div>
-          <p className="font-bold text-lg">{user.name} </p>
-          <p className="md:pl-2 text-xs md:text-base text-gray-500">
-            {new Date(createdAt).toLocaleDateString()}
-          </p>
+    <div style={{ paddingBottom: '1.5rem' }}>
+      <div style={{ display: 'flex', alignItems: 'center' }}>
+        <div
+          style={{
+            width: '3rem',
+            height: '3rem',
+            cursor: 'pointer',
+          }}
+          onClick={() => history.push(`/user/${userReview.nickname}`)}
+        >
+          <img
+            style={{ borderRadius: '50%' }}
+            src={userReview.picture ?? AvatarPlaceholder}
+            alt="User"
+          />
         </div>
-        <div style={{ display: 'flex', marginLeft: '16px' }}>
-          {[...Array(TOTAL_STARS_REVIEWS)].map((_, index) => (
-            <div key={`star-review-${index}`}>
-              <Star filled={index + 1 <= note} size={30} />
-            </div>
-          ))}
+        <p style={{ paddingLeft: '1rem', paddingRight: '1rem' }}>
+          {userReview.name}{' '}
+        </p>
+        <p style={{ color: '#A0AEC0' }}>
+          {new Date(createdAt).toLocaleDateString()}
+        </p>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <div
+            style={{
+              display: 'flex',
+              paddingLeft: '1rem',
+              paddingRight: '1rem',
+            }}
+          >
+            {[...Array(TOTAL_STARS_REVIEWS)].map((_, index) => (
+              <div key={`star-review-${index}`}>
+                <Star filled={index + 1 <= note} size={24} />
+              </div>
+            ))}
+          </div>
+          <button
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              paddingLeft: '0.375rem',
+              paddingRight: '0.375rem',
+              backgroundColor: liked ? '#A0AEC0' : '#36383B',
+              width: '3rem',
+              height: '1.5rem',
+              borderRadius: '0.25rem',
+              cursor: currentUser.user ? 'pointer' : 'auto',
+            }}
+            disabled={!currentUser.user}
+            onClick={async () => {
+              setLiked(!liked)
+              setLikesCount(liked ? likesCount - 1 : likesCount + 1)
+              liked ? await dislike({ reviewId }) : await like({ reviewId })
+            }}
+          >
+            <Like filled={liked} size={16} />
+            <p
+              style={{
+                fontSize: 12,
+                color: liked ? '#36383B' : '#A0AEC0',
+              }}
+            >
+              {likesCount}
+            </p>
+          </button>
         </div>
       </div>
-      {text ? (
-        <div className="flex items-start justify-start rounded text-xl px-8 pb-8 text-white mb-4">
-          {text}
-        </div>
-      ) : null}
-      {showLineBreak && <BreakLine />}
-    </article>
+      {text ? <div style={{ paddingTop: '1.5rem' }}>{text}</div> : null}
+    </div>
   )
 }
 
