@@ -33,14 +33,8 @@ const Reviews: React.FC<ReviewsProps> = ({
                 loading={loading}
                 refresh={update}
               >
-                {reviewsResult.reviews.docs.map((review, index) => (
-                  <GameReview
-                    showLineBreak={
-                      index !== reviewsResult.reviews.docs.length - 1
-                    }
-                    key={`${review._id}`}
-                    review={review}
-                  />
+                {reviewsResult.reviews.docs.map((review) => (
+                  <GameReview key={`${review._id}`} review={review} />
                 ))}
               </Pagination>
             </div>

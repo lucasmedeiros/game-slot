@@ -25,6 +25,8 @@ interface ReviewActionsObject {
     text?: string
   }) => Promise<any>
   remove: ({ reviewId }: { reviewId: string }) => Promise<void>
+  like: ({ reviewId }: { reviewId: string }) => Promise<void>
+  dislike: ({ reviewId }: { reviewId: string }) => Promise<void>
 }
 
 const useReviewActions = (): ReviewActionsObject => {
@@ -109,11 +111,39 @@ const useReviewActions = (): ReviewActionsObject => {
     if (!response.success) throw new Error(response.message)
   }
 
+  const like = async ({ reviewId }: { reviewId: string }): Promise<void> => {
+    const token = await getAccessTokenSilently()
+
+    const response = await callAPI(
+      `review/${reviewId}/like`,
+      'POST',
+      { userId: user?._id },
+      token
+    )
+
+    if (!response.success) throw new Error(response.message)
+  }
+
+  const dislike = async ({ reviewId }: { reviewId: string }): Promise<void> => {
+    const token = await getAccessTokenSilently()
+
+    const response = await callAPI(
+      `review/${reviewId}/dislike`,
+      'POST',
+      { userId: user?._id },
+      token
+    )
+
+    if (!response.success) throw new Error(response.message)
+  }
+
   return {
     create,
     submiting,
     update,
     remove,
+    like,
+    dislike,
   }
 }
 

@@ -11,6 +11,7 @@ export interface IGameReview {
   user: User
   text: string
   note: number
+  likes: string[]
   createdAt: string
   updatedAt: string
 }
