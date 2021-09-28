@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
-import { IGameReview } from '../../../hooks/useGameReviews'
-import AvatarPlaceholder from '../../../assets/img/avatar.png'
-import Star from '../../../icons/Star'
+import { IGameReview } from '../hooks/useGameReviews'
+import AvatarPlaceholder from '../assets/img/avatar.png'
+import Star from '../icons/Star'
 import Radium from 'radium'
-import Like from '../../../icons/Like'
+import Like from '../icons/Like'
 import { useHistory } from 'react-router'
-import { useCurrentUser } from '../../../contexts/UserContext'
-import useReviewActions from '../../../hooks/useReviewActions'
+import { useCurrentUser } from '../contexts/UserContext'
+import useReviewActions from '../hooks/useReviewActions'
 
 const TOTAL_STARS_REVIEWS = 5
 
@@ -14,7 +14,7 @@ interface GameReviewProps {
   review: IGameReview
 }
 
-const GameReview: React.FC<GameReviewProps> = ({ review }) => {
+const GameReview = ({ review }: GameReviewProps) => {
   const {
     note,
     text,
@@ -50,7 +50,9 @@ const GameReview: React.FC<GameReviewProps> = ({ review }) => {
             alt="User"
           />
         </div>
-        <p style={{ paddingLeft: '1rem', paddingRight: '1rem' }}>
+        <p
+          style={{ paddingLeft: '1rem', paddingRight: '1rem', color: 'white' }}
+        >
           {userReview.name}{' '}
         </p>
         <p style={{ color: '#A0AEC0' }}>
@@ -78,6 +80,7 @@ const GameReview: React.FC<GameReviewProps> = ({ review }) => {
               paddingLeft: '0.375rem',
               paddingRight: '0.375rem',
               backgroundColor: liked ? '#A0AEC0' : '#36383B',
+              border: liked ? 'none' : '1px solid #A0AEC0',
               width: '3rem',
               height: '1.5rem',
               borderRadius: '0.25rem',
@@ -102,7 +105,9 @@ const GameReview: React.FC<GameReviewProps> = ({ review }) => {
           </button>
         </div>
       </div>
-      {text ? <div style={{ paddingTop: '1.5rem' }}>{text}</div> : null}
+      {text ? (
+        <div style={{ paddingTop: '1.5rem', color: 'white' }}>{text}</div>
+      ) : null}
     </div>
   )
 }

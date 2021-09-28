@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { callAPI } from '../../services/request.service'
 import More from './More'
 import Star from '../../icons/Star'
+import { IGameReview } from '../../hooks/useGameReviews'
 
 const DEFAULT_LENGTH = 3
 const TOTAL_STARS_REVIEWS = 5
 
-function ReviewItem({ gameId, text, note }: Review) {
+function ReviewItem({ gameId, text, note }: IGameReview) {
   return (
     <div
       style={{
@@ -65,7 +66,7 @@ interface ReviewsProps {
 }
 
 const Reviews = ({ nickname, id: userId }: ReviewsProps) => {
-  const [reviews, setReviews] = useState<Review[] | undefined>()
+  const [reviews, setReviews] = useState<IGameReview[] | undefined>()
 
   useEffect(() => {
     const getUserReviews = async () => {
