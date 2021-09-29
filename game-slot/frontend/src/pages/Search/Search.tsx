@@ -30,10 +30,13 @@ const Search: React.FC = () => {
             <img
               src={ScreenImage}
               alt="Search screen"
-              style={{ width: '250px' }}
+              style={{ width: '250px', marginTop: '30px' }}
             />
-            <p className="mt-5 px-2 text-center">
-              Use the search bar above to find games
+            <p
+              className="mt-5 text-center"
+              style={{ maxWidth: '400px', fontSize: '32px' }}
+            >
+              Use the search bar above to find games or users
             </p>
           </div>
         ) : loadingGames || loadingUsers ? (

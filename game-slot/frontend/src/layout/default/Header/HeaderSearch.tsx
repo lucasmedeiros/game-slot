@@ -34,7 +34,7 @@ const HeaderSearch: React.FC<HeaderSearchProps> = ({ className }) => {
           autoComplete="off"
           onChange={onSearchInputChange}
           className="appearance-none placeholder-white text-white leading-tight text-lg focus:outline-none bg-dark-600 w-64"
-          placeholder="Browse games..."
+          placeholder="Browse games and users..."
         />
         <button
           onClick={() => setSearchTerm('')}
