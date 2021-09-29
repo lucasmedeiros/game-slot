@@ -93,7 +93,7 @@ const Timeline = () => {
               cursor: loading ? 'not-allowed' : 'pointer',
               opacity: loading ? 0.5 : 1,
             }}
-            onClick={() => getMoreResults}
+            onClick={() => getMoreResults()}
           >
             Exibir mais resultados
           </button>
