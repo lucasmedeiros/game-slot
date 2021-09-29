@@ -207,7 +207,10 @@ module.exports = {
       page: currentPage,
       hasPrevPage,
       hasNextPage,
-    } = await Review.paginate(query, options)
+    } = await Review.paginate(query, {
+      ...options,
+      populate: ['user', '-password'],
+    })
 
     return {
       reviews,

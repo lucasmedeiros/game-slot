@@ -1,6 +1,6 @@
 import React from 'react'
 import { IGameReviewsDetails } from '../../../hooks/useGameReviews'
-import GameReview from './GameReview'
+import GameReview from '../../../components/GameReview'
 import Pagination from '../../../components/Pagination'
 import ReviewForm from './ReviewForm'
 import BreakLine from '../../../components/BreakLine'
