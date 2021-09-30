@@ -58,7 +58,7 @@ const Timeline = () => {
         style={{
           display: 'flex',
           width: '100%',
-          margin: '1.5rem 0',
+          margin: '2.5rem 0',
           alignItems: 'center',
           justifyContent: 'space-between',
         }}

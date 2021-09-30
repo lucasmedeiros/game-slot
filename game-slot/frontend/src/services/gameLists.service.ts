@@ -33,12 +33,9 @@ export const deleteGameList = async (
   return response.success
 }
 
-export const getGameLists = async (user: User): Promise<GameList[]> => {
-  if (user._id) {
-    const response = await callAPI(`list/user/${user._id}`, 'GET', null)
-    return response.success ? response.data : []
-  }
-  return []
+export const getGameLists = async (user: string): Promise<GameList[]> => {
+  const response = await callAPI(`list/user/${user}`, 'GET', null)
+  return response.success ? response.data : []
 }
 
 export const getOneGameList = async (

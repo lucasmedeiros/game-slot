@@ -8,7 +8,7 @@ interface GameSliderItemProps {
 
 const SliderItem: React.FC<GameSliderItemProps> = ({ game }) => {
   const history = useHistory()
-  const goToGamePage = (id: string) => history.push(`game/${id}`)
+  const goToGamePage = (id: string) => history.push(`/game/${id}`)
   return (
     <div
       className="swiper-slide cursor-pointer"

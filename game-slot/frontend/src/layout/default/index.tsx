@@ -30,7 +30,8 @@ const DefaultLayout: React.FC<
   const { user } = useCurrentUser()
 
   useEffect(() => {
-    if (user) getGameLists(user).then((lists) => dispatch(setGameLists(lists)))
+    if (user)
+      getGameLists(user._id).then((lists) => dispatch(setGameLists(lists)))
   }, [dispatch, user])
 
   const getRoutes = useCallback(

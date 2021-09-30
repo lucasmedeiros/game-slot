@@ -1,14 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { GameSlider, GameSliderItem } from '../../components/GameSlider'
-import { useSelector } from 'react-redux'
-import { RootState } from '../../store'
 
-const CurrentUserLists = () => {
-  const lists = useSelector(
-    (state: RootState) => state.gameListReducer.gameLists
-  )
+interface Props {
+  lists: GameList[]
+  currentUser?: boolean
+}
 
+const CurrentUserLists = ({ lists, currentUser }: Props) => {
   const renderLists = (lists: GameList[]) => {
     return lists.map((list) => {
       return (
@@ -28,15 +27,17 @@ const CurrentUserLists = () => {
   return (
     <div>
       {lists.length ? renderLists(lists) : null}
-      <div className="p-2 md:p-5">
-        <Link
-          to="/list"
-          className="bg-red-600 text-white p-3 mb-3 w-full text-center block md:inline md:w-auto uppercase font-bold"
-          style={{ borderRadius: '4px' }}
-        >
-          create game list
-        </Link>
-      </div>
+      {currentUser && (
+        <div className="p-2 md:p-5">
+          <Link
+            to="/list"
+            className="bg-red-600 text-white p-3 mb-3 w-full text-center block md:inline md:w-auto uppercase font-bold"
+            style={{ borderRadius: '4px' }}
+          >
+            create game list
+          </Link>
+        </div>
+      )}
     </div>
   )
 }
