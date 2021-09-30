@@ -40,7 +40,7 @@ const NotLoggedHome: React.FC = () => {
             {!isAuthenticated && (
               <button
                 onClick={() => loginWithPopup()}
-                className="p-3 w-32 md:w-56 ml-5 font-bold md:text-2xl rounded bg-red-600 text-white"
+                className="p-3 w-32 md:w-56 ml-5 font-bold md:text-2xl rounded bg-red-700 text-white"
               >
                 Sign in
               </button>

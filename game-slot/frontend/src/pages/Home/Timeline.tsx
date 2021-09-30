@@ -37,13 +37,41 @@ const Timeline = () => {
     getTimeline()
   }, [user, limit, getAccessTokenSilently])
 
-  if (!timeline) return <ClipLoader size={50} color="white" />
+  if (!timeline)
+    return (
+      <div
+        style={{
+          width: '80%',
+          margin: '0 auto',
+          display: 'flex',
+          justifyContent: 'center',
+          marginTop: '100px',
+        }}
+      >
+        <ClipLoader size={50} color="white" />
+      </div>
+    )
 
   return (
     <div style={{ width: '80%', margin: '0 auto' }}>
-      <h2 style={{ color: 'white', fontSize: '32px', margin: '1rem 0' }}>
-        Página Inicial
-      </h2>
+      <div
+        style={{
+          display: 'flex',
+          width: '100%',
+          margin: '1.5rem 0',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}
+      >
+        <h2 style={{ color: 'white', fontSize: '32px' }}>Home page</h2>
+        <Link
+          to="/list"
+          className="bg-red-600 text-white p-3 mb-3 w-full text-center block md:inline md:w-auto uppercase font-bold"
+          style={{ borderRadius: '4px' }}
+        >
+          create game list
+        </Link>
+      </div>
       {timeline.reviews.map((review) => (
         <div
           key={review._id}
@@ -109,7 +137,7 @@ const Timeline = () => {
             justifyContent: 'center',
           }}
         >
-          No momento, não há mais resultados para sua timeline
+          There&apos;s no more results for your timeline
         </div>
       )}
     </div>

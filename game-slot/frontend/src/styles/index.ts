@@ -26,6 +26,7 @@ export const LayoutHeader = styled.nav`
   transition: all 0.2s ease-in-out;
   top: 0;
   background-color: ${colors.dark['900']};
+  border-bottom: 1px solid ${colors.dark['600']};
   padding: 0.5rem;
   flex-wrap: wrap;
 `

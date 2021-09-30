@@ -113,7 +113,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ updateReviews, gameId }) => {
           <div className="flex flex-col xl:flex-row items-center justify-around py-4">
             <div className="flex items-center my-3 lg:my-0">
               <span style={{ marginRight: '10px', fontSize: '2rem' }}>
-                Nota:
+                Rating:
               </span>
               {[...Array(TOTAL_STARS_REVIEWS)].map((_, index) => (
                 <button

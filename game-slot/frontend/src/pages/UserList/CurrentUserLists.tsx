@@ -31,9 +31,10 @@ const CurrentUserLists = () => {
       <div className="p-2 md:p-5">
         <Link
           to="/list"
-          className="bg-red-600 text-white p-5 mb-3 w-full text-center block md:inline md:w-auto uppercase font-bold text-lg"
+          className="bg-red-600 text-white p-3 mb-3 w-full text-center block md:inline md:w-auto uppercase font-bold"
+          style={{ borderRadius: '4px' }}
         >
-          create new game list
+          create game list
         </Link>
       </div>
     </div>

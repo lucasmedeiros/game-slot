@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import ImagePlaceholder from '../../assets/img/image_placeholder.png'
 import { callAPI } from '../../services/request.service'
 import More from './More'
 
@@ -24,7 +25,7 @@ function ListItem({ list }: List) {
       }}
     >
       <img
-        src={firstGame?.imageUrl}
+        src={firstGame?.imageUrl ?? ImagePlaceholder}
         alt={`First game banner from list ${list.name}`}
         style={{
           width: '250px',
