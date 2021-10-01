@@ -79,7 +79,10 @@ module.exports = {
     if (!userId) throw new Error('user id not provided')
 
     try {
-      const review = await Review.find({ user: userId })
+      const review = await Review.find({ user: userId }).populate(
+        'user',
+        '-password'
+      )
       return review
     } catch (error) {
       throw new Error(error.message)

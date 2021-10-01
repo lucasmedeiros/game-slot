@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
 import { ClipLoader } from 'react-spinners'
 import { Link } from 'react-router-dom'
+import Radium from 'radium'
 
 import {
   getUserTimeline,
@@ -9,6 +10,7 @@ import {
 } from '../../services/users.service'
 import { useCurrentUser } from '../../contexts/UserContext'
 import GameReview from '../../components/GameReview'
+import styles from './styles/timeline'
 
 const Timeline = () => {
   const { getAccessTokenSilently } = useAuth0()
@@ -54,16 +56,8 @@ const Timeline = () => {
 
   return (
     <div style={{ width: '80%', margin: '0 auto' }}>
-      <div
-        style={{
-          display: 'flex',
-          width: '100%',
-          margin: '2.5rem 0',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-        }}
-      >
-        <h2 style={{ color: 'white', fontSize: '32px' }}>Home page</h2>
+      <div style={styles.header}>
+        <h2 style={styles.title}>Home page</h2>
         <Link
           to="/list"
           className="bg-red-600 text-white p-3 mb-3 w-full text-center block md:inline md:w-auto uppercase font-bold"
@@ -144,4 +138,4 @@ const Timeline = () => {
   )
 }
 
-export default Timeline
+export default Radium(Timeline)
