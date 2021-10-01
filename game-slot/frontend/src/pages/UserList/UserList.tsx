@@ -4,12 +4,12 @@ import { useParams } from 'react-router-dom'
 import { ClipLoader } from 'react-spinners'
 import { Link } from 'react-router-dom'
 
-import AvatarPlaceholder from '../../assets/img/avatar.png'
 import { useCurrentUser } from '../../contexts/UserContext'
 import UserListsDisplay from './UserListsDisplay'
 import { RootState } from '../../store'
 import { getGameLists } from '../../services/gameLists.service'
 import { getUserByNickname } from '../../services/users.service'
+import UserContentHeader from '../../components/UserContentHeader'
 
 const containerStyles: React.CSSProperties = {
   width: '100vw',
@@ -79,34 +79,7 @@ const DefaultUser = ({ nickname }: DefaultUserProps) => {
 
   return (
     <div>
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          color: 'white',
-          margin: '0 0 2em 0',
-          padding: '0 1rem 1rem 1rem',
-          borderBottom: '1px solid #27292c',
-        }}
-      >
-        <Link
-          style={{
-            width: '2.5rem',
-            height: '2.5rem',
-            cursor: 'pointer',
-          }}
-          to={`/user/${user.nickname}`}
-        >
-          <img
-            style={{ borderRadius: '50%' }}
-            src={user.picture ?? AvatarPlaceholder}
-            alt="User"
-          />
-        </Link>
-        <p style={{ marginLeft: '1em', fontSize: '20px' }}>
-          {user.nickname}&apos;s game lists
-        </p>
-      </div>
+      <UserContentHeader user={user} sectionContentName="game lists" />
       <UserListsDisplay lists={userLists} />
     </div>
   )
@@ -127,7 +100,10 @@ const UserList = () => {
       }}
     >
       {user?.nickname === nickname ? (
-        <CurrentUser />
+        <>
+          <UserContentHeader user={user} sectionContentName="game lists" />
+          <CurrentUser />
+        </>
       ) : (
         <DefaultUser nickname={nickname} />
       )}
