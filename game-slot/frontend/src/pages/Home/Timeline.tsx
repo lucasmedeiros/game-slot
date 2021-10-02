@@ -121,7 +121,20 @@ const Timeline = () => {
           </button>
         </div>
       )}
-      {(timeline.reviews.length === 0 || !timeline.hasNextPage) && (
+      {user?.followings.length === 0 ?? (
+        <div
+          style={{
+            fontSize: '14px',
+            color: '#A0AEC0',
+            padding: '3rem 0',
+            display: 'flex',
+            justifyContent: 'center',
+          }}
+        >
+          You don&apos;t follow anyone yet
+        </div>
+      )}
+      {(timeline.reviews.length === 0 && !timeline.hasNextPage) ?? (
         <div
           style={{
             fontSize: '14px',
