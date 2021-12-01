@@ -1,6 +1,5 @@
 import React from 'react'
 import classnames from 'classnames'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { arrayUnique } from '../../utils'
 import { useCurrentUser } from '../../contexts/UserContext'
 
@@ -16,7 +15,6 @@ interface GamePageDetailsProps {
 
 const GamePageDetails: React.FC<GamePageDetailsProps> = ({
   details,
-  count,
   openModal,
 }) => {
   const { user } = useCurrentUser()
@@ -42,7 +40,7 @@ const GamePageDetails: React.FC<GamePageDetailsProps> = ({
           )
         ).join(', ')}
       </p>
-      <div className="flex text-white justify-center items-center py-4">
+      {/* <div className="flex text-white justify-center items-center py-4">
         <p>
           <FontAwesomeIcon icon="thumbs-up" size="xs" />
         </p>
@@ -57,7 +55,7 @@ const GamePageDetails: React.FC<GamePageDetailsProps> = ({
           <FontAwesomeIcon icon="thumbs-down" size="1x" />
         </p>
         <p className="px-3 font-black">{count?.negative}</p>
-      </div>
+      </div> */}
       <div className="flex flex-col md:flex-row p-4 justify-center items-center">
         <button
           className={classnames(
