@@ -34,7 +34,9 @@
     "remove:frontend": "yarn --cwd game-slot/frontend remove",
     "test:frontend": "yarn --cwd game-slot/frontend test --watchAll=false",
     "update:lib": "yarn --cwd game-slot/backend update:lib",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down"
   },
   "husky": {
     "hooks": {
