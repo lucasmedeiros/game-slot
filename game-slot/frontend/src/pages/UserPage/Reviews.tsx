@@ -3,11 +3,16 @@ import { callAPI } from '../../services/request.service'
 import More from './More'
 import Star from '../../icons/Star'
 import { IGameReview } from '../../hooks/useGameReviews'
+import { useHistory } from 'react-router-dom'
 
 const DEFAULT_LENGTH = 3
 const TOTAL_STARS_REVIEWS = 5
 
 function ReviewItem({ gameId, text, note }: IGameReview) {
+  const history = useHistory()
+  const goToGamePage = (id: string) => {
+    history.push(`/game/${id}`)
+  }
   return (
     <div
       style={{
@@ -23,10 +28,12 @@ function ReviewItem({ gameId, text, note }: IGameReview) {
       <img
         src={`https://steamcdn-a.akamaihd.net/steam/apps/${gameId}/header.jpg`}
         alt={`Review for game ${gameId}`}
+        onClick={() => goToGamePage(gameId)}
         style={{
           width: '250px',
           height: '160px',
           marginBottom: '10px',
+          cursor: 'pointer',
         }}
       />
       <div
