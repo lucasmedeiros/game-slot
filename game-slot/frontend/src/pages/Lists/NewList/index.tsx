@@ -22,7 +22,7 @@ const NewList: React.FC = () => {
       const token = await getAccessTokenSilently()
       const list = await createGameList(listName, user._id, token)
       dispatch(createGameListAction(list))
-      history.push(`/user/${user.nickname}/lists`)
+      history.goBack()
     }
   }
 

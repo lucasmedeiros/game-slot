@@ -2,6 +2,7 @@ import React from 'react'
 import classnames from 'classnames'
 import { arrayUnique } from '../../utils'
 import { useCurrentUser } from '../../contexts/UserContext'
+import { useHistory } from 'react-router'
 
 interface GamePageDetailsProps {
   details?: IGameDetails
@@ -10,14 +11,11 @@ interface GamePageDetailsProps {
     negative: number
     neutral: number
   }
-  openModal: () => void
 }
 
-const GamePageDetails: React.FC<GamePageDetailsProps> = ({
-  details,
-  openModal,
-}) => {
+const GamePageDetails: React.FC<GamePageDetailsProps> = ({ details }) => {
   const { user } = useCurrentUser()
+  const history = useHistory()
   const openOnSteam = () => {
     if (window) {
       window.open(
@@ -48,7 +46,7 @@ const GamePageDetails: React.FC<GamePageDetailsProps> = ({
               'hidden ': !user,
             }
           )}
-          onClick={openModal}
+          onClick={() => history.push(`${history.location.pathname}/add`)}
         >
           Add to list...
         </button>
