@@ -90,7 +90,7 @@ const Reviews = ({ nickname, id: userId }: ReviewsProps) => {
           {reviews.slice(0, DEFAULT_LENGTH).map((review) => (
             <ReviewItem {...review} key={review._id} />
           ))}
-          <More type="reviews" nickname={nickname} />
+          {reviews.length > 3 && <More type="reviews" nickname={nickname} />}
         </>
       ) : (
         <div>No reviews to show</div>
