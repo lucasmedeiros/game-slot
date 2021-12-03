@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import ImagePlaceholder from '../../assets/img/image_placeholder.png'
 import { callAPI } from '../../services/request.service'
 import More from './More'
@@ -11,6 +12,10 @@ interface List {
 
 function ListItem({ list }: List) {
   const [firstGame] = list.games
+  const history = useHistory()
+  const goToListPage = (id: string) => {
+    history.push(`/list/${id}`)
+  }
 
   return (
     <div
@@ -27,9 +32,11 @@ function ListItem({ list }: List) {
       <img
         src={firstGame?.imageUrl ?? ImagePlaceholder}
         alt={`First game banner from list ${list.name}`}
+        onClick={() => goToListPage(list._id)}
         style={{
           width: '250px',
           height: '160px',
+          cursor: 'pointer',
         }}
       />
       <div
