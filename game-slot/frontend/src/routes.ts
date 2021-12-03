@@ -1,4 +1,5 @@
 import { Home, GamePage, Search, NewList, ViewList, UserPage } from './pages'
+import AddToListPage from './pages/GamePage/AddToListModal'
 import { UserList } from './pages/UserList'
 import { UserReviews } from './pages/UserReviews'
 
@@ -24,6 +25,14 @@ const routes: RouteObject[] = [
     name: 'Game',
     component: GamePage,
     path: '/game/:id',
+    layout: '/default',
+    exact: true,
+    private: false,
+  },
+  {
+    name: 'Game',
+    component: AddToListPage,
+    path: '/game/:id/add',
     layout: '/default',
     exact: true,
     private: false,

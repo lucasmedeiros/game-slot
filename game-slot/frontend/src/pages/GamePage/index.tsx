@@ -6,18 +6,15 @@ import { getRandomItemFromArray, preLoadImage } from '../../utils'
 import GamePageDetails from './GamePageDetails'
 import GamePageNotFound from './GamePageNotFound'
 import GamePageTrailer from './GamePageTrailer'
-import useModal from '../../hooks/useModal'
 import useGameDetails from '../../hooks/useGameDetails'
 import useGameReviews from '../../hooks/useGameReviews'
 import Reviews from './Reviews'
-import AddToListModal from './AddToListModal'
 
 interface GamePageParams {
   id: string
 }
 
 const GamePage: React.FC = () => {
-  const { open, hide, show } = useModal()
   const { id } = useParams<GamePageParams>()
   const { details, loading: loadingDetails, error } = useGameDetails(id)
   const {
@@ -46,11 +43,7 @@ const GamePage: React.FC = () => {
         ) : !error ? (
           <>
             <GamePageTrailer details={details} />
-            <GamePageDetails
-              details={details}
-              count={reviewsResult?.count}
-              openModal={show}
-            />
+            <GamePageDetails details={details} count={reviewsResult?.count} />
           </>
         ) : (
           <GamePageNotFound error={error} />
@@ -64,7 +57,6 @@ const GamePage: React.FC = () => {
           update={updateReviews}
         />
       )}
-      <AddToListModal game={details?.game} isOpen={open} onClose={hide} />
     </section>
   )
 }
