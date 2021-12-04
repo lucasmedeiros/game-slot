@@ -1,36 +1,45 @@
 import React, { useEffect, useState } from 'react'
+import Radium from 'radium'
+import { useHistory } from 'react-router-dom'
 import { callAPI } from '../../services/request.service'
 import More from './More'
 import Star from '../../icons/Star'
 import { IGameReview } from '../../hooks/useGameReviews'
-import { useHistory } from 'react-router-dom'
+import devices from '../../styles/devices'
 
 const DEFAULT_LENGTH = 3
 const TOTAL_STARS_REVIEWS = 5
 
-function ReviewItem({ gameId, text, note }: IGameReview) {
+const ReviewItem = Radium(function ({ gameId, text, note }: IGameReview) {
   const history = useHistory()
   const goToGamePage = (id: string) => {
     history.push(`/game/${id}`)
   }
   return (
     <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        padding: '10px 30px 10px 0',
-        justifyContent: 'start',
-        alignItems: 'center',
-        textAlign: 'center',
-        width: '300px',
-      }}
+      style={
+        {
+          display: 'flex',
+          padding: '10px 0px',
+          flexWrap: 'wrap',
+          justifyContent: 'start',
+          alignItems: 'center',
+          textAlign: 'center',
+          width: '300px',
+          [`@media ${devices.tablet}`]: {
+            padding: '0 30px 10px 0',
+            alignItems: 'start',
+            flexDirection: 'row',
+          },
+        } as Radium.StyleProps['rules']
+      }
     >
       <img
         src={`https://steamcdn-a.akamaihd.net/steam/apps/${gameId}/header.jpg`}
         alt={`Review for game ${gameId}`}
         onClick={() => goToGamePage(gameId)}
         style={{
-          width: '250px',
+          width: '100%',
           height: '160px',
           marginBottom: '10px',
           cursor: 'pointer',
@@ -65,7 +74,7 @@ function ReviewItem({ gameId, text, note }: IGameReview) {
       </div>
     </div>
   )
-}
+})
 
 interface ReviewsProps {
   nickname: string
@@ -88,8 +97,16 @@ const Reviews = ({ nickname, id: userId }: ReviewsProps) => {
     <div
       style={{
         display: 'flex',
+        flexDirection: 'column',
         marginTop: '30px',
         marginBottom: '30px',
+        width: '100%',
+        alignItems: 'center',
+        flexWrap: 'wrap',
+        [`@media ${devices.tablet}`]: {
+          alignItems: 'start',
+          flexDirection: 'row',
+        },
       }}
     >
       {reviews?.length ? (
@@ -106,4 +123,4 @@ const Reviews = ({ nickname, id: userId }: ReviewsProps) => {
   )
 }
 
-export default Reviews
+export default Radium(Reviews)
