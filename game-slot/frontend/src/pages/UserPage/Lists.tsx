@@ -99,7 +99,7 @@ function Lists({ nickname, id: userId }: ListsProps) {
           {lists.slice(0, DEFAULT_LENGTH).map((list) => (
             <ListItem list={list} key={list._id} />
           ))}
-          <More type="list" nickname={nickname} />
+          {lists.length > 3 && <More type="list" nickname={nickname} />}
         </>
       ) : (
         <div>No lists to show</div>
