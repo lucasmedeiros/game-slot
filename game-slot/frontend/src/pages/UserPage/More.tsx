@@ -16,9 +16,8 @@ function More({ type, nickname }: MoreProps) {
       }
       style={{
         width: '206px',
-        height: '161px',
+        height: '160px',
         background: '#36383B',
-        marginTop: '10px',
         textAlign: 'center',
         paddingTop: '65px',
         padding: 'auto',

@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
+import Radium from 'radium'
 import { useHistory } from 'react-router-dom'
 import ImagePlaceholder from '../../assets/img/image_placeholder.png'
 import { callAPI } from '../../services/request.service'
 import More from './More'
+import devices from '../../styles/devices'
 
 const DEFAULT_LENGTH = 3
 
@@ -10,7 +12,7 @@ interface List {
   list: GameList
 }
 
-function ListItem({ list }: List) {
+const ListItem = Radium(function ({ list }: List) {
   const [firstGame] = list.games
   const history = useHistory()
   const goToListPage = (id: string) => {
@@ -19,22 +21,29 @@ function ListItem({ list }: List) {
 
   return (
     <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        padding: '10px 30px 10px 0',
-        justifyContent: 'start',
-        alignItems: 'center',
-        textAlign: 'center',
-        width: '300px',
-      }}
+      style={
+        {
+          display: 'flex',
+          padding: '10px 0px',
+          flexWrap: 'wrap',
+          justifyContent: 'start',
+          alignItems: 'center',
+          textAlign: 'center',
+          width: '300px',
+          [`@media ${devices.tablet}`]: {
+            padding: '0 30px 10px 0',
+            alignItems: 'start',
+            flexDirection: 'row',
+          },
+        } as Radium.StyleProps['rules']
+      }
     >
       <img
         src={firstGame?.imageUrl ?? ImagePlaceholder}
         alt={`First game banner from list ${list.name}`}
         onClick={() => goToListPage(list._id)}
         style={{
-          width: '250px',
+          width: '100%',
           height: '160px',
           cursor: 'pointer',
         }}
@@ -50,7 +59,7 @@ function ListItem({ list }: List) {
       </div>
     </div>
   )
-}
+})
 
 interface ListsProps {
   id: string
@@ -73,8 +82,16 @@ function Lists({ nickname, id: userId }: ListsProps) {
     <div
       style={{
         display: 'flex',
+        flexDirection: 'column',
         marginTop: '30px',
         marginBottom: '30px',
+        width: '100%',
+        alignItems: 'center',
+        flexWrap: 'wrap',
+        [`@media ${devices.tablet}`]: {
+          alignItems: 'start',
+          flexDirection: 'row',
+        },
       }}
     >
       {lists?.length ? (
@@ -91,4 +108,4 @@ function Lists({ nickname, id: userId }: ListsProps) {
   )
 }
 
-export default Lists
+export default Radium(Lists)

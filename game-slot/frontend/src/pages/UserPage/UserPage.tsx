@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { ClipLoader } from 'react-spinners'
+import Radium from 'radium'
 import { useCurrentUser } from '../../contexts/UserContext'
 import {
   followUser,
@@ -9,6 +10,7 @@ import {
 } from '../../services/users.service'
 import Reviews from './Reviews'
 import Lists from './Lists'
+import devices from '../../styles/devices'
 
 interface UserPageProps {
   type?: string
@@ -101,14 +103,19 @@ const UserPage: React.FC = () => {
 
   return (
     <div
-      style={{
-        display: 'grid',
-        gridTemplateColumns: '1fr 3fr',
-        justifyContent: 'center',
-        alignContent: 'center',
-        justifyItems: 'left',
-        color: '#FFFFFF',
-      }}
+      style={
+        {
+          display: 'grid',
+          gridTemplateColumns: '1fr',
+          justifyContent: 'center',
+          alignContent: 'center',
+          justifyItems: 'left',
+          color: '#FFFFFF',
+          [`@media ${devices.tablet}`]: {
+            gridTemplateColumns: '350px 3fr',
+          },
+        } as Radium.StyleProps['rules']
+      }
     >
       <div
         style={{
@@ -167,15 +174,30 @@ const UserPage: React.FC = () => {
         </button>
       </div>
       <div
-        style={{
-          borderLeft: '0.991352px solid #36383B',
-          padding: '77px',
-        }}
+        style={
+          {
+            borderLeft: 'none',
+            flexWrap: 'wrap',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '20px 0',
+            width: '100%',
+            maxWidth: '1300px',
+            [`@media ${devices.tablet}`]: {
+              padding: '77px',
+              borderLeft: '1px solid #36383B',
+            },
+          } as Radium.StyleProps['rules']
+        }
       >
         <h3
           style={{
             fontSize: '32px',
             lineHeight: '37px',
+            textAlign: 'center',
+            [`@media ${devices.tablet}`]: {
+              textAlign: 'start',
+            },
           }}
         >
           Game Lists
@@ -185,6 +207,10 @@ const UserPage: React.FC = () => {
           style={{
             fontSize: '32px',
             lineHeight: '37px',
+            textAlign: 'center',
+            [`@media ${devices.tablet}`]: {
+              textAlign: 'start',
+            },
           }}
         >
           Reviews
@@ -195,4 +221,4 @@ const UserPage: React.FC = () => {
   )
 }
 
-export default UserPage
+export default Radium(UserPage)
