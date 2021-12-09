@@ -54,19 +54,23 @@ const ViewList: React.FC = () => {
     }
   }
 
-  const onDeleteGameFromList = async (gameId: string) => {
-    const mayDelete = confirm(
-      'Are you sure you want to remove this game from this list?'
-    )
+  // const onDeleteGameFromList = async (gameId: string) => {
+  //   const mayDelete = confirm(
+  //     'Are you sure you want to remove this game from this list?'
+  //   )
 
-    if (mayDelete) {
-      setBlocked(true)
-      const token = await getAccessTokenSilently()
-      const newList = await removeGameFromList(id, gameId, token)
-      setList(newList)
-      dispatch(deleteGameListItem(id, gameId))
-      setBlocked(false)
-    }
+  //   if (mayDelete) {
+  //     setBlocked(true)
+  //     const token = await getAccessTokenSilently()
+  //     const newList = await removeGameFromList(id, gameId, token)
+  //     setList(newList)
+  //     dispatch(deleteGameListItem(id, gameId))
+  //     setBlocked(false)
+  //   }
+  // }
+
+  const goToGamePage = (id: string) => {
+    history.push(`/game/${id}`)
   }
 
   if (loading) return <div />
@@ -114,7 +118,7 @@ const ViewList: React.FC = () => {
         </button>
       </div>
       <h1 className="text-white mt-10 uppercase">games on this list</h1>
-      <GamesGrid onClick={onDeleteGameFromList} games={list.games} />
+      <GamesGrid onClick={goToGamePage} games={list.games} />
     </section>
   )
 }
