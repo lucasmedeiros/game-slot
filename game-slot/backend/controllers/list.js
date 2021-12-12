@@ -85,8 +85,8 @@ module.exports = {
   },
 
   removeGame: async function (req, res) {
-    const { id, userId } = req.params
-    const { gameId } = req.body
+    const { id } = req.params
+    const { gameId, userId } = req.body
 
     try {
       const list = await removeGameFromList({ userId, listId: id, gameId })

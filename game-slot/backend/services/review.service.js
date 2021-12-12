@@ -225,4 +225,38 @@ module.exports = {
       hasNextPage,
     }
   },
+  getAverageRating: async function (gameId) {
+    const values = await Promise.all([
+      Review.countDocuments({
+        note: 0,
+        gameId,
+      }),
+      Review.countDocuments({
+        note: 1,
+        gameId,
+      }),
+      Review.countDocuments({
+        note: 2,
+        gameId,
+      }),
+      Review.countDocuments({
+        note: 3,
+        gameId,
+      }),
+      Review.countDocuments({
+        note: 4,
+        gameId,
+      }),
+      Review.countDocuments({
+        note: 5,
+        gameId,
+      }),
+    ])
+
+    const [zero, one, two, three, four, five] = values
+    const total = zero + one + two + three + four + five
+
+    if (total === 0) return -1
+    return (one + two * 2 + three * 3 + four * 4 + five * 5) / total
+  },
 }

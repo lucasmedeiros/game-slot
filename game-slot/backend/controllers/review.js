@@ -149,4 +149,11 @@ module.exports = {
 
     return res.status(200).json(response)
   },
+  averageRating: async function (req, res) {
+    const { id } = req.params
+
+    if (!id) res.status(404).json({ error: 'id not provided' })
+    const avg = await reviewService.getAverageRating(id)
+    return res.status(200).json({ average: avg })
+  },
 }
