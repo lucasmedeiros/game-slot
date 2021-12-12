@@ -11,11 +11,13 @@ const {
   like,
   dislike,
   getTimeline,
+  averageRating,
 } = require('../controllers/review')
 const router = express.Router()
 
 router.get('/:id', get)
 router.get('/game/:id', getAll)
+router.get('/game/:id/rating', averageRating)
 router.get('/user/:userId', getByUser)
 router.get('/game/:gameId/user/:userId', getByUserAndGame)
 router.post('/', checkJwt, create)
