@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { ClipLoader } from 'react-spinners'
 import Radium from 'radium'
 import { useCurrentUser } from '../../contexts/UserContext'
@@ -190,7 +190,9 @@ const UserPage: React.FC = () => {
           } as Radium.StyleProps['rules']
         }
       >
-        <h3
+        <Link
+          to={`/user/${user.nickname}/lists`}
+          className="hover:underline"
           style={{
             fontSize: '32px',
             lineHeight: '37px',
@@ -201,9 +203,11 @@ const UserPage: React.FC = () => {
           }}
         >
           Game Lists
-        </h3>
+        </Link>
         <Lists id={user._id} nickname={user.nickname} />
-        <h3
+        <Link
+          to={`/user/${user.nickname}/reviews`}
+          className="hover:underline"
           style={{
             fontSize: '32px',
             lineHeight: '37px',
@@ -214,7 +218,7 @@ const UserPage: React.FC = () => {
           }}
         >
           Reviews
-        </h3>
+        </Link>
         <Reviews id={user._id} nickname={user.nickname} />
       </div>
     </div>

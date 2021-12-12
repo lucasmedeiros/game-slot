@@ -6,11 +6,11 @@ import classnames from 'classnames'
 import GamesGrid from '../../../components/GamesGrid'
 import {
   deleteGameList as deleteGameListAction,
-  deleteGameListItem,
+  // deleteGameListItem,
 } from '../../../store/lists/actions'
 import {
   deleteGameList,
-  removeGameFromList,
+  // removeGameFromList,
   getOneGameList,
 } from '../../../services/gameLists.service'
 import { useCurrentUser } from '../../../contexts/UserContext'
