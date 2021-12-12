@@ -7,12 +7,14 @@ interface ObjectGameDetails {
   loading: boolean
   details: IGameDetails | undefined
   error: string | undefined
+  rating: number
 }
 
 const useGameDetails = (appId: string, deps: any[] = []): ObjectGameDetails => {
   const [loading, setLoading] = useState<boolean>(true)
   const [details, setDetails] = useState<IGameDetails>()
   const [error, setError] = useState<string>()
+  const [rating, setRating] = useState<number>(-1)
 
   useEffect(() => {
     const getAppDetails = async () => {
@@ -38,13 +40,29 @@ const useGameDetails = (appId: string, deps: any[] = []): ObjectGameDetails => {
         else setError(response.message)
       }
 
+      const responseAvgRating = await callAPI(
+        `review/game/${appId}/rating`,
+        'GET',
+        null
+      )
+
+      if (responseAvgRating.success) {
+        const { data } = responseAvgRating
+        setRating(data.average)
+      } else {
+        setError(
+          (prevState) =>
+            (prevState ? `${prevState}. ` : '') + responseAvgRating.message
+        )
+      }
+
       setLoading(false)
     }
 
     getAppDetails()
   }, [appId, ...deps])
 
-  return { loading, details, error }
+  return { loading, details, error, rating }
 }
 
 export default useGameDetails
