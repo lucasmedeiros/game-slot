@@ -12,6 +12,7 @@ export const createGameList = async (
 export const removeGameFromList = async (
   listId: string,
   gameId: string,
+  userId: string,
   token: string
 ): Promise<GameList> => {
   const response = await callAPI(
@@ -19,6 +20,7 @@ export const removeGameFromList = async (
     'POST',
     {
       gameId,
+      userId,
     },
     token
   )
