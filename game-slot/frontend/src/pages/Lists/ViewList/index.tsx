@@ -69,7 +69,7 @@ const ViewList: React.FC = () => {
     if (mayDelete && user) {
       setBlocked(true)
       const token = await getAccessTokenSilently()
-      const newList = await removeGameFromList(id, gameId, token, user._id)
+      const newList = await removeGameFromList(id, gameId, user._id, token)
       setList(newList)
       dispatch(deleteGameListItem(id, gameId))
       setBlocked(false)
