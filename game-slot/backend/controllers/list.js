@@ -43,14 +43,13 @@ module.exports = {
   },
 
   update: async function (req, res) {
-    const { _id } = req.user
     const { id } = req.params
-    const { name, games } = req.body
+    const { userId, name, games } = req.body
 
     try {
       const list = await updateList({
         listId: id,
-        userId: _id,
+        userId,
         name,
         games,
       })
@@ -61,11 +60,11 @@ module.exports = {
   },
 
   remove: async function (req, res) {
-    const { _id } = req.user
+    const { userId } = req.body
     const { id } = req.params
 
     try {
-      const list = await deleteUserList({ userId: _id, listId: id })
+      const list = await deleteUserList({ userId, listId: id })
       return res.status(200).json(list)
     } catch (error) {
       return res.status(400).json({ error: error.message })
