@@ -16,7 +16,7 @@ interface GamePageParams {
 
 const GamePage: React.FC = () => {
   const { id } = useParams<GamePageParams>()
-  const { details, loading: loadingDetails, error } = useGameDetails(id)
+  const { details, loading: loadingDetails, error, rating } = useGameDetails(id)
   const {
     result: reviewsResult,
     loading: loadingReviews,
@@ -35,20 +35,24 @@ const GamePage: React.FC = () => {
     chooseScreenshotToDisplay()
   }, [details])
 
+  const content = () => {
+    if (loadingDetails) {
+      return <ClipLoader size={50} color="white" />
+    } else if (details && rating && !error) {
+      return (
+        <>
+          <GamePageTrailer details={details} />
+          <GamePageDetails details={details} rating={rating} />
+        </>
+      )
+    } else if (error) {
+      return <GamePageNotFound error={error} />
+    }
+  }
+
   return (
     <section>
-      <GamePageHeader backgroundImage={image}>
-        {loadingDetails ? (
-          <ClipLoader size={50} color="white" />
-        ) : !error ? (
-          <>
-            <GamePageTrailer details={details} />
-            <GamePageDetails details={details} count={reviewsResult?.count} />
-          </>
-        ) : (
-          <GamePageNotFound error={error} />
-        )}
-      </GamePageHeader>
+      <GamePageHeader backgroundImage={image}>{content()}</GamePageHeader>
       {!error && (
         <Reviews
           gameId={id}
