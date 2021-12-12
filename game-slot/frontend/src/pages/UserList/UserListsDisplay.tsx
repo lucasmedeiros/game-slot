@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { GameSlider, GameSliderItem } from '../../components/GameSlider'
+import { Grid } from '../../styles'
+import ImagePlaceholder from '../../assets/img/image_placeholder.png'
 
 interface Props {
   lists: GameList[]
@@ -9,19 +10,28 @@ interface Props {
 
 const CurrentUserLists = ({ lists, currentUser }: Props) => {
   const renderLists = (lists: GameList[]) => {
-    return lists.map((list) => {
-      return (
-        <GameSlider
-          key={list._id}
-          title={list.name}
-          titleUrl={`/list/${list._id}`}
-        >
-          {list.games.map((game, key) => (
-            <GameSliderItem key={key} game={game} />
-          ))}
-        </GameSlider>
-      )
-    })
+    return (
+      <Grid className="p-4" min={300}>
+        {lists.map((list) => {
+          const [firstGame] = list.games
+
+          return (
+            <Link to={`/list/${list._id}`} key={list._id}>
+              <img
+                src={firstGame?.imageUrl ?? ImagePlaceholder}
+                alt={`First game banner from list ${list.name}`}
+                style={{
+                  width: '100%',
+                  height: '160px',
+                  cursor: 'pointer',
+                }}
+              />
+              <p className="uppercase text-white mt-3">{list.name}</p>
+            </Link>
+          )
+        })}
+      </Grid>
+    )
   }
 
   return (
