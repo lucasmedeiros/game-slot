@@ -3,15 +3,19 @@ import React, { useState, useEffect } from 'react'
 import { useParams, Redirect, useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import classnames from 'classnames'
-import GamesGrid from '../../../components/GamesGrid'
-import { deleteGameList as deleteGameListAction } from '../../../store/lists/actions'
+import {
+  deleteGameList as deleteGameListAction,
+  deleteGameListItem,
+} from '../../../store/lists/actions'
 import {
   deleteGameList,
   getOneGameList,
+  removeGameFromList,
   updateGameList,
 } from '../../../services/gameLists.service'
 import { useCurrentUser } from '../../../contexts/UserContext'
 import { useAuth0 } from '@auth0/auth0-react'
+import GamesGridList from '../../../components/GamesGridList'
 
 interface Params {
   id: string
@@ -49,7 +53,6 @@ const ViewList: React.FC = () => {
       setBlocked(true)
       const token = await getAccessTokenSilently()
       const success = await deleteGameList(id, user._id, token)
-      console.log(success)
       if (success) {
         dispatch(deleteGameListAction(id))
         setList(null)
@@ -57,20 +60,20 @@ const ViewList: React.FC = () => {
     }
   }
 
-  // const onDeleteGameFromList = async (gameId: string) => {
-  //   const mayDelete = confirm(
-  //     'Are you sure you want to remove this game from this list?'
-  //   )
+  const onDeleteGameFromList = async (gameId: string) => {
+    const mayDelete = confirm(
+      'Are you sure you want to remove this game from this list?'
+    )
 
-  //   if (mayDelete) {
-  //     setBlocked(true)
-  //     const token = await getAccessTokenSilently()
-  //     const newList = await removeGameFromList(id, gameId, token)
-  //     setList(newList)
-  //     dispatch(deleteGameListItem(id, gameId))
-  //     setBlocked(false)
-  //   }
-  // }
+    if (mayDelete && user) {
+      setBlocked(true)
+      const token = await getAccessTokenSilently()
+      const newList = await removeGameFromList(id, gameId, user._id, token)
+      setList(newList)
+      dispatch(deleteGameListItem(id, gameId))
+      setBlocked(false)
+    }
+  }
 
   const goToGamePage = (id: string) => {
     history.push(`/game/${id}`)
@@ -142,7 +145,11 @@ const ViewList: React.FC = () => {
         </button>
       </div>
       <h1 className="text-white mt-10 uppercase">games on this list</h1>
-      <GamesGrid onClick={goToGamePage} games={list.games} />
+      <GamesGridList
+        onClick={goToGamePage}
+        games={list.games}
+        toDelete={onDeleteGameFromList}
+      />
     </section>
   )
 }
