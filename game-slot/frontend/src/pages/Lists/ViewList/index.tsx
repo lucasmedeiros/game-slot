@@ -10,6 +10,7 @@ import {
 import {
   deleteGameList,
   getOneGameList,
+  removeGameFromList,
   updateGameList,
 } from '../../../services/gameLists.service'
 import { useCurrentUser } from '../../../contexts/UserContext'
