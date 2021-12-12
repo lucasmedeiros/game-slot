@@ -53,7 +53,6 @@ const ViewList: React.FC = () => {
       setBlocked(true)
       const token = await getAccessTokenSilently()
       const success = await deleteGameList(id, user._id, token)
-      console.log(success)
       if (success) {
         dispatch(deleteGameListAction(id))
         setList(null)
@@ -62,7 +61,6 @@ const ViewList: React.FC = () => {
   }
 
   const onDeleteGameFromList = async (gameId: string) => {
-    console.log(user)
     const mayDelete = confirm(
       'Are you sure you want to remove this game from this list?'
     )

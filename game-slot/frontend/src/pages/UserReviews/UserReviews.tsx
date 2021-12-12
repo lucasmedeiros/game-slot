@@ -56,8 +56,6 @@ const UserReviews: React.FC = () => {
     getUserLists()
   }, [user])
 
-  console.log(reviews)
-
   if (errorMessage) {
     return <div style={containerStyles}>{errorMessage}</div>
   }

@@ -32,7 +32,6 @@ export const updateGameList = async (
   gameList: GameList,
   token: string
 ): Promise<boolean> => {
-  console.log(token)
   const response = await callAPI(
     `list/${gameList._id}`,
     'PUT',
@@ -47,7 +46,6 @@ export const deleteGameList = async (
   userId: string,
   token: string
 ): Promise<boolean> => {
-  console.log(token)
   const response = await callAPI(`list/${listId}`, 'DELETE', { userId }, token)
   return response.success
 }
