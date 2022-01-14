@@ -7,6 +7,8 @@ import Like from '../icons/Like'
 import { useHistory } from 'react-router'
 import { useCurrentUser } from '../contexts/UserContext'
 import useReviewActions from '../hooks/useReviewActions'
+import Tweet from '../icons/Tweet'
+import useGameDetails from '../hooks/useGameDetails'
 
 const TOTAL_STARS_REVIEWS = 5
 
@@ -26,12 +28,21 @@ const GameReview = ({ review }: GameReviewProps) => {
   const history = useHistory()
   const currentUser = useCurrentUser()
   const { like, dislike } = useReviewActions()
+  const { details } = useGameDetails(review.gameId)
 
   const [liked, setLiked] = useState(
     !!likes.find((likes) => likes === currentUser.user?._id)
   )
 
   const [likesCount, setLikesCount] = useState(likes.length)
+  const gameName = details?.game.name
+
+  const firstPart = `${note} of 5 stars ${gameName ? 'to ' + gameName : ''}: `
+  const location = `${window.location}`
+  const maxTextSize = 280 - location.length - firstPart.length - 10
+  const finalText =
+    text.length <= maxTextSize ? text : text.slice(0, maxTextSize - 3) + '...'
+  const tweetText = `${firstPart}${finalText} ${location}`
 
   return (
     <div style={{ paddingBottom: '1.5rem' }}>
@@ -103,6 +114,26 @@ const GameReview = ({ review }: GameReviewProps) => {
               {likesCount}
             </p>
           </button>
+          {currentUser.user?._id === userReview._id ? (
+            <a
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                marginLeft: '6px',
+                padding: '0 6px',
+                height: '1.5rem',
+                color: '#03A9F4',
+                backgroundColor: 'transparent',
+                border: '1px solid #03A9F4',
+                borderRadius: '0.25rem',
+              }}
+              href={`https://twitter.com/intent/tweet?text=${tweetText}`}
+              className="twitter-share-button"
+            >
+              Share <Tweet size={20} />
+            </a>
+          ) : undefined}
         </div>
       </div>
       {text ? (
