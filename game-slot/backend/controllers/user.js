@@ -2,12 +2,12 @@ const User = require('../models/User')
 
 module.exports = {
   list: async function (req, res) {
-    const { nickname, email, followers, followings } = req.query
+    const { nickname, email, idUserFollower, idUserFollowing } = req.query
     const users = await User.find({
       ...(!!nickname && { nickname: { $regex: nickname, $options: 'i' } }),
       ...(!!email && { email }),
-      ...(!!followers && { followers: followers }),
-      ...(!!followings && { followings: followings }),
+      ...(!!idUserFollower && { followers: idUserFollower }),
+      ...(!!idUserFollowing && { followings: idUserFollowing }),
     })
     return res.status(200).json(users)
   },
