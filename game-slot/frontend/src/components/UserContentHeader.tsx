@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import AvatarPlaceholder from '../assets/img/avatar.png'
 
 interface Props {
-  user: User
+  user?: User
   sectionContentName: string
 }
 
@@ -25,16 +25,16 @@ const UserContentHeader = ({ user, sectionContentName }: Props) => {
           height: '2.5rem',
           cursor: 'pointer',
         }}
-        to={`/user/${user.nickname}`}
+        to={`/user/${user?.nickname}`}
       >
         <img
           style={{ borderRadius: '50%' }}
-          src={user.picture ?? AvatarPlaceholder}
+          src={user?.picture ?? AvatarPlaceholder}
           alt="User"
         />
       </Link>
       <p style={{ marginLeft: '1em', fontSize: '20px' }}>
-        {user.nickname}&apos;s {sectionContentName}
+        {user?.nickname}&apos;s {sectionContentName}
       </p>
     </div>
   )

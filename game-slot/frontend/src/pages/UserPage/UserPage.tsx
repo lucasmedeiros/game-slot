@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useHistory, useParams } from 'react-router-dom'
 import { ClipLoader } from 'react-spinners'
 import Radium from 'radium'
 import { useCurrentUser } from '../../contexts/UserContext'
@@ -35,6 +35,20 @@ const UserPage: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState<string | undefined>()
   const [followButtonDisabled, setFollowButtonDisabled] = useState(true)
   const [currentUserIsFollowing, setCurrentUserIsFollowing] = useState(true)
+  const history = useHistory()
+  const [followersStyle, setFollowersStyle] = useState<
+    React.CSSProperties | undefined
+  >({ color: 'white', cursor: 'auto' })
+  const [followingStyle, setFollowingStyle] = useState<
+    React.CSSProperties | undefined
+  >({ color: 'white', cursor: 'auto', marginLeft: '24px' })
+  const goToFollowersList = (userNick: string) => {
+    history.push(`/user/${userNick}/followers`)
+  }
+
+  const goToFollowingList = (userNick: string) => {
+    history.push(`/user/${userNick}/following`)
+  }
 
   useEffect(() => {
     const getUser = async () => {
@@ -152,10 +166,42 @@ const UserPage: React.FC = () => {
             fontSize: '16px',
           }}
         >
-          <span>{user?.followers.length} Followers</span>
-          <span style={{ marginLeft: '24px' }}>
+          <a
+            style={followersStyle}
+            onMouseEnter={() => {
+              setFollowersStyle({ color: 'blue', cursor: 'pointer' })
+            }}
+            onMouseLeave={() => {
+              setFollowersStyle({ color: 'white', cursor: 'auto' })
+            }}
+            onClick={() => {
+              goToFollowersList(user?.nickname)
+            }}
+          >
+            {user?.followers.length} Followers
+          </a>
+          <a
+            style={followingStyle}
+            onMouseEnter={() => {
+              setFollowingStyle({
+                ...followingStyle,
+                color: 'blue',
+                cursor: 'pointer',
+              })
+            }}
+            onMouseLeave={() => {
+              setFollowingStyle({
+                ...followingStyle,
+                color: 'white',
+                cursor: 'auto',
+              })
+            }}
+            onClick={() => {
+              goToFollowingList(user?.nickname)
+            }}
+          >
             {user?.followings.length} Following
-          </span>
+          </a>
         </div>
         <button
           style={{
