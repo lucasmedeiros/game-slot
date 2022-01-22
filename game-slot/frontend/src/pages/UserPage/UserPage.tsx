@@ -36,6 +36,12 @@ const UserPage: React.FC = () => {
   const [followButtonDisabled, setFollowButtonDisabled] = useState(true)
   const [currentUserIsFollowing, setCurrentUserIsFollowing] = useState(true)
   const history = useHistory()
+  const [followersStyle, setFollowersStyle] = useState<
+    React.CSSProperties | undefined
+  >({ color: 'white', cursor: 'auto' })
+  const [followingStyle, setFollowingStyle] = useState<
+    React.CSSProperties | undefined
+  >({ color: 'white', cursor: 'auto', marginLeft: '24px' })
   const goToFollowersList = (userNick: string) => {
     history.push(`/user/${userNick}/followers`)
   }
@@ -160,21 +166,42 @@ const UserPage: React.FC = () => {
             fontSize: '16px',
           }}
         >
-          <span
+          <a
+            style={followersStyle}
+            onMouseEnter={() => {
+              setFollowersStyle({ color: 'blue', cursor: 'pointer' })
+            }}
+            onMouseLeave={() => {
+              setFollowersStyle({ color: 'white', cursor: 'auto' })
+            }}
             onClick={() => {
               goToFollowersList(user?.nickname)
             }}
           >
             {user?.followers.length} Followers
-          </span>
-          <span
+          </a>
+          <a
+            style={followingStyle}
+            onMouseEnter={() => {
+              setFollowingStyle({
+                ...followingStyle,
+                color: 'blue',
+                cursor: 'pointer',
+              })
+            }}
+            onMouseLeave={() => {
+              setFollowingStyle({
+                ...followingStyle,
+                color: 'white',
+                cursor: 'auto',
+              })
+            }}
             onClick={() => {
               goToFollowingList(user?.nickname)
             }}
-            style={{ marginLeft: '24px' }}
           >
             {user?.followings.length} Following
-          </span>
+          </a>
         </div>
         <button
           style={{
