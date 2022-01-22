@@ -7,6 +7,7 @@ module.exports = {
       ...(!!nickname && { nickname: { $regex: nickname, $options: 'i' } }),
       ...(!!email && { email }),
       ...(!!followers && { followers: followers }),
+      ...(!!followings && { followings: followings }),
     })
     return res.status(200).json(users)
   },
